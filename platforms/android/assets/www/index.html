@@ -30,42 +30,85 @@
     </head>
     <body>
     
-	    <!-- Start of first page -->
-	<div data-role="page" id="foo">
-	
-		<div data-role="header">
-			<h1>Page 1</h1>
-		</div><!-- /header -->
-	
-		<div data-role="content">	
-			<p>I'm first in the source order so I'm shown as the page.</p>		
-			<p>View internal page called <a href="#bar">bar</a></p>	
-		</div><!-- /content -->
-	
+<!-- Start på pålæsning  -->
+<div data-role="page" id="home">
+	<div data-role="header">
+		<h1>Pålæsning</h1>
+	</div>
+	<div data-role="content">
+		<label for="select-choice-0" class="select">Vælg nummerplade</label>
+		<select name="select-choice-0" id="select-choice-0">
+		   <option value="#1">Nummerplade1</option>
+		   <option value="#2">Nummerplade2</option>
+		   <option value="#3">Nummerplade3</option>
+		</select>
+		<div class="map_canvas">
+			<h1>indsæt google maps her</h1>
+		</div>
+		<label for="select-choice-0" class="select">Hvad kører du med</label>
+		<select name="select-choice-0" id="select-choice-0">
+		   <option value="#1">Stabilgrus</option>
+		   <option value="#2">Grus</option>
+		   <option value="#3">UStabilgrus</option>
+		</select>
+		<label for="kommentarer" class="ui-hidden-accessible">Kommentarer</label>
+		<input type="text" name="username" id="kommentarer" value="" placeholder="Skriv dine kommentarer her"/>
+		<p><a href="#two" data-role="button" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Registrer pålæsning</span></span></a></p>
+		</div>
+	<div data-role="footer">
+		<h1>Footer</h1>
+	</div>
+</div>
+<!-- slut af pålæsning -->
+
+<!-- Start på aflæsning -->
+<div data-role="page" id="two">
+	<div data-role="header">
+		<h1>Aflæsning</h1>
+	</div>
+	<div data-role="content">	
+		<h1>#Nummerplade#</h1>
+		<div class="map_canvas">
+			<h1>Google maps her</h1>
+		</div>
+		<div class="opsummering">
+			<span class="last_symbol"></span>
+			<h1>Last</h2>
+			<span class="kommentar_symbol"></span>
+			<h1>kommentarer</h1>
+		</div
+			<label for="kommentarer" class="ui-hidden-accessible">Kommentarer</label>
+			<input type="text" name="username" id="kommentarer" value="" placeholder="Skriv dine kommentarer her"/>
+			<p><a href="#two" data-role="button" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Registrer aflæsning</span></span></a></p>
+		</div>
 		<div data-role="footer">
-			<h4>Page Footer</h4>
-		</div><!-- /footer -->
-	</div><!-- /page -->
-	<!-- Start of second page -->
-	<div data-role="page" id="bar">
-	
-		<div data-role="header">
-			<h1>Page 2</h1>
-		</div><!-- /header -->
-	
-		<div data-role="content">	
-			<p>I'm the second in the source order so I'm hidden when the page loads. I'm just shown if a link that references my ID is beeing clicked.</p>	
-	        	<div id="deviceready" class="blink">
-	            	<p class="event listening">Connecting to Device</p>
-					<p class="event received">Device is Ready</p>
-				</div>	
-			<p><a href="#foo">Back to foo</a></p>	
-		</div><!-- /content -->
-	
-		<div data-role="footer">
-			<h4>Page Footer</h4>
-		</div><!-- /footer -->
-	</div><!-- /page -->
+			<h1>Footer</h1>
+		</div>
+	</div>
+</div><!-- /page -->
+
+<!-- Start of the History page -->
+<div data-role="page" id="history">
+
+    <div data-role="header">
+        <h1>History</h1>
+        
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#home" data-transition="none" data-icon="home">Home</a></li>
+                <li><a href="#startTracking" data-transition="none" data-icon="plus">Track Workout</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div data-role="content">	
+        <p id="tracks_recorded"></p>
+        
+        <ul data-role="listview" id="history_tracklist">
+
+        </ul>
+    </div>
+
         <script type="text/javascript" src="phonegap.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">

@@ -45,16 +45,10 @@ body {
     width:100%;
 }
 
-header{
-    top:0;
-	height: 20%;
-    width:100%;
-    background-color:#949494;
-}
-
-footer{
-	width:100%;
-    background-color:#949494;
+.map_canvas{
+	height: 300px;
+	width: 100%;
+	display: block;
 }
 
 /* Landscape layout (with min-width) */
