@@ -1,26 +1,20 @@
+/* Android fejl? http://samritchie.net/2011/04/01/uncaught-illegal-access-exception-in-android-browser-on-json-parse/
+JSON.originalParse = JSON.parse;
+
+JSON.parse = function(text){
+	if (text) {
+		return JSON.originalParse(text);
+	} else {
+		// no longer crashing on null value but just returning null
+		return null;
+	}
+}
+*/
+
 function tripCtrl($scope) {
   $scope.submit = function($event) {
   	$event.preventDefault();
 	console.log($scope.licenseplate, $scope.cargo, $scope.start_comments, $scope.end_comments);
 	$.mobile.changePage("#two");
   };
-  
-  $scope.save = function () {
-        $.ajax({
-            type: "POST",
-            url: "EmpService.asmx/InsertEmployee",
-            data: "{'licenseplate':'" + $scope.licenseplate + "','Cargo':'" + 
-            $scope.cargo + "','lastName':'" + $scope.EmpLastName + "',
-            'Start kommentarer':'" + $scope.start_comments + "','city':'" + $scope.end_comments,
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (msg) {
-                alert(msg.d);
-            },
-            error: function (msg) {
-                alert(msg.d);
-            }
-        });
-    };
-  
 }

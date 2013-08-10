@@ -45,7 +45,7 @@ body {
     width:100%;
 }
 
-.map_canvas{
+#map_canvas{
 	height: 300px;
 	width: 100%;
 	display: block;

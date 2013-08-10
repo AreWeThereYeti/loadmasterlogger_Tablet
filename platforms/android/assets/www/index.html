@@ -31,6 +31,62 @@
 		<script src="js/tripCtrl.js" charset="utf-8"></script>  		
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <title>Loadmaster Logger</title>
+        
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false">
+	    </script>
+	    <script type="text/javascript">
+	
+	    document.addEventListener("deviceready", onDeviceReady, false);
+	
+	    function onDeviceReady() {
+	        var element = document.getElementById('geoTemp');
+	        element.innerHTML = 'Ready...';
+	        navigator.geolocation.getCurrentPosition(onSuccess, onError, { maximumAge: 3000, timeout: 10000, enableHighAccuracy: true });
+	    }
+	
+	    function onSuccess(position) {
+	        var element = document.getElementById('geoTemp');
+	        element.innerHTML = 'Success...';                                    
+	        initialize(position.coords.latitude, position.coords.longitude);                            
+	    }
+	
+	    function onError(error) {
+	        var element = document.getElementById('geoTemp');
+	        element.innerHTML = 'Error...';
+	        alert('code: '    + error.code    + '\n' +
+	                'message: ' + error.message + '\n');
+	    }
+/* 			Initialiser kort */
+	      function initialize(latitude, longitude) {
+	       	var markerPosition = new google.maps.LatLng(latitude, longitude);
+	        var mapOptions = {
+	          center: new google.maps.LatLng(latitude, longitude),
+	          zoom: 12,
+	          streetViewControl: false,
+	          maptypecontrol :false,
+	          disableDefaultUI: true,
+	          mapTypeId: google.maps.MapTypeId.ROADMAP
+	        };
+
+			
+	        var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+	        
+/* 	        Placer markør på kortet */
+			var marker = new google.maps.Marker({
+			   position: markerPosition,
+			   map: map,
+			   title: "Start Position"
+			});
+
+	      }
+	      
+	      
+	
+	      function onBodyLoad(){
+	          alert("test!");
+	      }
+	    </script>
+	        
     </head>
     <body>
 <!-- Start på pålæsning  -->
@@ -46,9 +102,9 @@
 			   <option value="flute">Nummerplade2</option>
 			   <option value="Andreas' mor">Nummerplade3</option>
 			</select>
-			<div class="map_canvas">
-				<h1>indsæt google maps her</h1>
-				
+			<div id="map_canvas">
+               <p id="geolocation">Finding geolocation...</p>
+               <p id="geoTemp"></p>				
 <!-- 				Demo-område -->
 <!-- 				Slut på demo-område -->
 			</div>
@@ -108,7 +164,7 @@
     
     <p><a href="#home" data-role="button" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Ny tur</span></span></a></p>
 
-<!--         <script type="text/javascript" src="cordova.js"></script> HVAD FANDEN!-->
+        <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
             app.initialize();
