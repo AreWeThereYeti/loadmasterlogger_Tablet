@@ -28,11 +28,10 @@
 		<script src="js/jquery.mobile-1.3.2.min.js" charset="utf-8"></script>  
 <!-- 		AngularJS -->
 		<script src="js/angular.min.js" charset="utf-8"></script>
-		<script src="js/tripCtrl.js" charset="utf-8"></script>  		
         <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Loadmaster Logger</title>
-        
+<!--        	Google maps api  -->
         <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false">
+        <title>Loadmaster Logger</title>
 	    </script>
     </head>
     <body>
@@ -41,7 +40,7 @@
 	<div data-role="header">
 		<h1>Pålæsning</h1>
 	</div>
-	<div data-role="content">
+	<div data-role="content" ng-controller="userCtrl">
 	    <form name="myForm" ng-submit="submit()" ng-controller="tripCtrl" action="#two">
 			<label for="select-choice-0" class="select">Vælg din nummerplade</label>
 			<select name="text" ng-model="licenseplate" id="select-choice-0" type="text">
@@ -49,9 +48,11 @@
 			   <option value="flute">Nummerplade2</option>
 			   <option value="Andreas' mor">Nummerplade3</option>
 			</select>
-			<div id="map_canvas">
-               <p id="geolocation">Finder geolokation...</p>
-               <p id="geoTemp"></p>				
+			<div ng-map>
+				<div id="map_canvas">
+	               <p id="geolocation">Finder geolokation...</p>
+	               <p id="geoTemp"></p>				
+				</div>
 			</div>
 			<label for="select-choice-0" class="select">Hvad kører du med</label>
 			<select name="select-choice-0" ng-model="cargo" id="select-choice-0">
@@ -76,16 +77,15 @@
 		<h1>Aflæsning</h1>
 	</div>
 	<div data-role="content">	
-		<h1>#Nummerplade#</h1>
-			<div id="map_canvas">
-               <p id="geolocation">Finding geolocation...</p>
-               <p id="geoTemp"></p>				
-			</div>
+		<h1>{{licenseplate}}</h1>
+		<div ng-kort>
+
+		</div>
 		<div class="opsummering">
 			<span class="last_symbol"></span>
-			<h1>Last</h2>
+			<h1>{{cargo}}</h2>
 			<span class="kommentar_symbol"></span>
-			<h1>kommentarer</h1>
+			<h1>{{start.comments}}</h1>
 		</div
 			<label for="kommentarer" class="ui-hidden-accessible">Kommentarer</label>
 			<input type="text" name="username" ng-model="end_comments" id="comments" value="" placeholder="Skriv dine kommentarer her"/>
@@ -112,7 +112,9 @@
 
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript" src="js/parser_addon.js"></script>
+        <script type="text/javascript" src="js/angular/controller.js"></script>	
+   	    <script type="text/javascript" src="js/angular/controllers/tripCtrl.js"></script>	
+        <script type="text/javascript" src="js/angular/controllers/mapCtrl.js"></script>
         <script type="text/javascript">
             app.initialize();
         </script>

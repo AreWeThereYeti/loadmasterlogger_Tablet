@@ -16,6 +16,31 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+ 
+    // Wait for device API libraries to load
+document.addEventListener("deviceready", onDeviceReady, false);
+ 
+     // device APIs are available
+function onDeviceReady() {
+    var element = document.getElementById('geoTemp');
+    element.innerHTML = 'Ready...';
+    navigator.geolocation.getCurrentPosition(onSuccess, onError, { maximumAge: 3000, timeout: 10000, enableHighAccuracy: true });
+}
+
+// onSuccess Geolocation
+function onSuccess(position) {
+    var element = document.getElementById('geoTemp');
+    element.innerHTML = 'Success...';                                    
+    initialize(position.coords.latitude, position.coords.longitude);                            
+}
+// onError Callback receives a PositionError object
+function onError(error) {
+    var element = document.getElementById('geoTemp');
+    element.innerHTML = 'Error...';
+    alert('code: '    + error.code    + '\n' +
+            'message: ' + error.message + '\n');
+}
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -38,14 +63,13 @@ var app = {
     // Update DOM on a Received Event
     receivedEvent: function(id) {
         var parentElement = document.getElementById(id);
-/*
+/* Outcommented because of error
         var listeningElement = parentElement.querySelector('.listening');
         var receivedElement = parentElement.querySelector('.received');
 
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
 */
-
         console.log('Received Event: ' + id);
     }
 };
