@@ -49,7 +49,6 @@
 			   <option value="Andreas' mor">Nummerplade3</option>
 			</select>
 			<div ng-map ng-controller="mapCtrl">
-
 			</div>
 			<label for="select-choice-0" class="select">Hvad kører du med</label>
 			<select name="select-choice-0" ng-model="cargo" id="select-choice-0">
@@ -75,7 +74,7 @@
 	</div>
 	<div data-role="content">	
 		<h1>{{licenseplate}}</h1>
-		<div ng-kort>
+		<div ng-map-end ng-controller="mapCtrl">
 
 		</div>
 		<div class="opsummering">

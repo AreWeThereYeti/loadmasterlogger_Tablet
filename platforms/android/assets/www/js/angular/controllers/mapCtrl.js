@@ -1,5 +1,3 @@
-
-
 /* 			Initialize map */
   function initialize(latitude, longitude) {
    	var markerPosition = new google.maps.LatLng(latitude, longitude);

@@ -6,7 +6,6 @@ angular.module('loadmaster', [])
 	    replace: true,
 	    templateUrl: '../www/js/angular/templates/map.html',
 	    link:function(scope,elements,attrs){
-
 	    }
 	};
 });
