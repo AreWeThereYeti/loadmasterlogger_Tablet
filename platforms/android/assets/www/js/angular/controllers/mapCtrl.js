@@ -1,4 +1,3 @@
-console.log("mapCtrl Loaded");
 
 
 /* 			Initialize map */
@@ -29,6 +28,11 @@ console.log("mapCtrl Loaded");
 	// gets the coords when drag event ends
 	// then updates the input with the new coords
 	google.maps.event.addListener(marker, 'dragend', function(event) {
-		console.debug('new position is '+event.latLng.lat()+' / '+event.latLng.lng()); 
+		console.debug('new position is '+event.latLng.lat()+' / '+event.latLng.lng());
+		
 	});
   }
+  
+function mapCtrl($scope) {
+	console.log("mapCtrl Loaded");
+}

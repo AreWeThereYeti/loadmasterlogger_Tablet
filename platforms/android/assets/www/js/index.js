@@ -17,6 +17,8 @@
  * under the License.
  */
  
+ console.log("index.js loaded ");
+ 
     // Wait for device API libraries to load
 document.addEventListener("deviceready", onDeviceReady, false);
  
