@@ -1,15 +1,3 @@
-/* Android fejl? http://samritchie.net/2011/04/01/uncaught-illegal-access-exception-in-android-browser-on-json-parse/
-JSON.originalParse = JSON.parse;
-
-JSON.parse = function(text){
-	if (text) {
-		return JSON.originalParse(text);
-	} else {
-		// no longer crashing on null value but just returning null
-		return null;
-	}
-}
-*/
 
     // Wait for device API libraries to load
 document.addEventListener("deviceready", onDeviceReady, false);
