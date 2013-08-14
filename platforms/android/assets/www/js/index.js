@@ -17,6 +17,9 @@
  * under the License.
  */
  
+window.deviceReady=false
+
+ 
  console.log("index.js loaded ");
  
     // Wait for device API libraries to load
@@ -24,16 +27,17 @@ document.addEventListener("deviceready", onDeviceReady, false);
  
      // device APIs are available
 function onDeviceReady() {
-    var element = document.getElementById('geoTemp');
-    element.innerHTML = 'Ready...';
-    navigator.geolocation.getCurrentPosition(onSuccess, onError, { maximumAge: 3000, timeout: 10000, enableHighAccuracy: true });
+	window.deviceReady=true
 }
 
 // onSuccess Geolocation
 function onSuccess(position) {
     var element = document.getElementById('geoTemp');
-    element.innerHTML = 'Success...';                                    
-    initialize(position.coords.latitude, position.coords.longitude);                            
+    element.innerHTML = 'Success...';
+    console.log("onSuccess loaded");                            
+                                    
+    initialize(position.coords.latitude, position.coords.longitude);
+    console.log("onSuccess loaded");                            
 }
 // onError Callback receives a PositionError object
 function onError(error) {
