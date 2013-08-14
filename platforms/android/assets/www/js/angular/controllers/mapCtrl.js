@@ -1,4 +1,4 @@
-function mapCtrl($scope) {
+function mapCtrl($scope,$rootScope) {
 	console.log("mapCtrl Loaded");
 	
 	/* 			Initialize map */
@@ -13,6 +13,7 @@ function mapCtrl($scope) {
       disableDefaultUI: true,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
+    
 	
 /* 	Add map to #map_canvas */
     $scope.map = new google.maps.Map(document.getElementById($scope.map_id), $scope.mapOptions);
@@ -27,6 +28,8 @@ function mapCtrl($scope) {
 	   title: "Start Position"
 	});
 	
+	$scope.$emit('setStartPosition', new google.maps.LatLng(latitude, longitude));
+
 	// adds a listener to the marker
 	// gets the coords when drag event ends
 	// then updates the input with the new coords
@@ -36,7 +39,8 @@ function mapCtrl($scope) {
 	});
 */
 	
-	google.maps.event.trigger($scope.map,'resize');
+/* 	google.maps.event.trigger($scope.map,'resize'); */
+	
   }
   
   $scope.drawCurrentPosition = function(){
@@ -50,7 +54,7 @@ function mapCtrl($scope) {
 		  $scope.$apply(function(scope){
 		  	scope.getPositionError(error)
 		  })
-	  }, { maximumAge: 3000, timeout: 10000, enableHighAccuracy: true });
+	  }, { maximumAge: 5000, timeout: 15000, enableHighAccuracy: true });
   }
   
   $scope.getPositionSuccess = function(position){

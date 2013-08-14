@@ -34,16 +34,17 @@
         <title>Loadmaster Logger</title>
 	    </script>
     </head>
-    <body>
+<body ng-controller="userCtrl">
 <!-- Start på pålæsning  -->
+<div >
 <div data-role="page" id="home">
 	<div data-role="header">
 		<h1>Pålæsning</h1>
 	</div>
-	<div data-role="content" ng-controller="userCtrl">
-	    <form name="myForm" ng-submit="submit()" ng-controller="tripCtrl" action="#two">
+	<div data-role="content">
+	    <form name="myForm" ng-submit="submit($event)" ng-controller="tripCtrl"  action="#two">
 			<label for="select-choice-0" class="select">Vælg din nummerplade</label>
-			<select name="text" ng-model="licenseplate" id="select-choice-0" type="text">
+			<select name="text" ng-model="trip.licenseplate" id="select-choice-0" type="text">
 			   <option selected></option>
 			   <option value="flute">Nummerplade2</option>
 			   <option value="Andreas' mor">Nummerplade3</option>
@@ -51,13 +52,13 @@
 			<div ng-map-start ng-controller="mapCtrl">
 			</div>
 			<label for="select-choice-0" class="select">Hvad kører du med</label>
-			<select name="select-choice-0" ng-model="cargo" id="select-choice-0">
+			<select name="select-choice-0" ng-model="trip.cargo" id="select-choice-0">
 			   <option selected></option>
 			   <option value="Stabilgrus">Stabilgrus</option>
 			   <option value="Ustabilgrus">UStabilgrus</option>
 			</select>
 			<label for="kommentarer" class="ui-hidden-accessible">Kommentarer</label>
-			<input type="text" name="username" ng-model="start_comments" id="comments" value="" placeholder="Skriv dine kommentarer her"/>			
+			<input type="text" name="username" ng-model="trip.startComments" id="comments" value="" placeholder="Skriv dine kommentarer her"/>			
 			<input type="submit" ng-click="submit($event)" data-icon="arrow-r" data-theme="b" id="submit" value="Registrer"  />
 	    </form>
 	</div>
@@ -68,7 +69,7 @@
 <!-- slut af pålæsning -->
 
 <!-- Start på aflæsning -->
-<div data-role="page" id="two">
+<div data-role="page" id="two" ng-controller="tripCtrl">
 	<div data-role="header">
 		<h1>Aflæsning</h1>
 	</div>
@@ -82,15 +83,14 @@
 			<h1>{{cargo}}</h2>
 			<span class="kommentar_symbol"></span>
 			<h1>{{start.comments}}</h1>
-		</div
+		</div>
 			<label for="kommentarer" class="ui-hidden-accessible">Kommentarer</label>
-			<input type="text" name="username" ng-model="end_comments" id="comments" value="" placeholder="Skriv dine kommentarer her"/>
-			<p><a href="#three" data-role="button" data-corners="true" data-icon="arrow-r" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Registrer aflæsning</span></span></a></p>
+			<input type="text" name="username" ng-model="trip.endComments" id="comments" value="" placeholder="Skriv dine kommentarer her"/>
+			<p><a href="#three" data-role="button" data-corners="true" ng-click="submit_end($event)" data-icon="arrow-r" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Registrer aflæsning</span></span></a></p>
 		</div>
 		<div data-role="footer">
 			<h1>Loadmaster ApS</h1>
 		</div>
-	</div>
 </div><!-- /page -->
 
 <!-- Start of the History page -->
@@ -104,8 +104,8 @@
 		<h1>Fedt! Det hele lykkedes. Tryk på knappen "ny tur" når </br> du er  klar til en ny pålæsning</h1>
     </div>
     
-    <p><a href="#home" data-role="button" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Ny tur</span></span></a></p>
-
+    <p><a href="#home" data-role="button" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text" ng-click="submit_trip()">Ny tur</span></span></a></p>
+</div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/angular/controller.js"></script>	
    	    <script type="text/javascript" src="js/angular/controllers/tripCtrl.js"></script>	
@@ -116,5 +116,6 @@
         <script type="text/javascript">
             app.initialize();
         </script>
+        </div>
     </body>
 </html>

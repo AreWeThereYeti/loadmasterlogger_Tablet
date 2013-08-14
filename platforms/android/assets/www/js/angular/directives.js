@@ -15,8 +15,8 @@ angular.module('loadmaster', [])
 					scope.drawCurrentPosition()
 				}, false);
 	    	}
-			$('#home').bind( "pagebeforeshow", function( event ) { 
-				console.log(' pagebeforeshow ran on #home')
+			$('#home').bind( "pageshow", function( event ) { 
+				console.log(' pagewhow ran on #home')
 				scope.drawCurrentPosition()
 			} )
 	    }
@@ -30,15 +30,17 @@ angular.module('loadmaster', [])
 	    	var geo_el = document.getElementById('geoTemp');
 			$('geoTemp').html('Ready...')
 	    	scope.map_id="map_canvas_end"
-	    	if(window.deviceReady){
+	    	/*
+if(window.deviceReady){
 				scope.drawCurrentPosition()
 	    	}else{
 		    	document.addEventListener("deviceready", function(){
 					scope.drawCurrentPosition()
 				}, false);
 	    	}
-	    	$('#two').bind( "pagebeforeshow", function( event ) {
-	    		console.log(' pagebeforeshow ran on #two')
+*/
+	    	$('#two').bind( "pageshow", function( event ) {
+	    		console.log(' pageshow ran on #two')
 				scope.drawCurrentPosition()
 			} )
 	    }
