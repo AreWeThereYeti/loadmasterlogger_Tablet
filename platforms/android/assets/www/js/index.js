@@ -45,6 +45,11 @@ function onError(error) {
     element.innerHTML = 'Error...';
     alert('code: '    + error.code    + '\n' +
             'message: ' + error.message + '\n');
+    console.log("Starting manuel marker positioning");                            
+
+    google.maps.event.addListener($scope.marker, 'dragend', function(event) {
+		console.debug('new position is '+event.latLng.lat()+' / '+event.latLng.lng());
+	});
 }
 
 var app = {

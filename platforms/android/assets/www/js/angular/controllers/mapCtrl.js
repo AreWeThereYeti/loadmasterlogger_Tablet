@@ -9,6 +9,10 @@ function mapCtrl($scope,$rootScope) {
       center: new google.maps.LatLng(latitude, longitude),
       zoom: 12,
       streetViewControl: false,
+      zoomControl: true,
+      zoomControlOptions: {
+      style: google.maps.ZoomControlStyle.LARGE
+	  },
       maptypecontrol :false,
       disableDefaultUI: true,
       mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -22,7 +26,7 @@ function mapCtrl($scope,$rootScope) {
 /* 	      Place marker on map_start */
 	$scope.marker = new google.maps.Marker({
 	   position: $scope.markerPosition,
-	   draggable:true,
+	   draggable:false,
 	   animation: google.maps.Animation.DROP,
 	   map: $scope.map,
 	   title: "Start Position"

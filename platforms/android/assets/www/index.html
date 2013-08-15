@@ -42,24 +42,22 @@
 		<h1>Pålæsning</h1>
 	</div>
 	<div data-role="content">
-	    <form name="myForm" ng-submit="submit($event)" ng-controller="tripCtrl"  action="#two">
+	    <form name="myForm" ng-controller="tripCtrl"  action="#two">
 			<label for="select-choice-0" class="select">Vælg din nummerplade</label>
-			<select name="licenseplate" ng-model="trip.licenseplate" id="select_licenseplate" type="text">
-			   <option selected></option>
+			<select class="requiredInput" name="licenseplate" ng-model="trip.licenseplate" id="select_licenseplate" type="text">
 			   <option value="flute">Nummerplade2</option>
 			   <option value="Andreas' mor">Nummerplade3</option>
 			</select>
 			<div ng-map-start ng-controller="mapCtrl">
 			</div>
 			<label for="select-choice-0" class="select">Hvad kører du med</label>
-			<select name="cargo" ng-model="trip.cargo" id="select_cargo">
-			   <option selected></option>
+			<select class="requiredInput" name="cargo" ng-model="trip.cargo" id="select_cargo">
 			   <option value="Stabilgrus">Stabilgrus</option>
 			   <option value="Ustabilgrus">UStabilgrus</option>
 			</select>
 			<label for="kommentarer" class="ui-hidden-accessible">Kommentarer</label>
 			<input type="text" name="username" ng-model="trip.startComments" id="comments" value="" placeholder="Skriv dine kommentarer her"/>			
-			<input type="submit" ng-click="submit($event)" data-icon="arrow-r" data-theme="b" id="submit" value="Registrer"  />
+			<input type="submit" ng-click="submit($event)" data-icon="arrow-r" id="submit" value="Registrer" data-role="button">
 	    </form>
 	</div>
 	<div data-role="footer">

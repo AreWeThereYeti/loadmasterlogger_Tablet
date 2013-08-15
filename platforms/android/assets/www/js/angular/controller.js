@@ -15,6 +15,7 @@ function userCtrl($scope) {
 		endComments		: null	
 	};
 	
+	/* 	Set positions */
 	$scope.$on('setStartPosition',function(ev,start_position){
 		$scope.trip.startPosition=start_position;
 	})
@@ -23,6 +24,7 @@ function userCtrl($scope) {
 		$scope.trip.endPosition=end_position;
 	})
 	
+	/* 	Set timeStamps */
 	$scope.$on('setTimeStampStart',function(ev,start_time_stamp){
 		$scope.trip.timeStampStart=start_time_stamp;
 	})
@@ -36,18 +38,6 @@ function userCtrl($scope) {
 		console.log($scope.trip);
 	}
 	
-	/* 	Error Logging */
-	
-	var licenseplate = document.myForm.licenseplate;
-	if(licenseplate.options[licenseplate.selectedIndex].value===null){
-		console.log("intet er selected")
-	}
-	
-	console.log("værdien af licenseplate value er : " + licenseplate.options[licenseplate.selectedIndex].value)
-	
-	if(licenseplate.options[licenseplate.selectedIndex].value !== null){
-		console.log("Hvad er der nu i licenseplate.options : " + licenseplate.options[licenseplate.selectedIndex].value)
-		console.log("licenseplate er : " + $scope.trip.licenseplate);
-	}
+
 
 }
