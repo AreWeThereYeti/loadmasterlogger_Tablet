@@ -7,6 +7,8 @@ angular.module('loadmaster', [])
 	    templateUrl: '../www/js/angular/templates/map_start.html',
 	    link:function(scope,element,attrs){
 	    	scope.map_id="map_canvas_start"
+			scope.map_set_position="setStartPosition"
+
 	    	$('geoTemp').html('Ready...')
 	    	if(window.deviceReady){
 				scope.drawCurrentPosition()
@@ -30,6 +32,8 @@ angular.module('loadmaster', [])
 	    	var geo_el = document.getElementById('geoTemp');
 			$('geoTemp').html('Ready...')
 	    	scope.map_id="map_canvas_end"
+	    	scope.map_set_position="setEndPosition"
+
 	    	/*
 if(window.deviceReady){
 				scope.drawCurrentPosition()

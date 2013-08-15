@@ -20,7 +20,7 @@ function mapCtrl($scope,$rootScope) {
 	window.map=$scope.map
     
 /* 	      Place marker on map_start */
-		$scope.marker = new google.maps.Marker({
+	$scope.marker = new google.maps.Marker({
 	   position: $scope.markerPosition,
 	   draggable:true,
 	   animation: google.maps.Animation.DROP,
@@ -28,7 +28,7 @@ function mapCtrl($scope,$rootScope) {
 	   title: "Start Position"
 	});
 	
-	$scope.$emit('setStartPosition', new google.maps.LatLng(latitude, longitude));
+	$scope.$emit($scope.map_set_position, new google.maps.LatLng(latitude, longitude));
 
 	// adds a listener to the marker
 	// gets the coords when drag event ends
@@ -43,23 +43,23 @@ function mapCtrl($scope,$rootScope) {
 	
   }
   
-  $scope.drawCurrentPosition = function(){
-  	console.log('drawCurrentPosition ran')
-	  navigator.geolocation.getCurrentPosition(function success(position){
-		  $scope.$apply(function(scope){
+  	$scope.drawCurrentPosition = function(){
+  		console.log('drawCurrentPosition ran')
+  		navigator.geolocation.getCurrentPosition(function success(position){
+			$scope.$apply(function(scope){
 		  	scope.getPositionSuccess(position)
 		  })
 	  }, 
 	  function error(error){
 		  $scope.$apply(function(scope){
-		  	scope.getPositionError(error)
+			  scope.getPositionError(error)
 		  })
 	  }, { maximumAge: 5000, timeout: 15000, enableHighAccuracy: true });
   }
   
-  $scope.getPositionSuccess = function(position){
-  	 console.log('getPositionSuccess ran')
-	  $scope.initialize(position.coords.latitude, position.coords.longitude)
+  	$scope.getPositionSuccess = function(position){
+  		console.log('getPositionSuccess ran')
+  		$scope.initialize(position.coords.latitude, position.coords.longitude)
   }
   
   $scope.getPositionError = function(err){

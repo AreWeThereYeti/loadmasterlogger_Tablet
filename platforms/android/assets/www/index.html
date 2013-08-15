@@ -44,7 +44,7 @@
 	<div data-role="content">
 	    <form name="myForm" ng-submit="submit($event)" ng-controller="tripCtrl"  action="#two">
 			<label for="select-choice-0" class="select">Vælg din nummerplade</label>
-			<select name="text" ng-model="trip.licenseplate" id="select-choice-0" type="text">
+			<select name="licenseplate" ng-model="trip.licenseplate" id="select_licenseplate" type="text">
 			   <option selected></option>
 			   <option value="flute">Nummerplade2</option>
 			   <option value="Andreas' mor">Nummerplade3</option>
@@ -52,7 +52,7 @@
 			<div ng-map-start ng-controller="mapCtrl">
 			</div>
 			<label for="select-choice-0" class="select">Hvad kører du med</label>
-			<select name="select-choice-0" ng-model="trip.cargo" id="select-choice-0">
+			<select name="cargo" ng-model="trip.cargo" id="select_cargo">
 			   <option selected></option>
 			   <option value="Stabilgrus">Stabilgrus</option>
 			   <option value="Ustabilgrus">UStabilgrus</option>
