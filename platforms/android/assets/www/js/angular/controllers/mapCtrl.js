@@ -3,7 +3,6 @@ function mapCtrl($scope,$rootScope) {
 	
 	/* 			Initialize map */
   $scope.initialize = function(latitude, longitude) {
-  	 console.log('initialize ran')
    	$scope.markerPosition = new google.maps.LatLng(latitude, longitude);
     $scope.mapOptions = {
       center: new google.maps.LatLng(latitude, longitude),
@@ -48,7 +47,6 @@ function mapCtrl($scope,$rootScope) {
   }
   
   	$scope.drawCurrentPosition = function(){
-  		console.log('drawCurrentPosition ran')
   		navigator.geolocation.getCurrentPosition(function success(position){
 			$scope.$apply(function(scope){
 		  	scope.getPositionSuccess(position)
