@@ -19,8 +19,7 @@
  
 window.deviceReady=false
 
- 
- console.log("index.js loaded ");
+console.log("index.js loaded ");
  
     // Wait for device API libraries to load
 document.addEventListener("deviceready", onDeviceReady, false);
@@ -34,10 +33,10 @@ function onDeviceReady() {
 function onSuccess(position) {
     var element = document.getElementById('geoTemp');
     element.innerHTML = 'Success...';
-    console.log("onSuccess loaded");                            
+    console.log("onSuccess loaded!!!");                            
                                     
     initialize(position.coords.latitude, position.coords.longitude);
-    console.log("onSuccess loaded");                            
+                            
 }
 // onError Callback receives a PositionError object
 function onError(error) {
@@ -45,7 +44,7 @@ function onError(error) {
     element.innerHTML = 'Error...';
     alert('code: '    + error.code    + '\n' +
             'message: ' + error.message + '\n');
-    console.log("Starting manuel marker positioning");                            
+    console.log("Starting manuel marker positioning.");                            
 
     google.maps.event.addListener($scope.marker, 'dragend', function(event) {
 		console.debug('new position is '+event.latLng.lat()+' / '+event.latLng.lng());

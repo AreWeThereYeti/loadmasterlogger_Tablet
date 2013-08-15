@@ -5,10 +5,23 @@ function tripCtrl($scope) {
 	
 	$scope.submit = function($event) {
 		$scope.$emit('setTimeStampStart', new Date().getTime());
-		checkValues();
 		$event.preventDefault();
 		$.mobile.changePage("#two");
 	};
+	
+	$scope.$on('setAccuracy',function(ev,setAccuracy){
+		if(setAccuracy > 100){
+			
+		}else if(setAccuracy > 50 && setAccuracy < 99){
+			
+		}else if(setAccuracy < 49){
+			
+		}
+	})
+	
+	$scope.$watch('position.coords.accuracy', function(){
+		
+	})
 	
 	$scope.submit_end = function($event) {
 		$scope.$emit('setTimeStampEnd', new Date().getTime());
@@ -23,3 +36,4 @@ function tripCtrl($scope) {
 }
 
 
+                         
