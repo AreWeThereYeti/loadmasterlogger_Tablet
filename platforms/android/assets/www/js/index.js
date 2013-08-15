@@ -16,6 +16,42 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+ 
+window.deviceReady=false
+
+ 
+ console.log("index.js loaded ");
+ 
+    // Wait for device API libraries to load
+document.addEventListener("deviceready", onDeviceReady, false);
+ 
+     // device APIs are available
+function onDeviceReady() {
+	window.deviceReady=true
+}
+
+// onSuccess Geolocation
+function onSuccess(position) {
+    var element = document.getElementById('geoTemp');
+    element.innerHTML = 'Success...';
+    console.log("onSuccess loaded");                            
+                                    
+    initialize(position.coords.latitude, position.coords.longitude);
+    console.log("onSuccess loaded");                            
+}
+// onError Callback receives a PositionError object
+function onError(error) {
+    var element = document.getElementById('geoTemp');
+    element.innerHTML = 'Error...';
+    alert('code: '    + error.code    + '\n' +
+            'message: ' + error.message + '\n');
+    console.log("Starting manuel marker positioning");                            
+
+    google.maps.event.addListener($scope.marker, 'dragend', function(event) {
+		console.debug('new position is '+event.latLng.lat()+' / '+event.latLng.lng());
+	});
+}
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -38,12 +74,16 @@ var app = {
     // Update DOM on a Received Event
     receivedEvent: function(id) {
         var parentElement = document.getElementById(id);
+
+
+		/* Outcommented because of error
         var listeningElement = parentElement.querySelector('.listening');
         var receivedElement = parentElement.querySelector('.received');
 
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
-
+		*/
+		
         console.log('Received Event: ' + id);
     }
 };
