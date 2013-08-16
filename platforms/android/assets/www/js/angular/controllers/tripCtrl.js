@@ -11,11 +11,12 @@ function tripCtrl($scope) {
 	
 	$scope.$on('setAccuracy',function(ev,setAccuracy){
 		if(setAccuracy > 100){
-			
+			console.log("Accuracy er : " + setAccuracy)
 		}else if(setAccuracy > 50 && setAccuracy < 99){
-			
+			console.log("Accuracy er : " + setAccuracy)
 		}else if(setAccuracy < 49){
-			
+			console.log("Accuracy er : " + setAccuracy)
+
 		}
 	})
 	

@@ -26,7 +26,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
  
      // device APIs are available
 function onDeviceReady() {
-	window.deviceReady=true
+	window.deviceReady=true;
 }
 
 // onSuccess Geolocation
@@ -50,6 +50,8 @@ function onError(error) {
 		console.debug('new position is '+event.latLng.lat()+' / '+event.latLng.lng());
 	});
 }
+
+/* ------ Initialize app ----------*/
 
 var app = {
     // Application Constructor
