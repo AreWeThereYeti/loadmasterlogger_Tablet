@@ -27,6 +27,8 @@ document.addEventListener("deviceready", onDeviceReady, false);
      // device APIs are available
 function onDeviceReady() {
 	window.deviceReady=true;
+	console.log("Device ready");
+	initializeDB();
 }
 
 // onSuccess Geolocation

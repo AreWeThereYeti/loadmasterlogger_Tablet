@@ -14,17 +14,17 @@ function errorHandler(transaction, error) {
  
 // this is called when a successful transaction happens
 function successCallBack() {
-   alert("DEBUGGING: success");
+   console.log("DEBUGGING: Database Initialized");
 }
  
 function nullHandler(){};
  
 // called when the application loads
-function onBodyLoad(){
+function initializeDB(){
  
 	// This alert is used to make sure the application is loaded correctly
 	// you can comment this out once you have the application working
-	alert("DEBUGGING: we are in the onBodyLoad() function");
+	console.log("DEBUGGING: we are in the InitializeDB function");
 	
 	if (!window.openDatabase) {
 		// not all mobile devices support databases  if it does not, the following alert will display
