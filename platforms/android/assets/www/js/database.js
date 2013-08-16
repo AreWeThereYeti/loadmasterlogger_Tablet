@@ -61,16 +61,13 @@ function AddStartValueToDB() {
  
 	// this is the section that actually inserts the values into the User table
 	db.transaction(function(transaction) {
-		transaction.executeSql('INSERT INTO Trip(Id, licenseplate, cargo, timeStampStart, startPosition, startComments)
-		VALUES (?,?)',[$scope.trip.id, $scope.trip.licenseplate, $scope.trip.cargo, $scope.trip.timeStampStart, $scope.trip.startPosition, scope.trip.startComments],
-		nullHandler,errorHandler);
+		transaction.executeSql('INSERT INTO Trip(Id, licenseplate, cargo, timeStampStart, startPosition, startComments) VALUES (?,?,?,?,?,?)',[$scope.trip.id, $scope.trip.licenseplate, $scope.trip.cargo, $scope.trip.timeStampStart, $scope.trip.startPosition, scope.trip.startComments], nullHandler,errorHandler);
 	});
 	
 	return false;
- 
 }
 
-// Puts endvalues into the database from page #two
+// this is the function that puts startvalues into the database from page #home
 function AddEndValueToDB() {
  
 	if (!window.openDatabase) {
@@ -80,11 +77,8 @@ function AddEndValueToDB() {
  
 	// this is the section that actually inserts the values into the User table
 	db.transaction(function(transaction) {
-		transaction.executeSql('INSERT INTO Trip(timeStampEnd, endPosition, endComments)
-		VALUES (?,?)',[$scope.trip.timeStampEnd, $scope.trip.endPosition, $scope.trip.endComments],
-		nullHandler,errorHandler);
+		transaction.executeSql('INSERT INTO Trip(timeStampEnd, endPosition, endComments) VALUES (?,?,?)',[$scope.trip.timeStampEnd, $scope.trip.endPosition, $scope.trip.endComments], nullHandler,errorHandler);
 	});
 	
 	return false;
- 
 }
