@@ -7,14 +7,13 @@ function tripCtrl($scope) {
 	/* 	Submit buttons */
 	$scope.submit = function($event) {
 		$scope.$emit('setTimeStampStart', new Date().getTime());
-		AddStartValueToDB();
 		$event.preventDefault();
 		$.mobile.changePage("#two");
 	};
 		
 	$scope.submit_end = function($event) {
 		$scope.$emit('setTimeStampEnd', new Date().getTime());
-		AddEndValueToDB();
+		AddValuesToDB();
 	};
 	
 	$scope.$on('setAccuracy',function(ev,setAccuracy){
