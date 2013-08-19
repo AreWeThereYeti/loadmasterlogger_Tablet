@@ -41,24 +41,20 @@ function initializeDB(){
 	db.transaction(function(tx){
  
 	  // you can uncomment this next line if you want the User table to be empty each time the application runs
-	  // tx.executeSql( 'DROP TABLE Trip',nullHandler,nullHandler);
-	 
-	 
-	 	console.log("DEBUGGING: we are in the db.transaction function");
+	  //tx.executeSql( 'DROP TABLE Trip',nullHandler,nullHandler);
 
+	 
 	  // this line actually creates the table User if it does not exist and sets up the three columns and their types
 	  // note the UserId column is an auto incrementing column which is useful if you want to pull back distinct rows
 	  // easily from the table.
-		tx.executeSql( 'CREATE TABLE IF NOT EXISTS Trip(Id int PRIMARY KEY, _licenseplate varchar, _cargo varchar, _timeStampStart int, _startPosition int,  _startComments varchar, _timeStampEnd int, _endPosition int, _endComments varchar)',
+		tx.executeSql( 'CREATE TABLE IF NOT EXISTS Trip(Id INTEGER NOT NULL PRIMARY KEY, licenseplate TEXT NOT NULL, cargo TEXT NOT NULL, timeStampStart INTEGER NOT NULL, timeStampEnd INTEGER NOT NULL, startPosition INTEGER NOT NULL, endPosition INTEGER NOT NULL, strtComments TEXT NOT NULL, endComments TEXT NOT NULL)',
 		[],nullHandler,errorHandler);
-	},errorHandler,successCallBack);
- 
+	},errorHandler,successCallBack); 
 }
  
 // this is the function that puts startvalues into the database from page #home
 function AddStartValueToDB() {
-	console.log("Adding startvalues to db")
-
+ 
 	if (!window.openDatabase) {
 		alert('Databases are not supported in this browser.');
 		return;
@@ -66,17 +62,16 @@ function AddStartValueToDB() {
  
 	// this is the section that actually inserts the values into the User table
 	db.transaction(function(transaction) {
-		transaction.executeSql('INSERT INTO Trip(Id, _licenseplate, _cargo, _timeStampStart, _startPosition, _startComments, _timeStampEnd, _endPosition, _endComments) VALUES (1,"L", "c", 8000, 3421, "dwf", 1, 323, "dinmor")',[], nullHandler,errorHandler);
+		transaction.executeSql('INSERT INTO Trip(Id, licenseplate, cargo, timeStampStart, startPosition, startComments) VALUES (?,?,?,?,?,?)',[1, nummerplade1000, "lastsql", 80000, 3421, "Startkommentar"], nullHandler,errorHandler);
+
 	});
-	
-/* 	$scope.trip.id,$scope.trip.licenseplate, $scope.trip.cargo, $scope.trip.timeStampStart, $scope.trip.startPosition, scope.trip.startComments */
 	
 	return false;
 }
 
 // this is the function that puts startvalues into the database from page #home
 function AddEndValueToDB() {
- 	console.log("Adding endvalues to db")
+ 
 	if (!window.openDatabase) {
 		alert('Databases are not supported in this browser.');
 		return;
@@ -84,7 +79,7 @@ function AddEndValueToDB() {
  
 	// this is the section that actually inserts the values into the User table
 	db.transaction(function(transaction) {
-		transaction.executeSql('INSERT INTO Trip(_timeStampEnd, _endPosition, _endComments) VALUES (?,?,?)',[$scope.trip.timeStampEnd, $scope.trip.endPosition, $scope.trip.endComments], nullHandler,errorHandler);
+		transaction.executeSql('INSERT INTO Trip(timeStampEnd, endPosition, endComments) VALUES (?,?,?)',[$scope.trip.timeStampEnd, $scope.trip.endPosition, $scope.trip.endComments], nullHandler,errorHandler);
 	});
 	
 	return false;
