@@ -31,6 +31,7 @@ function mapCtrl($scope,$rootScope) {
 	   title: "Start Position"
 	});
 	
+	
 	$scope.$emit($scope.map_set_position, new google.maps.LatLng(latitude, longitude));
 
 	// adds a listener to the marker
@@ -60,7 +61,9 @@ function mapCtrl($scope,$rootScope) {
   }
   
   	$scope.getPositionSuccess = function(position){
-  		console.log('getPositionSuccess ran')
+  		console.log('getPositionSuccess ran');
+  		console.log("Præcisionen er " + position.coords.accuracy + "m");                            
+  		$scope.$emit('setAccuracy', position.coords.accuracy);
   		$scope.initialize(position.coords.latitude, position.coords.longitude)
   }
   
