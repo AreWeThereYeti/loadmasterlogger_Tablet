@@ -13,7 +13,6 @@ function AddStartValuesToDB() {
 	// this is the section that actually inserts the values into the User table
 	db.transaction(function(transaction) {
 		transaction.executeSql('INSERT INTO Trip(Id, _licenseplate, _cargo, _timeStampStart, _startPosition, _startComments) VALUES (1,"MMMMM", "c", 8000, 3421, "dwf")',[], nullHandler,errorHandler);
-		/* 	$scope.trip.id,$scope.trip.licenseplate, $scope.trip.cargo, $scope.trip.timeStampStart, $scope.trip.startPosition, scope.trip.startComments */
 
 	});
 	return false;

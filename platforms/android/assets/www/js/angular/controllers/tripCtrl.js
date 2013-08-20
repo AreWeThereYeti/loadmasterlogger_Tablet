@@ -12,12 +12,21 @@ function tripCtrl($scope) {
 	};
 		
 	$scope.submit_end = function($event) {
+		console.log("Submit_end funktion");
 		$scope.$emit('setTimeStampEnd', new Date().getTime());
 	};
 	
-	$scope.submitStartNewTrip = function($event) {
-		$scope.$emit('resetValues');
-	};
+	$scope.$on('resetTripValues',function(){
+    	$scope.id 				= null;
+		$scope.licenseplate 	= null;
+		$scope.cargo			= null;
+		$scope.timeStampStart 	= null;
+		$scope.timeStampEnd 	= null;
+		$scope.startPosition	= null;
+		$scope.endPosition		= null;
+		$scope.startComments	= null;
+		$scope.endComments		= null;	
+	})
 	
 	$scope.$on('setAccuracy',function(ev,setAccuracy){
 		if(setAccuracy > 100){
@@ -29,14 +38,13 @@ function tripCtrl($scope) {
 		}
 	})
 	
-	
 	/* 	Watching variables  */
 	$scope.$watch('position.coords.accuracy', function(){
 		
 	})
 
-	$scope.$watch('licenseplate + trip.cargo', function () {
-		if($scope.licenseplate != null && $scope.trip.cargo != null){
+	$scope.$watch('licenseplate + cargo', function () {
+		if($scope.licenseplate != null && $scope.cargo != null){
 			$("#submit").button("enable");
 			$("#submit").button("refresh");
 		}

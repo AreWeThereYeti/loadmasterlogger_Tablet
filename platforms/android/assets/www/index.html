@@ -51,7 +51,7 @@
 			<div ng-map-start ng-controller="mapCtrl">
 			</div>
 			<label for="select-choice-0" class="select">Hvad kører du med</label>
-			<select class="requiredInput" name="cargo" ng-model="trip.cargo" id="select_cargo">
+			<select class="requiredInput" name="cargo" ng-model="cargo" id="select_cargo">
 			   <option value="Stabilgrus">Stabilgrus</option>
 			   <option value="Ustabilgrus">UStabilgrus</option>
 			</select>
@@ -84,7 +84,7 @@
 		</div>
 			<label for="kommentarer" class="ui-hidden-accessible">Kommentarer</label>
 			<input type="text" name="username" ng-model="trip.endComments" id="comments" value="" placeholder="Skriv dine kommentarer her"/>
-			<p><a href="#three" data-role="button" data-corners="true" ng-click="submit_end($event)" data-icon="arrow-r" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Registrer aflæsning</span></span></a></p>
+			<p><a href="#three" data-role="button" data-corners="true" ng-click="submit_end($event)" data-icon="arrow-r" data-shadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Registrer aflæsning</span></span></a></p>
 		</div>
 		<div data-role="footer">
 			<h1>Loadmaster ApS</h1>
@@ -102,7 +102,7 @@
 		<h1>Fedt! Det hele lykkedes. Tryk på knappen "ny tur" når </br> du er  klar til en ny pålæsning</h1>
     </div>
     
-    <p><a href="#home" data-role="button" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text" ng-click="submit_start_new_trip()">Ny tur</span></span></a></p>
+    <p><a href="#home" data-role="button" ng-click="submitStartNewTrip()" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Ny tur</span></span></a></p>
 </div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/angular/controller.js"></script>	
@@ -110,7 +110,6 @@
         <script type="text/javascript" src="js/angular/controllers/mapCtrl.js"></script>         
         <script type="text/javascript" src="js/angular/directives.js"></script>	
         <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript" src="js/database.js"></script>
         <script type="text/javascript">
             app.initialize();
         </script>
