@@ -1,6 +1,13 @@
 console.log("directives loaded");
 
 angular.module('loadmaster', [])
+	.directive('ngUser', function() {
+	    return {
+	    link:function(scope,element,attrs){
+			scope.initializeDB()
+			}
+		}
+	})
 	.directive('ngMapStart', function() {
 	    return {
 	    replace: true,
@@ -21,9 +28,9 @@ angular.module('loadmaster', [])
 				console.log(' pagewhow ran on #home')
 				scope.drawCurrentPosition()
 			} )
-	    }
-	}
-})
+			}
+		}
+	})
 	.directive('ngMapEnd', function() {
 	    return {
 	    replace: true,

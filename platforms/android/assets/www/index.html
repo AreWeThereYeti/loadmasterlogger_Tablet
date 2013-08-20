@@ -34,7 +34,7 @@
         <title>Loadmaster Logger</title>
 	    </script>
     </head>
-<body ng-controller="userCtrl">
+<body ng-user ng-controller="userCtrl">
 <!-- Start på pålæsning  -->
 <div >
 <div data-role="page" id="home">
@@ -42,9 +42,9 @@
 		<h1>Pålæsning</h1>
 	</div>
 	<div data-role="content">
-	    <form name="myForm" ng-controller="tripCtrl"  action="#two">
+	    <form name="myForm" ng-controller="tripCtrl">
 			<label for="select-choice-0" class="select">Vælg din nummerplade</label>
-			<select class="requiredInput" name="licenseplate" ng-model="trip.licenseplate" id="select_licenseplate" type="text">
+			<select class="requiredInput" name="licenseplate" ng-model="licenseplate" id="select_licenseplate" type="text">
 			   <option value="flute">Nummerplade2</option>
 			   <option value="Andreas' mor">Nummerplade3</option>
 			</select>
@@ -80,7 +80,7 @@
 			<span class="last_symbol"></span>
 			<h1>{{cargo}}</h2>
 			<span class="kommentar_symbol"></span>
-			<h1>{{start.comments}}</h1>
+			<h1>{{start_comments}}</h1>
 		</div>
 			<label for="kommentarer" class="ui-hidden-accessible">Kommentarer</label>
 			<input type="text" name="username" ng-model="trip.endComments" id="comments" value="" placeholder="Skriv dine kommentarer her"/>

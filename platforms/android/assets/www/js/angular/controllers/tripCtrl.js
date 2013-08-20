@@ -6,14 +6,14 @@ function tripCtrl($scope) {
 	
 	/* 	Submit buttons */
 	$scope.submit = function($event) {
-		$scope.$emit('setTimeStampStart', new Date().getTime());
+		console.log($scope.licenseplate)
+		$scope.$emit('setTimeStampStart', new Date().getTime(),$scope.cargo,$scope.licenseplate,$scope.start_comments);
 		$event.preventDefault();
 		$.mobile.changePage("#two");
 	};
 		
 	$scope.submit_end = function($event) {
 		$scope.$emit('setTimeStampEnd', new Date().getTime());
-		AddValuesToDB();
 	};
 	
 	$scope.$on('setAccuracy',function(ev,setAccuracy){
@@ -32,8 +32,8 @@ function tripCtrl($scope) {
 		
 	})
 
-	$scope.$watch('trip.licenseplate + trip.cargo', function () {
-		if($scope.trip.licenseplate != null && $scope.trip.cargo != null){
+	$scope.$watch('licenseplate + trip.cargo', function () {
+		if($scope.licenseplate != null && $scope.trip.cargo != null){
 			$("#submit").button("enable");
 			$("#submit").button("refresh");
 		}
