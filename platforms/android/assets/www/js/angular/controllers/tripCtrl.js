@@ -1,8 +1,8 @@
 /* trip controller with angularjs */
 function tripCtrl($scope) {
-    console.log("tripCtrl Loaded");
+    console.log("tripCtrl Loaded");	
 	$("#submit").button("disable");
-	
+
 	
 	/* 	Submit buttons */
 	$scope.submit = function($event) {
@@ -44,10 +44,19 @@ function tripCtrl($scope) {
 	})
 
 	$scope.$watch('licenseplate + cargo', function () {
-		if($scope.licenseplate != null && $scope.cargo != null){
+		if ($scope.licenseplate ==="" || $scope.cargo ==="" || !!$scope.licenseplate || !!$scope.cargo){
+			$("#submit").button("disable");
+			$("#submit").button("refresh");
+			console.log("submitknap disabled")
+			console.log("værdien fra disabled er : " + $scope.licenseplate + $scope.cargo)
+		}
+		if($scope.licenseplate && $scope.cargo){
 			$("#submit").button("enable");
 			$("#submit").button("refresh");
-		}
+			console.log("submitknap enabled")
+			console.log("værdien fra enabled er : " + $scope.licenseplate + $scope.cargo)
+
+		}  
 	});	
 }
 

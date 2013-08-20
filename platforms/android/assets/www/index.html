@@ -45,6 +45,7 @@
 	    <form name="myForm" ng-controller="tripCtrl">
 			<label for="select-choice-0" class="select">Vælg din nummerplade</label>
 			<select class="requiredInput" name="licenseplate" ng-model="licenseplate" id="select_licenseplate" type="text">
+			   <option value="" selected>Vælg nummerplade</option>
 			   <option value="flute">Nummerplade2</option>
 			   <option value="Andreas' mor">Nummerplade3</option>
 			</select>
@@ -52,11 +53,12 @@
 			</div>
 			<label for="select-choice-0" class="select">Hvad kører du med</label>
 			<select class="requiredInput" name="cargo" ng-model="cargo" id="select_cargo">
+				<option value="" selected>Vælg last</option>
 			   <option value="Stabilgrus">Stabilgrus</option>
 			   <option value="Ustabilgrus">UStabilgrus</option>
 			</select>
 			<label for="kommentarer" class="ui-hidden-accessible">Kommentarer</label>
-			<input type="text" name="startComments" ng-model="startComments" id="comments" value="" placeholder="Skriv dine kommentarer her"/>			
+			<input type="text" name="startComments" ng-model="startComments"  id="comments" value="" placeholder="Skriv dine kommentarer her"/>			
 			<input type="submit" ng-click="submit($event)" data-icon="arrow-r" id="submit" value="Registrer" data-role="button">
 	    </form>
 	</div>
