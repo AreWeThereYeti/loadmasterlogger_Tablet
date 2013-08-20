@@ -25,9 +25,10 @@ function userCtrl($scope) {
 	})
 	
 	/* 	Set timeStamps */
-	$scope.$on('setTimeStampStart',function(ev,start_time_stamp,cargo,licenseplate,start_comment){
+	$scope.$on('setTimeStampStart',function(ev,start_time_stamp,cargo,licenseplate,startComments){
 		$scope.trip.timeStampStart=start_time_stamp;
 		$scope.trip.licenseplate = licenseplate;
+		$scope.trip.startComments = startComments;
 		$scope.AddStartValuesToDB();
 
 	})
@@ -97,10 +98,7 @@ function userCtrl($scope) {
 		// this is the section that actually inserts the values into the User table
 		$scope.db.transaction(function(transaction) {
 		
-			console.log("I AddStartValueToDB : " +$scope.trip.licenseplate);
-			transaction.executeSql('INSERT INTO Trip(Id, _licenseplate, _cargo, _timeStampStart, _startPosition, _startComments) VALUES (100, 0066776, "c00", 80000, 300421, "d00wf")');
-			/* 	$scope.trip.id,$scope.trip.licenseplate, $scope.trip.cargo, $scope.trip.timeStampStart, $scope.trip.startPosition, scope.trip.startComments */
-	
+			transaction.executeSql('INSERT INTO Trip(Id, _licenseplate, _cargo, _timeStampStart, _startPosition, _startComments) VALUES (100, "'+$scope.trip.licenseplate+'", "'+$scope.trip.cargo+'", "'+$scope.trip.timeStampStart+'", "'+$scope.trip.startPosition+'", "'+$scope.trip.startComments+'")');	
 		},function error(err){alert('error on save to local db ' + err)}, function success(){});
 		return false;
 	}
@@ -115,7 +113,7 @@ function userCtrl($scope) {
 	 
 		// this is the section that actually inserts the values into the User table
 		$scope.db.transaction(function(transaction) {
-			transaction.executeSql('UPDATE Trip SET _timeStampEnd ="80", _endPosition ="80", _endComments ="80"',[]);
+			transaction.executeSql('UPDATE Trip SET _timeStampEnd ="'+$scope.trip.timeStampEnd+'", _endPosition ="'+$scope.trip.endPosition+'", _endComments ="'+$scope.trip.endComments+'"',[]);
 			},function error(err){alert('error on save to local db ' + err)}, function success(){}
 			/* 	$scope.trip.id,$scope.trip.licenseplate, $scope.trip.cargo, $scope.trip.timeStampStart, $scope.trip.startPosition, scope.trip.startComments */
 		);

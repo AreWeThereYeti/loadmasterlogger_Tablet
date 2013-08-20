@@ -6,8 +6,7 @@ function tripCtrl($scope) {
 	
 	/* 	Submit buttons */
 	$scope.submit = function($event) {
-		console.log($scope.licenseplate)
-		$scope.$emit('setTimeStampStart', new Date().getTime(),$scope.cargo,$scope.licenseplate,$scope.start_comments);
+		$scope.$emit('setTimeStampStart', new Date().getTime(),$scope.cargo,$scope.licenseplate,$scope.startComments);
 		$event.preventDefault();
 		$.mobile.changePage("#two");
 	};
