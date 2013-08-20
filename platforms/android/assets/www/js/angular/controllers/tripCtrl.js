@@ -15,6 +15,10 @@ function tripCtrl($scope) {
 		$scope.$emit('setTimeStampEnd', new Date().getTime());
 	};
 	
+	$scope.submitStartNewTrip = function($event) {
+		$scope.$emit('resetValues');
+	};
+	
 	$scope.$on('setAccuracy',function(ev,setAccuracy){
 		if(setAccuracy > 100){
 			console.log("Accuracy er : " + setAccuracy)

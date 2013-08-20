@@ -24,6 +24,18 @@ function userCtrl($scope) {
 		$scope.trip.endPosition=end_position;
 	})
 	
+	$scope.$on('resetValues',function(ev){
+    	id 				= null;
+		licenseplate 	= null;
+		cargo			= null;
+		timeStampStart 	= null;
+		timeStampEnd 	= null;
+		startPosition	= null;
+		endPosition		= null;
+		startComments	= null;
+		endComments		= null;	
+	})
+	
 	/* 	Set timeStamps */
 	$scope.$on('setTimeStampStart',function(ev,start_time_stamp,cargo,licenseplate,startComments){
 		$scope.trip.timeStampStart=start_time_stamp;
