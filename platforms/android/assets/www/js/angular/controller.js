@@ -87,13 +87,13 @@ function userCtrl($scope) {
 	 
 			// IMPORTANT FOR DEBUGGING!!!!
 			// you can uncomment this next line if you want the User table to be empty each time the application runs
-			tx.executeSql( 'DROP TABLE Trip');
+			 tx.executeSql( 'DROP TABLE Trip');
 		
 			 
 			// this line actually creates the table User if it does not exist and sets up the three columns and their types
 			// note the UserId column is an auto incrementing column which is useful if you want to pull back distinct rows
 			// easily from the table.
-			tx.executeSql( 'CREATE TABLE IF NOT EXISTS Trip(Id int, _licenseplate varchar, _cargo varchar, _timeStampStart int, _startPosition int,  _startComments varchar, _timeStampEnd int, _endPosition int, _endComments varchar)', [])},
+			tx.executeSql( 'CREATE TABLE IF NOT EXISTS Trip(Id INTEGER PRIMARY KEY AUTOINCREMENT, _licenseplate varchar, _cargo varchar, _timeStampStart int, _startPosition int,  _startComments varchar, _timeStampEnd int, _endPosition int, _endComments varchar)', [])},
 			function error(err){alert('error on init local db ' + err)}, 
 			function success(){}
 		) 
@@ -110,7 +110,7 @@ function userCtrl($scope) {
 		// this is the section that actually inserts the values into the User table
 		$scope.db.transaction(function(transaction) {
 		
-			transaction.executeSql('INSERT INTO Trip(Id, _licenseplate, _cargo, _timeStampStart, _startPosition, _startComments) VALUES (100, "'+$scope.trip.licenseplate+'", "'+$scope.trip.cargo+'", "'+$scope.trip.timeStampStart+'", "'+$scope.trip.startPosition+'", "'+$scope.trip.startComments+'")');	
+			transaction.executeSql('INSERT INTO Trip(_licenseplate, _cargo, _timeStampStart, _startPosition, _startComments) VALUES ("'+$scope.trip.licenseplate+'", "'+$scope.trip.cargo+'", "'+$scope.trip.timeStampStart+'", "'+$scope.trip.startPosition+'", "'+$scope.trip.startComments+'")');	
 		},function error(err){alert('error on save to local db ' + err)}, function success(){});
 		return false;
 	}
@@ -125,7 +125,7 @@ function userCtrl($scope) {
 	 
 		// this is the section that actually inserts the values into the User table
 		$scope.db.transaction(function(transaction) {
-			transaction.executeSql('UPDATE Trip SET _timeStampEnd ="'+$scope.trip.timeStampEnd+'", _endPosition ="'+$scope.trip.endPosition+'", _endComments ="'+$scope.trip.endComments+'"',[]);
+			transaction.executeSql('UPDATE Trip SET _timeStampEnd ="'+$scope.trip.timeStampEnd+'", _endPosition ="'+$scope.trip.endPosition+'", _endComments ="'+$scope.trip.endComments+'" WHERE Id= last_insert_rowid()',[]);
 			},function error(err){alert('error on save to local db ' + err)}, function success(){}
 			/* 	$scope.trip.id,$scope.trip.licenseplate, $scope.trip.cargo, $scope.trip.timeStampStart, $scope.trip.startPosition, scope.trip.startComments */
 		);
