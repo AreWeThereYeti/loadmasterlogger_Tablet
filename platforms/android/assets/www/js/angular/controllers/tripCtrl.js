@@ -1,8 +1,8 @@
 /* trip controller with angularjs */
-function tripCtrl($scope) {
+function tripCtrl($scope, $http) {
+
     console.log("tripCtrl Loaded");	
 	$("#submit").button("disable");
-
 	
 	/* 	Submit buttons */
 	$scope.submit = function($event) {
@@ -14,6 +14,52 @@ function tripCtrl($scope) {
 	$scope.submit_end = function($event) {
 		console.log("Submit_end funktion");
 		$scope.$emit('setTimeStampEnd', new Date().getTime());
+		
+		
+/* 		AJAX */
+		$.ajax({
+		  type: "POST",
+		  url: 'http://192.168.1.33:3000/api/v1/trips',
+		  data:{
+		     access_token:"6d21491d136311b69181b9ed722b5f40",
+		     trips:[
+		        {
+		          license_plate:"dk 344 543",
+  		           cargo:"sand",
+		        },
+		        {
+		          license_plate:"æå 344 543",
+		          cargo:"grus"
+		        },
+		     ]
+		  },
+		  success: function(){console.log('success')},
+		  error:function(err){console.log(err)}
+		});
+		
+/* 		ANGULAR HTTP */
+	    $scope.postToServer = function() {
+	        $http({
+	            method : 'POST',
+	            url: 'http://192.168.1.33:3000/api/v1/trips',
+	            url : '/create',
+	            data:{
+			     access_token:"6d21491d136311b69181b9ed722b5f40",
+			     trips:[
+			        {
+			          license_plate:"dk 344 543",
+	  		           cargo:"sand",
+			        },
+			        {
+			          license_plate:"æå 344 543",
+			          cargo:"grus"
+			        },
+			     ]
+			  },
+			success: function(){console.log('success')},
+			error:function(err){console.log(err)}
+	        })
+	    }
 	};
 	
 	$scope.$on('resetTripValues',function(){
