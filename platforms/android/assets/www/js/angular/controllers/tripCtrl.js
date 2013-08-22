@@ -15,7 +15,6 @@ function tripCtrl($scope, $http) {
 		console.log("Submit_end funktion");
 		$scope.$emit('setend_timestamp', new Date().getTime());
 		
-		
 		$.ajax({
 		  type: "POST",
 		  url: 'http://10.0.0.71:3000/api/v1/trips',
@@ -66,7 +65,6 @@ function tripCtrl($scope, $http) {
 	};
 	
 	$scope.$on('resetTripValues',function(){
-    	$scope.id 				= null;
 		$scope.license_plate 	= null;
 		$scope.cargo			= null;
 		$scope.start_timestamp 	= null;

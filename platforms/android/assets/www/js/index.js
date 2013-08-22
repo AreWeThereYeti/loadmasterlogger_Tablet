@@ -28,6 +28,8 @@ document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
 	window.deviceReady=true;
 	console.log("Device ready");
+	checkConnection();
+
 }
 
 // onSuccess Geolocation
