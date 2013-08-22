@@ -9,28 +9,28 @@ function userCtrl($scope) {
     console.log("UserCtrl Loaded");
 	
 	$scope.trip =
-    {
-    	id 				: null,
-		licenseplate 	: null,
-		cargo			: null,
-		timeStampStart 	: null,
-		timeStampEnd 	: null,
-		startPosition	: null,
-		endPosition		: null,
-		startComments	: null,
-		endComments		: null	
+    {	
+    	id 					: null,
+		license_plate 		: null,
+		cargo				: null,
+		start_timestamp 	: null,
+		end_timestamp 		: null,
+		start_position		: null,
+		end_position		: null,
+		start_comments		: null,
+		end_comments		: null	
 	};
 	
 	
 	
 	
 	/* 	Set positions */
-	$scope.$on('setStartPosition',function(ev,start_position){
-		$scope.trip.startPosition=start_position;
+	$scope.$on('setstart_position',function(ev,start_position){
+		$scope.trip.start_position=start_position;
 	})
 	
-	$scope.$on('setEndPosition',function(ev,end_position){
-		$scope.trip.endPosition=end_position;
+	$scope.$on('setend_position',function(ev,end_position){
+		$scope.trip.end_position=end_position;
 	})
 	
 	$scope.submitStartNewTrip = function() {
@@ -38,16 +38,16 @@ function userCtrl($scope) {
 	}
 	
 	/* 	Set timeStamps */
-	$scope.$on('setTimeStampStart',function(ev,start_time_stamp,cargo,licenseplate,startComments){
-		$scope.trip.timeStampStart=start_time_stamp;
-		$scope.trip.licenseplate = licenseplate;
-		$scope.trip.startComments = startComments;
+	$scope.$on('setstart_timestamp',function(ev,start_time_stamp,cargo,license_plate,start_comments){
+		$scope.trip.start_timestamp=start_time_stamp;
+		$scope.trip.license_plate = license_plate;
+		$scope.trip.start_comments = start_comments;
 		$scope.AddStartValuesToDB();
 
 	})
 	
-	$scope.$on('setTimeStampEnd',function(ev,end_time_stamp){
-		$scope.trip.timeStampEnd=end_time_stamp;
+	$scope.$on('setend_timestamp',function(ev,end_time_stamp){
+		$scope.trip.end_timestamp=end_time_stamp;
 		$scope.AddEndValuesToDB();
 
 	})
@@ -94,7 +94,7 @@ function userCtrl($scope) {
 			// this line actually creates the table User if it does not exist and sets up the three columns and their types
 			// note the UserId column is an auto incrementing column which is useful if you want to pull back distinct rows
 			// easily from the table.
-			tx.executeSql( 'CREATE TABLE IF NOT EXISTS Trip(Id INTEGER PRIMARY KEY AUTOINCREMENT, _licenseplate varchar, _cargo varchar, _timeStampStart int, _startPosition int,  _startComments varchar, _timeStampEnd int, _endPosition int, _endComments varchar)', [])},
+			tx.executeSql( 'CREATE TABLE IF NOT EXISTS Trip(Id INTEGER PRIMARY KEY AUTOINCREMENT, _license_plate varchar, _cargo varchar, _start_timestamp int, _start_position int,  _start_comments varchar, _end_timestamp int, _end_position int, _end_comments varchar)', [])},
 			function error(err){alert('error on init local db ' + err)}, 
 			function success(){}
 		) 
@@ -111,7 +111,7 @@ function userCtrl($scope) {
 		// this is the section that actually inserts the values into the User table
 		$scope.db.transaction(function(transaction) {
 		
-			transaction.executeSql('INSERT INTO Trip(_licenseplate, _cargo, _timeStampStart, _startPosition, _startComments) VALUES ("'+$scope.trip.licenseplate+'", "'+$scope.trip.cargo+'", "'+$scope.trip.timeStampStart+'", "'+$scope.trip.startPosition+'", "'+$scope.trip.startComments+'")');	
+			transaction.executeSql('INSERT INTO Trip(_license_plate, _cargo, _start_timestamp, _start_position, _start_comments) VALUES ("'+$scope.trip.license_plate+'", "'+$scope.trip.cargo+'", "'+$scope.trip.start_timestamp+'", "'+$scope.trip.start_position+'", "'+$scope.trip.start_comments+'")');	
 		},function error(err){alert('error on save to local db ' + err)}, function success(){});
 		return false;
 	}
@@ -126,9 +126,9 @@ function userCtrl($scope) {
 	 
 		// this is the section that actually inserts the values into the User table
 		$scope.db.transaction(function(transaction) {
-			transaction.executeSql('UPDATE Trip SET _timeStampEnd ="'+$scope.trip.timeStampEnd+'", _endPosition ="'+$scope.trip.endPosition+'", _endComments ="'+$scope.trip.endComments+'" WHERE Id= last_insert_rowid()',[]);
+			transaction.executeSql('UPDATE Trip SET _end_timestamp ="'+$scope.trip.end_timestamp+'", _end_position ="'+$scope.trip.end_position+'", _end_comments ="'+$scope.trip.end_comments+'" WHERE Id= last_insert_rowid()',[]);
 			},function error(err){alert('error on save to local db ' + err)}, function success(){}
-			/* 	$scope.trip.id,$scope.trip.licenseplate, $scope.trip.cargo, $scope.trip.timeStampStart, $scope.trip.startPosition, scope.trip.startComments */
+			/* 	$scope.trip.id,$scope.trip.license_plate, $scope.trip.cargo, $scope.trip.start_timestamp, $scope.trip.start_position, scope.trip.start_comments */
 		);
 		return false;
 	} 

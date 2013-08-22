@@ -10,7 +10,7 @@ function mapCtrl($scope,$rootScope) {
       streetViewControl: false,
       zoomControl: true,
       zoomControlOptions: {
-      style: google.maps.ZoomControlStyle.LARGE
+      	style: google.maps.ZoomControlStyle.LARGE
 	  },
       maptypecontrol :false,
       disableDefaultUI: true,

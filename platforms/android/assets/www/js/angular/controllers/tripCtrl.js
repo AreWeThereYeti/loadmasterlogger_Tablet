@@ -6,14 +6,14 @@ function tripCtrl($scope, $http) {
 	
 	/* 	Submit buttons */
 	$scope.submit = function($event) {
-		$scope.$emit('setTimeStampStart', new Date().getTime(),$scope.cargo,$scope.licenseplate,$scope.startComments);
+		$scope.$emit('setstart_timestamp', new Date().getTime(),$scope.cargo,$scope.license_plate,$scope.start_comments);
 		$event.preventDefault();
 		$.mobile.changePage("#two");
 	};
 		
 	$scope.submit_end = function($event) {
 		console.log("Submit_end funktion");
-		$scope.$emit('setTimeStampEnd', new Date().getTime());
+		$scope.$emit('setend_timestamp', new Date().getTime());
 		
 		
 		$.ajax({
@@ -67,14 +67,14 @@ function tripCtrl($scope, $http) {
 	
 	$scope.$on('resetTripValues',function(){
     	$scope.id 				= null;
-		$scope.licenseplate 	= null;
+		$scope.license_plate 	= null;
 		$scope.cargo			= null;
-		$scope.timeStampStart 	= null;
-		$scope.timeStampEnd 	= null;
-		$scope.startPosition	= null;
-		$scope.endPosition		= null;
-		$scope.startComments	= null;
-		$scope.endComments		= null;	
+		$scope.start_timestamp 	= null;
+		$scope.end_timestamp 	= null;
+		$scope.start_position	= null;
+		$scope.end_position		= null;
+		$scope.start_comments	= null;
+		$scope.end_comments		= null;	
 	})
 	
 	$scope.$on('setAccuracy',function(ev,setAccuracy){
@@ -92,18 +92,18 @@ function tripCtrl($scope, $http) {
 		
 	})
 
-	$scope.$watch('licenseplate + cargo', function () {
-		if ($scope.licenseplate ==="" || $scope.cargo ==="" || !!$scope.licenseplate || !!$scope.cargo){
+	$scope.$watch('license_plate + cargo', function () {
+		if ($scope.license_plate ==="" || $scope.cargo ==="" || !!$scope.license_plate || !!$scope.cargo){
 			$("#submit").button("disable");
 			$("#submit").button("refresh");
 			console.log("submitknap disabled")
-			console.log("værdien fra disabled er : " + $scope.licenseplate + $scope.cargo)
+			console.log("værdien fra disabled er : " + $scope.license_plate + $scope.cargo)
 		}
-		if($scope.licenseplate && $scope.cargo){
+		if($scope.license_plate && $scope.cargo){
 			$("#submit").button("enable");
 			$("#submit").button("refresh");
 			console.log("submitknap enabled")
-			console.log("værdien fra enabled er : " + $scope.licenseplate + $scope.cargo)
+			console.log("værdien fra enabled er : " + $scope.license_plate + $scope.cargo)
 
 		}  
 	});	
