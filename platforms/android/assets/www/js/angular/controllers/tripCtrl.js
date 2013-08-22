@@ -71,8 +71,8 @@ function tripCtrl($scope, $http) {
 		$scope.cargo			= null;
 		$scope.start_timestamp 	= null;
 		$scope.end_timestamp 	= null;
-		$scope.start_position	= null;
-		$scope.end_position		= null;
+		$scope.start_location	= null;
+		$scope.end_location		= null;
 		$scope.start_comments	= null;
 		$scope.end_comments		= null;	
 	})

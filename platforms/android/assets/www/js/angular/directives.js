@@ -14,7 +14,7 @@ angular.module('loadmaster', [])
 	    templateUrl: '../www/js/angular/templates/map_start.html',
 	    link:function(scope,element,attrs){
 	    	scope.map_id="map_canvas_start"
-			scope.map_set_position="setstart_position"
+			scope.map_set_position="setstart_location"
 
 	    	$('geoTemp').html('Ready...')
 	    	if(window.deviceReady){
@@ -39,7 +39,7 @@ angular.module('loadmaster', [])
 	    	var geo_el = document.getElementById('geoTemp');
 			$('geoTemp').html('Ready...')
 	    	scope.map_id="map_canvas_end"
-	    	scope.map_set_position="setend_position"
+	    	scope.map_set_position="setend_location"
 
 	    	/*
 if(window.deviceReady){
