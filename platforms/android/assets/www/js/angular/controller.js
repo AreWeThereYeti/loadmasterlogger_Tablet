@@ -1,3 +1,9 @@
+
+angular.module("loadmaster",[])
+  .config(function($httpProvider){
+    delete $httpProvider.defaults.headers.common['X-Requested-With'];
+});
+
 /* User controller with angularjs */
 function userCtrl($scope) {
     console.log("UserCtrl Loaded");
@@ -14,6 +20,9 @@ function userCtrl($scope) {
 		startComments	: null,
 		endComments		: null	
 	};
+	
+	
+	
 	
 	/* 	Set positions */
 	$scope.$on('setStartPosition',function(ev,start_position){
@@ -79,7 +88,7 @@ function userCtrl($scope) {
 	 
 			// IMPORTANT FOR DEBUGGING!!!!
 			// you can uncomment this next line if you want the User table to be empty each time the application runs
-			 tx.executeSql( 'DROP TABLE Trip');
+			// tx.executeSql( 'DROP TABLE Trip');
 		
 			 
 			// this line actually creates the table User if it does not exist and sets up the three columns and their types

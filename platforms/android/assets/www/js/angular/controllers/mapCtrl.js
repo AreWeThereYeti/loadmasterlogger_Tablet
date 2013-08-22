@@ -31,9 +31,12 @@ function mapCtrl($scope,$rootScope) {
 	   title: "Start Position"
 	});
 	
-	
-	$scope.$emit($scope.map_set_position, new google.maps.LatLng(latitude, longitude));
 
+
+	
+	$scope.$emit($scope.map_set_position, [latitude, longitude]);
+	
+	
 	// adds a listener to the marker
 	// gets the coords when drag event ends
 	// then updates the input with the new coords
