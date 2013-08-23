@@ -25,7 +25,7 @@ function mapCtrl($scope,$rootScope) {
 /* 	      Place marker on map_start */
 	$scope.marker = new google.maps.Marker({
 	   position: $scope.markerPosition,
-	   draggable:false,
+	   draggable:true,
 	   animation: google.maps.Animation.DROP,
 	   map: $scope.map,
 	   title: "Start Position"

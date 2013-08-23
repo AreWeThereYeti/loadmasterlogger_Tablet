@@ -126,7 +126,6 @@ function userCtrl($scope) {
 		$scope.db.transaction(function(transaction) {
 			transaction.executeSql('UPDATE Trip SET _end_timestamp ="'+$scope.trip.end_timestamp+'", _end_location ="'+$scope.trip.end_location+'", _end_comments ="'+$scope.trip.end_comments+'" WHERE Id= last_insert_rowid()',[]);
 			},function error(err){alert('error on save to local db ' + err)}, function success(){}
-			/* 	$scope.trip.id,$scope.trip.license_plate, $scope.trip.cargo, $scope.trip.start_timestamp, $scope.trip.start_location, scope.trip.start_comments */
 		);
 		return false;
 	} 
@@ -137,19 +136,4 @@ function userCtrl($scope) {
 
 
 
-function checkConnection() {
-    var networkState = navigator.connection.type;
-
-    var states = {};
-    states[Connection.UNKNOWN]  = 'Unknown connection';
-    states[Connection.ETHERNET] = 'Ethernet connection';
-    states[Connection.WIFI]     = 'WiFi connection';
-    states[Connection.CELL_2G]  = 'Cell 2G connection';
-    states[Connection.CELL_3G]  = 'Cell 3G connection';
-    states[Connection.CELL_4G]  = 'Cell 4G connection';
-    states[Connection.CELL]     = 'Cell generic connection';
-    states[Connection.NONE]     = 'No network connection';
-
-    alert('Connection type: ' + states[networkState]);
-}
 
