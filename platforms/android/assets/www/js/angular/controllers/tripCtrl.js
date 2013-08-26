@@ -15,6 +15,7 @@ function tripCtrl($scope, $http) {
 		console.log("Submit_end funktion");
 		$scope.$emit('setend_timestamp', new Date().getTime());
 		
+/* 		syncToDatabase(); */
 		$.ajax({
 		  type: "POST",
 		  url: 'http://10.0.0.71:3000/api/v1/trips',
@@ -24,44 +25,7 @@ function tripCtrl($scope, $http) {
 		  },
 		  success: function(){console.log('success')},
 		  error:function(err){console.log(err)}
-		});
-		
-
-/*
-		var data={
-		     access_token:"6d21491d136311b69181b9ed722b5f40",
-			 trips:[$scope.trip]
-			}
-		data=$.param({
-		     access_token:"6d21491d136311b69181b9ed722b5f40",
-		     trips:[
-		        {
-		          license_plate:"dk 344 543",
-  		           cargo:"sand",
-		        },
-		        {
-		          license_plate:"æå 344 543",
-		          cargo:"grus"
-		        },
-		     ]
-		  })
-		
-		window.data=data
-	
- 		$http.defaults.useXDomain = true;
-    	console.log("Vi er nu i postToServer()")
-        $http({
-            method : 'POST',
-            url: 'http://10.0.0.71:3000/api/v1/trips',
-            dataType: 'json',
-            data:data,
-			headers: {
-      		  "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-    		}
-		}).success(function(){console.log('success')
-		}).error(function(err){console.log(err)})
-	  	  
-*/  
+		}); 
 	};
 	
 	$scope.$on('resetTripValues',function(){
@@ -79,9 +43,9 @@ function tripCtrl($scope, $http) {
 		if(setAccuracy > 100){
 			console.log("Accuracy er : " + setAccuracy)
 		}else if(setAccuracy > 50 && setAccuracy < 99){
-			console.log("Accuracy er : " + setAccuracy)
+			console.log("Accuracy er : " + setAccuracy);;
 		}else if(setAccuracy < 49){
-			console.log("Accuracy er : " + setAccuracy)
+			console.log("Accuracy er : " + setAccuracy);
 		}
 	})
 	
@@ -94,13 +58,13 @@ function tripCtrl($scope, $http) {
 		if ($scope.license_plate ==="" || $scope.cargo ==="" || !!$scope.license_plate || !!$scope.cargo){
 			$("#submit").button("disable");
 			$("#submit").button("refresh");
-			console.log("submitknap disabled")
-			console.log("værdien fra disabled er : " + $scope.license_plate + $scope.cargo)
+			console.log("submitknap disabled");
+			console.log("værdien fra disabled er : " + $scope.license_plate + $scope.cargo);
 		}
 		if($scope.license_plate && $scope.cargo){
 			$("#submit").button("enable");
 			$("#submit").button("refresh");
-			console.log("submitknap enabled")
+			console.log("submitknap enabled");
 			console.log("værdien fra enabled er : " + $scope.license_plate + $scope.cargo)
 
 		}  

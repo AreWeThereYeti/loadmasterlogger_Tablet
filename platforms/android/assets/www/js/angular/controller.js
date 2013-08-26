@@ -7,8 +7,7 @@ angular.module("loadmaster",[])
 /* User controller with angularjs */
 function userCtrl($scope) {
     console.log("UserCtrl Loaded");
-	
-	
+		
 	$scope.trip =
     {	
 		license_plate 		: null,

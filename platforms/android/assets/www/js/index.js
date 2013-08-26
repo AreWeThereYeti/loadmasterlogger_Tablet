@@ -28,8 +28,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
 	window.deviceReady=true;
 	console.log("Device ready");
-	checkConnection();
-
+	countHandler();
 }
 
 // onSuccess Geolocation
@@ -93,18 +92,54 @@ var app = {
 };
 
 
-function checkConnection() {
-    var networkState = navigator.connection.type;
-    var states = {};
-    states[Connection.UNKNOWN]  = 'Unknown connection';
-    states[Connection.ETHERNET] = 'Ethernet connection';
-    states[Connection.WIFI]     = 'WiFi connection';
-    states[Connection.CELL_2G]  = 'Cell 2G connection';
-    states[Connection.CELL_3G]  = 'Cell 3G connection';
-    states[Connection.CELL_4G]  = 'Cell 4G connection';
-    states[Connection.CELL]     = 'Cell generic connection';
-    states[Connection.NONE]     = 'No network connection';
+function isDatabaseEmpty(){
 
-    alert('Connection type: ' + states[networkState]);
-    return networkState;
+	// initial variables
+	var shortName = 'WebSqlDB';
+	var version = '1.0';
+	var displayName = 'WebSqlDB';
+	var maxSize = 65535;
+
+	db = openDatabase(shortName, version, displayName,maxSize);
+	 
+	if (!window.openDatabase) {
+		alert('Databases are not supported in this browser.');
+		return;
+	}
+	 
+	// this is the section that actually inserts the values into the User table
+	db.transaction(function(transaction) {
+		transaction.executeSql('SELECT COUNT(*) FROM Trip',[], countHandler);
+		},function error(err){alert('error selecting from database ' + err)}, function success(){}
+	);
+	return false;
+ 
+/*
+	// this is the section that actually inserts the values into the User table
+	db.transaction(function(transaction) {
+		transaction.executeSql('SELECT * FROM Trip',[], dataSelectHandler);
+		},function error(err){alert('error selecting from database ' + err)}, function success(){}
+	);
+	return false;
+*/
+	
+} 
+
+
+function countHandler(transaction, results){
+
+	console.log("vi er nu i CountHandler");
+		if(checkConnection() == Connection.UNKNOWN || checkConnection() == Connection.WIFI){
+			console.log('Vi fandt en unknown connection');
+			alert('Vi fandt en unknown connection')
+		} else if(checkConnection() == Connection.CELL_3G || checkConnection() == Connection.CELL_4G){
+			console.log("Found connection and Starting sync ")
+			syncToDatabase();
+		}
+
 }
+
+function checkConnection() {
+    return navigator.connection.type;
+}
+
