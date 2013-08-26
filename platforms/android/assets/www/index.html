@@ -34,7 +34,7 @@
         <title>Loadmaster Logger</title>
 	    </script>
     </head>
-<body ng-controller="userCtrl">
+<body ng-user ng-controller="userCtrl">
 <!-- Start på pålæsning  -->
 <div >
 <div data-role="page" id="home">
@@ -42,21 +42,23 @@
 		<h1>Pålæsning</h1>
 	</div>
 	<div data-role="content">
-	    <form name="myForm" ng-controller="tripCtrl"  action="#two">
+	    <form name="myForm" ng-controller="tripCtrl">
 			<label for="select-choice-0" class="select">Vælg din nummerplade</label>
-			<select class="requiredInput" name="licenseplate" ng-model="trip.licenseplate" id="select_licenseplate" type="text">
+			<select class="requiredInput" name="license_plate" ng-model="license_plate" id="select_license_plate" type="text">
+			   <option value="" selected>Vælg nummerplade</option>
 			   <option value="flute">Nummerplade2</option>
 			   <option value="Andreas' mor">Nummerplade3</option>
 			</select>
 			<div ng-map-start ng-controller="mapCtrl">
 			</div>
 			<label for="select-choice-0" class="select">Hvad kører du med</label>
-			<select class="requiredInput" name="cargo" ng-model="trip.cargo" id="select_cargo">
+			<select class="requiredInput" name="cargo" ng-model="cargo" id="select_cargo">
+				<option value="" selected>Vælg last</option>
 			   <option value="Stabilgrus">Stabilgrus</option>
 			   <option value="Ustabilgrus">UStabilgrus</option>
 			</select>
 			<label for="kommentarer" class="ui-hidden-accessible">Kommentarer</label>
-			<input type="text" name="username" ng-model="trip.startComments" id="comments" value="" placeholder="Skriv dine kommentarer her"/>			
+			<input type="text" name="start_comments" ng-model="start_comments"  id="comments" value="" placeholder="Skriv dine kommentarer her"/>			
 			<input type="submit" ng-click="submit($event)" data-icon="arrow-r" id="submit" value="Registrer" data-role="button">
 	    </form>
 	</div>
@@ -72,7 +74,7 @@
 		<h1>Aflæsning</h1>
 	</div>
 	<div data-role="content">	
-		<h1>{{licenseplate}}</h1>
+		<h1>{{license_plate}}</h1>
 		<div ng-map-end ng-controller="mapCtrl">
 
 		</div>
@@ -80,11 +82,11 @@
 			<span class="last_symbol"></span>
 			<h1>{{cargo}}</h2>
 			<span class="kommentar_symbol"></span>
-			<h1>{{start.comments}}</h1>
+			<h1>{{start_comments}}</h1>
 		</div>
 			<label for="kommentarer" class="ui-hidden-accessible">Kommentarer</label>
-			<input type="text" name="username" ng-model="trip.endComments" id="comments" value="" placeholder="Skriv dine kommentarer her"/>
-			<p><a href="#three" data-role="button" data-corners="true" ng-click="submit_end($event)" data-icon="arrow-r" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Registrer aflæsning</span></span></a></p>
+			<input type="text" name="username" ng-model="trip.end_comments" id="comments" value="" placeholder="Skriv dine kommentarer her"/>
+			<p><a href="#three" data-role="button" data-corners="true" ng-click="submit_end($event)" data-icon="arrow-r" data-shadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Registrer aflæsning</span></span></a></p>
 		</div>
 		<div data-role="footer">
 			<h1>Loadmaster ApS</h1>
@@ -102,7 +104,7 @@
 		<h1>Fedt! Det hele lykkedes. Tryk på knappen "ny tur" når </br> du er  klar til en ny pålæsning</h1>
     </div>
     
-    <p><a href="#home" data-role="button" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text" ng-click="submit_trip()">Ny tur</span></span></a></p>
+    <p><a href="#home" data-role="button" ng-click="submitStartNewTrip()" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Ny tur</span></span></a></p>
 </div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/angular/controller.js"></script>	
@@ -110,7 +112,6 @@
         <script type="text/javascript" src="js/angular/controllers/mapCtrl.js"></script>         
         <script type="text/javascript" src="js/angular/directives.js"></script>	
         <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript" src="js/database.js"></script>
         <script type="text/javascript">
             app.initialize();
         </script>

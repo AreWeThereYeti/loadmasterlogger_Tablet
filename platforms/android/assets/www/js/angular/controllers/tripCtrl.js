@@ -1,20 +1,79 @@
 /* trip controller with angularjs */
-function tripCtrl($scope) {
-    console.log("tripCtrl Loaded");
+function tripCtrl($scope, $http) {
+
+    console.log("tripCtrl Loaded");	
 	$("#submit").button("disable");
-	
 	
 	/* 	Submit buttons */
 	$scope.submit = function($event) {
-		$scope.$emit('setTimeStampStart', new Date().getTime());
+		$scope.$emit('setstart_timestamp', new Date().getTime(),$scope.cargo,$scope.license_plate,$scope.start_comments);
 		$event.preventDefault();
 		$.mobile.changePage("#two");
 	};
 		
 	$scope.submit_end = function($event) {
-		$scope.$emit('setTimeStampEnd', new Date().getTime());
-		AddValuesToDB();
+		console.log("Submit_end funktion");
+		$scope.$emit('setend_timestamp', new Date().getTime());
+		
+		$.ajax({
+		  type: "POST",
+		  url: 'http://10.0.0.71:3000/api/v1/trips',
+		  data:{
+		     access_token:"6d21491d136311b69181b9ed722b5f40",
+		     trips:[$scope.trip]
+		  },
+		  success: function(){console.log('success')},
+		  error:function(err){console.log(err)}
+		});
+		
+
+/*
+		var data={
+		     access_token:"6d21491d136311b69181b9ed722b5f40",
+			 trips:[$scope.trip]
+			}
+		data=$.param({
+		     access_token:"6d21491d136311b69181b9ed722b5f40",
+		     trips:[
+		        {
+		          license_plate:"dk 344 543",
+  		           cargo:"sand",
+		        },
+		        {
+		          license_plate:"æå 344 543",
+		          cargo:"grus"
+		        },
+		     ]
+		  })
+		
+		window.data=data
+	
+ 		$http.defaults.useXDomain = true;
+    	console.log("Vi er nu i postToServer()")
+        $http({
+            method : 'POST',
+            url: 'http://10.0.0.71:3000/api/v1/trips',
+            dataType: 'json',
+            data:data,
+			headers: {
+      		  "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+    		}
+		}).success(function(){console.log('success')
+		}).error(function(err){console.log(err)})
+	  	  
+*/  
 	};
+	
+	$scope.$on('resetTripValues',function(){
+		$scope.license_plate 	= null;
+		$scope.cargo			= null;
+		$scope.start_timestamp 	= null;
+		$scope.end_timestamp 	= null;
+		$scope.start_location	= null;
+		$scope.end_location		= null;
+		$scope.start_comments	= null;
+		$scope.end_comments		= null;	
+	})
 	
 	$scope.$on('setAccuracy',function(ev,setAccuracy){
 		if(setAccuracy > 100){
@@ -26,17 +85,25 @@ function tripCtrl($scope) {
 		}
 	})
 	
-	
 	/* 	Watching variables  */
 	$scope.$watch('position.coords.accuracy', function(){
 		
 	})
 
-	$scope.$watch('trip.licenseplate + trip.cargo', function () {
-		if($scope.trip.licenseplate != null && $scope.trip.cargo != null){
+	$scope.$watch('license_plate + cargo', function () {
+		if ($scope.license_plate ==="" || $scope.cargo ==="" || !!$scope.license_plate || !!$scope.cargo){
+			$("#submit").button("disable");
+			$("#submit").button("refresh");
+			console.log("submitknap disabled")
+			console.log("værdien fra disabled er : " + $scope.license_plate + $scope.cargo)
+		}
+		if($scope.license_plate && $scope.cargo){
 			$("#submit").button("enable");
 			$("#submit").button("refresh");
-		}
+			console.log("submitknap enabled")
+			console.log("værdien fra enabled er : " + $scope.license_plate + $scope.cargo)
+
+		}  
 	});	
 }
 
