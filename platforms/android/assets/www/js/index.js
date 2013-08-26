@@ -28,7 +28,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
 	window.deviceReady=true;
 	console.log("Device ready");
-/* 	checkConnection(); */
+	checkConnection();
 
 }
 
@@ -47,8 +47,8 @@ function onError(error) {
     element.innerHTML = 'Error...';
     alert('code: '    + error.code    + '\n' +
             'message: ' + error.message + '\n');
+    
     console.log("Starting manuel marker positioning.");                            
-
     google.maps.event.addListener($scope.marker, 'dragend', function(event) {
 		console.debug('new position is '+event.latLng.lat()+' / '+event.latLng.lng());
 	});
@@ -93,7 +93,6 @@ var app = {
 };
 
 
-/*
 function checkConnection() {
     var networkState = navigator.connection.type;
     var states = {};
@@ -107,5 +106,5 @@ function checkConnection() {
     states[Connection.NONE]     = 'No network connection';
 
     alert('Connection type: ' + states[networkState]);
+    return networkState;
 }
-*/

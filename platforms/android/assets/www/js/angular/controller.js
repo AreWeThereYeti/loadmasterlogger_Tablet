@@ -24,7 +24,7 @@ function userCtrl($scope) {
 	/* 	Set positions */
 	$scope.$on('setstart_location',function(ev,start_location){
 		$scope.trip.start_location=start_location;
-	})
+	});
 	
 	$scope.$on('setend_location',function(ev,end_location){
 		$scope.trip.end_location=end_location;
@@ -129,10 +129,16 @@ function userCtrl($scope) {
 		);
 		return false;
 	} 
+	
+	
+	/* 	Database synchronization */
+/*
+	
+	if(networkState) {
+		
+	}
+*/
 }
-
-
-/* var interval = setInterval( checkConnection(), 5000); */
 
 
 
