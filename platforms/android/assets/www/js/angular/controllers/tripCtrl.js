@@ -1,7 +1,5 @@
 /* trip controller with angularjs */
 function tripCtrl($scope, $http) {
-
-    console.log("tripCtrl Loaded");	
 	$("#submit").button("disable");
 	
 	/* 	Submit buttons */
@@ -14,18 +12,10 @@ function tripCtrl($scope, $http) {
 	$scope.submit_end = function($event) {
 		console.log("Submit_end funktion");
 		$scope.$emit('setend_timestamp', new Date().getTime());
+		syncToDatabase($scope);
+		$("#submit").button("disable");
+
 		
-/* 		syncToDatabase(); */
-		$.ajax({
-		  type: "POST",
-		  url: 'http://10.0.0.71:3000/api/v1/trips',
-		  data:{
-		     access_token:"6d21491d136311b69181b9ed722b5f40",
-		     trips:[$scope.trip]
-		  },
-		  success: function(){console.log('success')},
-		  error:function(err){console.log(err)}
-		}); 
 	};
 	
 	$scope.$on('resetTripValues',function(){
@@ -55,21 +45,28 @@ function tripCtrl($scope, $http) {
 	})
 
 	$scope.$watch('license_plate + cargo', function () {
-		if ($scope.license_plate ==="" || $scope.cargo ==="" || !!$scope.license_plate || !!$scope.cargo){
+		if ($scope.license_plate ==="" || $scope.cargo ==="" || !!$scope.license_plate || !!$scope.cargo || $scope.license_plate =="0" || $scope.cargo =="0"){
 			$("#submit").button("disable");
 			$("#submit").button("refresh");
-			console.log("submitknap disabled");
-			console.log("værdien fra disabled er : " + $scope.license_plate + $scope.cargo);
 		}
-		if($scope.license_plate && $scope.cargo){
+		if($scope.license_plate && $scope.cargo && $scope.license_plate != "0" && $scope.cargo != "0"){
 			$("#submit").button("enable");
 			$("#submit").button("refresh");
-			console.log("submitknap enabled");
-			console.log("værdien fra enabled er : " + $scope.license_plate + $scope.cargo)
 
 		}  
 	});	
 }
 
-
-                         
+function syncToDatabase($scope){
+	console.log("syncing to database")
+    $.ajax({
+	  type: "POST",
+	  url: 'http://10.0.0.71:3000/api/v1/trips',
+	  data:{
+	     access_token:"6d21491d136311b69181b9ed722b5f40",
+	     trips:[$scope.trip]
+	  },
+	  success: function(){console.log('success')},
+	  error:function(err){console.log(err)}
+	}); 
+}                 

@@ -45,7 +45,7 @@
 	    <form name="myForm" ng-controller="tripCtrl">
 			<label for="select-choice-0" class="select">Vælg din nummerplade</label>
 			<select class="requiredInput" name="license_plate" ng-model="license_plate" id="select_license_plate" type="text">
-			   <option value="" selected>Vælg nummerplade</option>
+			   <option value="0" selected>Vælg nummerplade</option>
 			   <option value="flute">Nummerplade2</option>
 			   <option value="Andreas' mor">Nummerplade3</option>
 			</select>
@@ -53,7 +53,7 @@
 			</div>
 			<label for="select-choice-0" class="select">Hvad kører du med</label>
 			<select class="requiredInput" name="cargo" ng-model="cargo" id="select_cargo">
-				<option value="" selected>Vælg last</option>
+				<option value="0" selected>Vælg last</option>
 			   <option value="Stabilgrus">Stabilgrus</option>
 			   <option value="Ustabilgrus">UStabilgrus</option>
 			</select>

@@ -18,8 +18,6 @@
  */
  
 window.deviceReady=false
-
-console.log("index.js loaded ");
  
     // Wait for device API libraries to load
 document.addEventListener("deviceready", onDeviceReady, false);
@@ -109,7 +107,7 @@ function isDatabaseEmpty(){
 	 
 	// this is the section that actually inserts the values into the User table
 	db.transaction(function(transaction) {
-		transaction.executeSql('SELECT COUNT(*) FROM Trip',[], countHandler);
+		transaction.executeSql('SELECT COUNT(*) FROM Trip',[], checkConnection);
 		},function error(err){alert('error selecting from database ' + err)}, function success(){}
 	);
 	return false;
@@ -126,20 +124,16 @@ function isDatabaseEmpty(){
 } 
 
 
-function countHandler(transaction, results){
+function checkConnection(transaction, results, $scope){
 
 	console.log("vi er nu i CountHandler");
-		if(checkConnection() == Connection.UNKNOWN || checkConnection() == Connection.WIFI){
+		if(navigator.connection.type == Connection.UNKNOWN || navigator.connection.type == Connection.WIFI){
 			console.log('Vi fandt en unknown connection');
 			alert('Vi fandt en unknown connection')
-		} else if(checkConnection() == Connection.CELL_3G || checkConnection() == Connection.CELL_4G){
+		} else if(navigator.connection.type == Connection.CELL_3G || navigator.connection.type == Connection.CELL_4G){
 			console.log("Found connection and Starting sync ")
-			syncToDatabase();
+			syncToDatabase($scope);
 		}
 
-}
-
-function checkConnection() {
-    return navigator.connection.type;
 }
 

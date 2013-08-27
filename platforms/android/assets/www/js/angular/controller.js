@@ -128,15 +128,6 @@ function userCtrl($scope) {
 		);
 		return false;
 	} 
-	
-	
-	/* 	Database synchronization */
-/*
-	
-	if(networkState) {
-		
-	}
-*/
 }
 
 
