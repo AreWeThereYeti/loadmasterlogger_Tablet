@@ -12,10 +12,7 @@ function tripCtrl($scope, $http) {
 	$scope.submit_end = function($event) {
 		console.log("Submit_end funktion");
 		$scope.$emit('setend_timestamp', new Date().getTime());
-		syncToDatabase($scope);
 		$("#submit").button("disable");
-
-		
 	};
 	
 	$scope.$on('resetTripValues',function(){
@@ -55,18 +52,4 @@ function tripCtrl($scope, $http) {
 
 		}  
 	});	
-}
-
-function syncToDatabase($scope){
-	console.log("syncing to database")
-    $.ajax({
-	  type: "POST",
-	  url: 'http://10.0.0.71:3000/api/v1/trips',
-	  data:{
-	     access_token:"6d21491d136311b69181b9ed722b5f40",
-	     trips:[$scope.trip]
-	  },
-	  success: function(){console.log('success')},
-	  error:function(err){console.log(err)}
-	}); 
-}                 
+}                

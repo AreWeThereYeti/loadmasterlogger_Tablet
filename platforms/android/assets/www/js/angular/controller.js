@@ -1,4 +1,5 @@
 
+/* Is this needed? */
 angular.module("loadmaster",[])
   .config(function($httpProvider){
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
@@ -50,7 +51,7 @@ function userCtrl($scope) {
 	})
 					
 	$scope.submit_trip = function(){
-		console.log('submit ran on userCxtrl');
+		console.log('submit ran on userCtrl');
 		console.log($scope.trip);
 	}
 	 
@@ -84,7 +85,7 @@ function userCtrl($scope) {
 		$scope.db.transaction(function(tx){
 	 
 			// IMPORTANT FOR DEBUGGING!!!!
-			// you can uncomment this next line if you want the User table to be empty each time the application runs
+			// you can uncomment this next line if you want the table Trip to be empty each time the application runs
 			// tx.executeSql( 'DROP TABLE Trip');
 		
 			 

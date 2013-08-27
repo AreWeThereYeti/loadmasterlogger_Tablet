@@ -31,9 +31,6 @@ function mapCtrl($scope,$rootScope) {
 	   title: "Start Position"
 	});
 	
-
-
-	
 	$scope.$emit($scope.map_set_position, [latitude, longitude]);
 	
 	
@@ -46,11 +43,11 @@ function mapCtrl($scope,$rootScope) {
 	});
 */
 	
-/* 	google.maps.event.trigger($scope.map,'resize'); */
+	google.maps.event.trigger($scope.map,'resize');
 	
   }
   
-  	$scope.drawCurrentPosition = function(){
+  $scope.drawCurrentPosition = function(){
   		navigator.geolocation.getCurrentPosition(function success(position){
 			$scope.$apply(function(scope){
 		  	scope.getPositionSuccess(position)
@@ -63,7 +60,7 @@ function mapCtrl($scope,$rootScope) {
 	  }, { maximumAge: 5000, timeout: 15000, enableHighAccuracy: true });
   }
   
-  	$scope.getPositionSuccess = function(position){
+  $scope.getPositionSuccess = function(position){
   		console.log('getPositionSuccess ran');
   		console.log("Præcisionen er " + position.coords.accuracy + "m");                            
   		$scope.$emit('setAccuracy', position.coords.accuracy);
@@ -73,5 +70,4 @@ function mapCtrl($scope,$rootScope) {
   $scope.getPositionError = function(err){
 	  console.log(err)
   }
-	
 }
