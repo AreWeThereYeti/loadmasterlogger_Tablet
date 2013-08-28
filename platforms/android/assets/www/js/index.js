@@ -162,7 +162,7 @@ function insertRecord($scope) {
 						var useridinsert = item['_id']; 
 						var usercargoinsert = item['_cargo']; 
 						var userlicenseplateinsert = item['_license_plate']; 
-						console.log(item['_id'] + item['_cargo'] + item['_license_plate'])
+						console.log(item['_id'] + item['_cargo' + item['_license_plate'])
 						InsertRecordOnServerFunction(useridinsert, usercargoinsert, userlicenseplateinsert);      // Call Function for insert Record into SQl Server
 					}
 				});
@@ -183,10 +183,9 @@ function insertRecord($scope) {
 	
 		function InsertRecordOnServerFunction(useridinsert, usercargoinsert, userlicenseplateinsert){  // Function for insert Record into SQl Server 	 
 			var tripinsertinfo = { TripInformation: { id: useridinsert, cargo: usercargoinsert, licenseplate: userlicenseplateinsert} };
-			var jsondata = JSON.stringify(userinsertinfo);   // Convert String into JSON format.
 			
 /* This needs to be inserted into data 
-			data:{
+			var data = {
 			     access_token:"6d21491d136311b69181b9ed722b5f40",
 			     trips:[$scope.trip]
 			  },
@@ -196,7 +195,10 @@ function insertRecord($scope) {
 			 
 				type: "POST",
 				url: "http://10.0.0.71:3000/api/v1/trips",
-				data: jsondata, 
+				data :  {
+				     access_token:"6d21491d136311b69181b9ed722b5f40", // Skal kun sættes en gang ind i databasen
+				     trips:[$scope.trip] // Det her skal være et Array af alle trips i databasen
+				 },			
 				contentType: "application/json; charset=utf-8", 
 				dataType: "json",
 				processdata: true,
@@ -215,11 +217,10 @@ function insertRecord($scope) {
 	}
 }
 
-/*
  
 function InsertServiceSucceeded(result) // Sucess Handler Function 
 {
-	resultObject = result.InsertUserInformationResult;
+/* 	resultObject = result.InsertUserInformationResult; */
 	if (resultObject)
  		{ 
 			alert("User Id for Deleted :   " + resultObject.ErrorDesc); 
@@ -231,6 +232,5 @@ function InsertServiceSucceeded(result) // Sucess Handler Function
 		alert("Entry Not Deleted");	 
 	}
 }
-*/
 
 
