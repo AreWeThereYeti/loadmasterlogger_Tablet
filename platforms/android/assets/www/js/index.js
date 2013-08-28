@@ -150,87 +150,81 @@ function checkConnection(transaction, results, $scope){
 
 /* Alternative method */
 
-function insertRecord($scope) {
-	if (navigator.connection.type == Connection.CELL_3G || navigator.connection.type == Connection.CELL_4G){ // Check internet is online or Off-line.	 
+function insertRecord() {
+	//if (navigator.connection.type == Connection.CELL_3G || navigator.connection.type == Connection.CELL_4G){  Check internet is online or Off-line.	 
+		
+		var shortName = 'WebSqlDB';
+		var version = '1.0';
+		var displayName = 'WebSqlDB';
+		var maxSize = 65535;
+	
+		db = openDatabase(shortName, version, displayName,maxSize);
+		
 		db.transaction(function (tx)	 
 			{
 				tx.executeSql('SELECT * FROM Trip', [], function (tx, result)  // Fetch records from SQLite		 
 				{	 
 					var dataset = result.rows; 
+					var trips = new Array();
 					for (var i = 0, item = null; i < dataset.length; i++) {
-						item = dataset.item(i); 
-						var useridinsert = item['_id']; 
-						var usercargoinsert = item['_cargo']; 
-						var userlicenseplateinsert = item['_license_plate']; 
-						console.log(item['_id'] + item['_cargo' + item['_license_plate'])
-						InsertRecordOnServerFunction(useridinsert, usercargoinsert, userlicenseplateinsert);      // Call Function for insert Record into SQl Server
+						item = dataset.item(i);
+
+						var trip={
+							id				: item['_id'],
+							cargo			: item['_cargo'],
+							licenseplate 	: item['_license_plate'],
+							start_location 	: item['_start_location'],
+							end_location 	: item['_end_location'],
+							start_timestamp : item['_start_timestamp'],
+							end_timestamp : item['_end_timestamp'],
+							start_comments 	: item['_start_comments'],
+							end_comments : item['_end_comments']
+							
+						};
+						console.log(trip)
+						trips.push(trip)
 					}
+					InsertRecordOnServerFunction(trips);      // Call Function for insert Record into SQl Server
+
 				});
 			});
+		}
 	 
-		var usercargotemp = $scope.cargo;
-		var userlicenseplatetemp = $scope.licenseplate; 
-		var useridtemp = 0;
-	 
-		InsertRecordOnServerFunction(useridtemp, usercargotemp, userlicenseplatetemp); 
-	}
+/*
 	 
 	else {
-		var usercargotemp = $scope.cargo;
-		var userlicenseplatetemp = $scope.licenseplate;
 		db.transaction(function (tx) { tx.executeSql('INSERT INTO Trip(_license_plate, _cargo, _start_timestamp, _start_location, _start_comments) VALUES ("'+$scope.trip.license_plate+'", "'+$scope.trip.cargo+'", "'+$scope.trip.start_timestamp+'", "'+$scope.trip.start_location+'", "'+$scope.trip.start_comments+'")'); 
 		}); // If Off-line, then insert into SQLite.
-	
-		function InsertRecordOnServerFunction(useridinsert, usercargoinsert, userlicenseplateinsert){  // Function for insert Record into SQl Server 	 
-			var tripinsertinfo = { TripInformation: { id: useridinsert, cargo: usercargoinsert, licenseplate: userlicenseplateinsert} };
-			
-/* This needs to be inserted into data 
-			var data = {
-			     access_token:"6d21491d136311b69181b9ed722b5f40",
-			     trips:[$scope.trip]
-			  },
-			
+	}
+}
+
 */
-			$.ajax({
-			 
-				type: "POST",
-				url: "http://10.0.0.71:3000/api/v1/trips",
-				data :  {
-				     access_token:"6d21491d136311b69181b9ed722b5f40", // Skal kun sættes en gang ind i databasen
-				     trips:[$scope.trip] // Det her skal være et Array af alle trips i databasen
-				 },			
-				contentType: "application/json; charset=utf-8", 
-				dataType: "json",
-				processdata: true,
-				success: function (msg)
-				{
-					//On Successfull service call
-					InsertServiceSucceeded(msg);
-				},
-				error: function (msg) {
-					alert("Error In Service");
-				}
-		 
-			});
-		 
-		}
-	}
-}
-
  
-function InsertServiceSucceeded(result) // Sucess Handler Function 
-{
-/* 	resultObject = result.InsertUserInformationResult; */
-	if (resultObject)
- 		{ 
-			alert("User Id for Deleted :   " + resultObject.ErrorDesc); 
-			var insertedtripid = Number(resultObject.tripId); 
-			db.transaction(function (tx) { tx.executeSql(deleteStatement, [inserteduserid], showRecords, onError); alert("Delete trip :  " + resultObject.userName + " Sucessfully"); });
-		}
-		else
+
+function InsertRecordOnServerFunction(trips){  // Function for insert Record into SQl Server 	 
+
+		$.ajax({
+	 
+		type: "POST",
+		url: "http://192.168.1.33:3000/api/v1/trips",
+		data :  {
+		     access_token:"5e3495bc02fd597b6959a849c21c4931", // Skal kun sættes en gang ind i databasen
+		     trips: trips
+		 },			
+/*
+		contentType: "application/json; charset=utf-8", 
+		dataType: "json",
+*/
+		processdata: true,
+		success: function (msg)
 		{
-		alert("Entry Not Deleted");	 
-	}
-}
+			//On Successfull service call
+			InsertServiceSucceeded(msg);
+		},
+		error: function (msg) {
+			alert("Error In Service");
+		}
+ 
+	});
 
-
+};
