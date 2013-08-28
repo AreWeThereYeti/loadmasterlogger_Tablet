@@ -172,13 +172,13 @@ function insertRecord() {
 						var trip={
 							id				: item['_id'],
 							cargo			: item['_cargo'],
-							licenseplate 	: item['_license_plate'],
+							license_plate 	: item['_license_plate'],
 							start_location 	: item['_start_location'],
 							end_location 	: item['_end_location'],
 							start_timestamp : item['_start_timestamp'],
-							end_timestamp : item['_end_timestamp'],
+							end_timestamp 	: item['_end_timestamp'],
 							start_comments 	: item['_start_comments'],
-							end_comments : item['_end_comments']
+							end_comments 	: item['_end_comments']
 							
 						};
 						console.log(trip)
@@ -208,7 +208,7 @@ function InsertRecordOnServerFunction(trips){  // Function for insert Record int
 		type: "POST",
 		url: "http://192.168.1.33:3000/api/v1/trips",
 		data :  {
-		     access_token:"5e3495bc02fd597b6959a849c21c4931", // Skal kun sættes en gang ind i databasen
+		     access_token:"b2baacd1a2e7e2ff5afd2c22795cff3d", // Skal kun sættes en gang ind i databasen
 		     trips: trips
 		 },			
 /*
