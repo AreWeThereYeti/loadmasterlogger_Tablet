@@ -30,28 +30,6 @@ function onDeviceReady() {
 /* 	countHandler(); */
 }
 
-// onSuccess Geolocation
-function onSuccess(position) {
-    var element = document.getElementById('geoTemp');
-    element.innerHTML = 'Success...';
-    console.log("onSuccess loaded!!!");                            
-                                    
-    initialize(position.coords.latitude, position.coords.longitude);
-                            
-}
-// onError Callback receives a PositionError object
-function onError(error) {
-    var element = document.getElementById('geoTemp');
-    element.innerHTML = 'Error...';
-    alert('code: '    + error.code    + '\n' +
-            'message: ' + error.message + '\n');
-    
-    console.log("Starting manuel marker positioning.");                            
-    google.maps.event.addListener($scope.marker, 'dragend', function(event) {
-		console.debug('new position is '+event.latLng.lat()+' / '+event.latLng.lng());
-	});
-}
-
 /* ------ Initialize app ----------*/
 
 var app = {
@@ -114,27 +92,7 @@ function isDatabaseEmpty(){
 } 
 
 /* Call this function on upload success with recived IDs */
-function dropRowsSynced(){
-	// initial variables
-	var shortName = 'WebSqlDB';
-	var version = '1.0';
-	var displayName = 'WebSqlDB';
-	var maxSize = 65535;
 
-	db = openDatabase(shortName, version, displayName,maxSize);
-	 
-	if (!window.openDatabase) {
-		alert('Databases are not supported in this browser.');
-		return;
-	}
-	 
-	// this is the section that actually inserts the values into the User table
-	db.transaction(function(transaction) {
-		transaction.executeSql('DELETE FROM Trip WHERE id = ?', [/* Insert ID of synced rows */]);
-		},function error(err){alert('error selecting from database ' + err)}, function success(){}
-	);
-	return false;
-}
 
 function checkConnection(transaction, results, $scope){
 	console.log("vi er nu i CountHandler");
@@ -147,11 +105,10 @@ function checkConnection(transaction, results, $scope){
 	}
 }
 
-
 /* Alternative method */
 
 function insertRecord() {
-	//if (navigator.connection.type == Connection.CELL_3G || navigator.connection.type == Connection.CELL_4G){  Check internet is online or Off-line.	 
+/* 	if (navigator.connection.type == Connection.CELL_3G || navigator.connection.type == Connection.CELL_4G){  //Check internet is online or Off-line.	  */
 		
 		var shortName = 'WebSqlDB';
 		var version = '1.0';
@@ -170,7 +127,7 @@ function insertRecord() {
 						item = dataset.item(i);
 
 						var trip={
-							id				: item['_id'],
+							id				: item['Id'],
 							cargo			: item['_cargo'],
 							license_plate 	: item['_license_plate'],
 							start_location 	: item['_start_location'],
@@ -189,37 +146,24 @@ function insertRecord() {
 				});
 			});
 		}
-	 
-/*
-	 
-	else {
-		db.transaction(function (tx) { tx.executeSql('INSERT INTO Trip(_license_plate, _cargo, _start_timestamp, _start_location, _start_comments) VALUES ("'+$scope.trip.license_plate+'", "'+$scope.trip.cargo+'", "'+$scope.trip.start_timestamp+'", "'+$scope.trip.start_location+'", "'+$scope.trip.start_comments+'")'); 
-		}); // If Off-line, then insert into SQLite.
-	}
-}
+	
 
-*/
- 
-
+/* Syncs with server */
 function InsertRecordOnServerFunction(trips){  // Function for insert Record into SQl Server 	 
 
 		$.ajax({
-	 
 		type: "POST",
 		url: "http://192.168.1.33:3000/api/v1/trips",
 		data :  {
-		     access_token:"b2baacd1a2e7e2ff5afd2c22795cff3d", // Skal kun sættes en gang ind i databasen
-		     trips: trips
+		     access_token	:"b2baacd1a2e7e2ff5afd2c22795cff3d", // Skal kun sættes en gang ind i databasen
+		     trips			: trips,
+		     device_id		: 'new device'
 		 },			
-/*
-		contentType: "application/json; charset=utf-8", 
-		dataType: "json",
-*/
 		processdata: true,
 		success: function (msg)
 		{
 			//On Successfull service call
-			InsertServiceSucceeded(msg);
+/* 			dropRowsSynced(msg); Uncomment this when success message is received*/ 
 		},
 		error: function (msg) {
 			alert("Error In Service");
@@ -228,3 +172,26 @@ function InsertRecordOnServerFunction(trips){  // Function for insert Record int
 	});
 
 };
+
+/* Drops synced rows */
+function dropRowsSynced(){
+	// initial variables
+	var shortName = 'WebSqlDB';
+	var version = '1.0';
+	var displayName = 'WebSqlDB';
+	var maxSize = 65535;
+
+	db = openDatabase(shortName, version, displayName,maxSize);
+	 
+	if (!window.openDatabase) {
+		alert('Databases are not supported in this browser.');
+		return;
+	}
+	 
+/* 	Deletes synced rows from trips table */
+	db.transaction(function(transaction) {
+		transaction.executeSql('DELETE FROM Trip WHERE id = ?', [/* Insert ID of synced rows */]);
+		},function error(err){alert('error selecting from database ' + err)}, function success(){}
+	);
+	return false;
+}

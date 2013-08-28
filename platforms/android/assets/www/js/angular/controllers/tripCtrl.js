@@ -1,6 +1,6 @@
 /* trip controller with angularjs */
 function tripCtrl($scope, $http) {
-	$("#submit").button("disable");
+	$("#submit_start").button("disable");
 	
 	/* 	Submit buttons */
 	$scope.submit = function($event) {
@@ -12,7 +12,7 @@ function tripCtrl($scope, $http) {
 	$scope.submit_end = function($event) {
 		console.log("Submit_end funktion");
 		$scope.$emit('setend_timestamp', new Date().getTime());
-		$("#submit").button("disable");
+		$("#submit_start").button("disable");
 	};
 	
 	$scope.$on('resetTripValues',function(){
@@ -23,8 +23,10 @@ function tripCtrl($scope, $http) {
 		$scope.start_location	= null;
 		$scope.end_location		= null;
 		$scope.start_comments	= null;
-		$scope.end_comments		= null;	
-	})
+		$scope.end_comments		= null;
+		$("select").prop("selectedIndex",0);
+		$('select').selectmenu('refresh', true);
+		})
 	
 	$scope.$on('setAccuracy',function(ev,setAccuracy){
 		if(setAccuracy > 100){
@@ -40,15 +42,18 @@ function tripCtrl($scope, $http) {
 	$scope.$watch('position.coords.accuracy', function(){
 		
 	})
+	
+	console.log($scope.trip.start_location);
 
-	$scope.$watch('license_plate + cargo', function () {
+	$scope.$watch('license_plate + cargo + trip.start_location', function () {
+/* 	console.log($scope.trip.start_location); */
 		if ($scope.license_plate ==="" || $scope.cargo ==="" || !!$scope.license_plate || !!$scope.cargo || $scope.license_plate =="0" || $scope.cargo =="0"){
-			$("#submit").button("disable");
-			$("#submit").button("refresh");
+			$("#submit_start").button("disable");
+			$("#submit_start").button("refresh");
 		}
-		if($scope.license_plate && $scope.cargo && $scope.license_plate != "0" && $scope.cargo != "0"){
-			$("#submit").button("enable");
-			$("#submit").button("refresh");
+		if($scope.license_plate && $scope.cargo && $scope.license_plate != "0" && $scope.cargo != "0" && $scope.trip.start_location != null ){
+			$("#submit_start").button("enable");
+			$("#submit_start").button("refresh");
 
 		}  
 	});	

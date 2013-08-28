@@ -45,7 +45,7 @@ body {
     width:100%;
 }
 
-#map_canvas_start, #map_canvas_end{
+#map_canvas_start, #map_canvas_end, .map_container{
 	height: 300px;
 	width: 100%;
 	display: block;

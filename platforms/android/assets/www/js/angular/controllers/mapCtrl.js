@@ -17,6 +17,15 @@ function mapCtrl($scope,$rootScope) {
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     
+    if(!!latitude && !!longitude){
+	    $scope.GPS_found = true;
+        console.log("IF!!! GPS_found er " + $scope.GPS_found);
+    }
+    else{
+	    $scope.GPS_found = false; 
+    }
+    
+    console.log("GPS_found er " + $scope.GPS_found);
 	
 /* 	Add map to #map_canvas */
     $scope.map = new google.maps.Map(document.getElementById($scope.map_id), $scope.mapOptions);
@@ -43,7 +52,6 @@ function mapCtrl($scope,$rootScope) {
 	});
 */
 	
-	google.maps.event.trigger($scope.map,'resize');
 	
   }
   
