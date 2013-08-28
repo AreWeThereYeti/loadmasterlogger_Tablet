@@ -51,17 +51,8 @@
 			</select>
 			
 			<div class="map_container">	
-				<!-- when $scope.GPS_found is truthy (element is visible) -->
-				<div ng-show="scope.GPS_found">
-					<div ng-map-start ng-controller="mapCtrl">
-					<p>gps fundet</p>
+				<div ng-map-start ng-controller="mapCtrl">
 				</div>
-				 
-				<!-- when $scope.GPS_found is falsy (element is hidden) -->
-				<div ng-show="scope.GPS_found" class="ng-hide">
-					<p>Andreas har en tyk arm. Og en tynd!
-				</div>	
-			</div>
 			
 			</div>
 			<label for="select-choice-0" class="select">Hvad kører du med</label>

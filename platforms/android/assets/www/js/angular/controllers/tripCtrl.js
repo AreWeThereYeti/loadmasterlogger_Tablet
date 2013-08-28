@@ -8,6 +8,8 @@ function tripCtrl($scope, $http) {
 		$event.preventDefault();
 		$.mobile.changePage("#two");
 	};
+	
+	
 		
 	$scope.submit_end = function($event) {
 		console.log("Submit_end funktion");
@@ -27,21 +29,6 @@ function tripCtrl($scope, $http) {
 		$("select").prop("selectedIndex",0);
 		$('select').selectmenu('refresh', true);
 		})
-	
-	$scope.$on('setAccuracy',function(ev,setAccuracy){
-		if(setAccuracy > 100){
-			console.log("Accuracy er : " + setAccuracy)
-		}else if(setAccuracy > 50 && setAccuracy < 99){
-			console.log("Accuracy er : " + setAccuracy);;
-		}else if(setAccuracy < 49){
-			console.log("Accuracy er : " + setAccuracy);
-		}
-	})
-	
-	/* 	Watching variables  */
-	$scope.$watch('position.coords.accuracy', function(){
-		
-	})
 	
 	console.log($scope.trip.start_location);
 

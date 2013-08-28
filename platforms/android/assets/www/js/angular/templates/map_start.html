@@ -1,4 +1,15 @@
-<div id="map_canvas_start">
-   <p id="geolocation">Finder geolokation...</p>
-   <p id="geoTemp"></p>				
+
+
+<div><!-- when $scope.GPS_found is truthy (element is visible) -->
+	<div ng-show="GPS_found">
+		<div id="map_canvas_start">
+		   <p id="geolocation">Finder geolokation...</p>
+		   <p id="geoTemp"></p>	
+			<!-- when $scope.GPS_found is falsy (element is hidden) -->	
+		</div>
+	</div>
+						 
+	<div ng-hide="GPS_found">
+		<p>Andreas har en tyk arm. Og en tynd!
+	</div>	
 </div>

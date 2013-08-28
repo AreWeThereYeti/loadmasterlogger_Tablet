@@ -17,7 +17,7 @@
  * under the License.
  */
  
-window.deviceReady=false;
+/* window.deviceReady=false; */
 
  
     // Wait for device API libraries to load
@@ -125,7 +125,6 @@ function insertRecord() {
 					var trips = new Array();
 					for (var i = 0, item = null; i < dataset.length; i++) {
 						item = dataset.item(i);
-
 						var trip={
 							id				: item['Id'],
 							cargo			: item['_cargo'],

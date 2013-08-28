@@ -1,5 +1,8 @@
+
+
 function mapCtrl($scope,$rootScope) {
 	console.log("mapCtrl Loaded");
+
 	
 	/* 			Initialize map */
   $scope.initialize = function(latitude, longitude) {
@@ -17,16 +20,8 @@ function mapCtrl($scope,$rootScope) {
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     
-    if(!!latitude && !!longitude){
-	    $scope.GPS_found = true;
-        console.log("IF!!! GPS_found er " + $scope.GPS_found);
-    }
-    else{
-	    $scope.GPS_found = false; 
-    }
-    
-    console.log("GPS_found er " + $scope.GPS_found);
-	
+
+    	
 /* 	Add map to #map_canvas */
     $scope.map = new google.maps.Map(document.getElementById($scope.map_id), $scope.mapOptions);
 	window.map=$scope.map
@@ -42,17 +37,14 @@ function mapCtrl($scope,$rootScope) {
 	
 	$scope.$emit($scope.map_set_position, [latitude, longitude]);
 	
-	
+/*
 	// adds a listener to the marker
 	// gets the coords when drag event ends
 	// then updates the input with the new coords
-/*
 	google.maps.event.addListener($scope.marker, 'dragend', function(event) {
 		console.debug('new position is '+event.latLng.lat()+' / '+event.latLng.lng());
 	});
 */
-	
-	
   }
   
   $scope.drawCurrentPosition = function(){
@@ -70,12 +62,15 @@ function mapCtrl($scope,$rootScope) {
   
   $scope.getPositionSuccess = function(position){
   		console.log('getPositionSuccess ran');
-  		console.log("Præcisionen er " + position.coords.accuracy + "m");                            
-  		$scope.$emit('setAccuracy', position.coords.accuracy);
+  	    $scope.GPS_found = true;
+  	    console.log("gps found")
   		$scope.initialize(position.coords.latitude, position.coords.longitude)
   }
   
   $scope.getPositionError = function(err){
-	  console.log(err)
+	  	console.log(err)
+	  	console.log("gps not found")
+
+	  	$scope.GPS_found = false; 
   }
 }

@@ -1,4 +1,3 @@
-
 /* Is this needed? */
 angular.module("loadmaster",[])
   .config(function($httpProvider){
@@ -6,9 +5,7 @@ angular.module("loadmaster",[])
 });
 
 /* User controller with angularjs */
-function userCtrl($scope) {
-    console.log("UserCtrl Loaded");
-		
+function userCtrl($scope) {		
 	$scope.trip =
     {	
 		license_plate 		: null,
@@ -41,7 +38,6 @@ function userCtrl($scope) {
 		$scope.trip.start_comments 	= start_comments;
 		$scope.trip.cargo 			= cargo;
 		$scope.AddStartValuesToDB();
-
 	})
 	
 	$scope.$on('setend_timestamp',function(ev,end_time_stamp){
@@ -49,15 +45,8 @@ function userCtrl($scope) {
 		$scope.AddEndValuesToDB();
 
 	})
-					
-	$scope.submit_trip = function(){
-		console.log('submit ran on userCtrl');
-		console.log($scope.trip);
-
-	}
 	 
-	 	/* --------------  Database ---------------- */
-	 	
+	/* --------------  Database ---------------- */	 	
 	// called when the application loads
 	$scope.initializeDB = function(){
 	
@@ -87,7 +76,7 @@ function userCtrl($scope) {
 	 
 			// IMPORTANT FOR DEBUGGING!!!!
 			// you can uncomment this next line if you want the table Trip to be empty each time the application runs
-			tx.executeSql( 'DROP TABLE Trip');
+			// tx.executeSql( 'DROP TABLE Trip');
 		
 			 
 			// this line actually creates the table User if it does not exist and sets up the three columns and their types
