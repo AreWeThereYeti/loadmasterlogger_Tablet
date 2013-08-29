@@ -145,11 +145,9 @@ function insertRecord() {
 				});
 			});
 		}
-	
 
 /* Syncs with server */
 function InsertRecordOnServerFunction(trips){  // Function for insert Record into SQl Server 	 
-
 		$.ajax({
 		type: "POST",
 		url: "http://192.168.1.33:3000/api/v1/trips",

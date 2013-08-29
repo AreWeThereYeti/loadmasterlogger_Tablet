@@ -49,11 +49,22 @@
 			   <option value="flute">Nummerplade2</option>
 			   <option value="Andreas' mor">Nummerplade3</option>
 			</select>
-			
-			<div class="map_container">	
-				<div ng-map-start ng-controller="mapCtrl">
+		    
+			<div ng-switch on="selection">
+				<div ng-switch-default>
+				<p>Looking for gps signal
 				</div>
-			
+		        <div ng-switch-when="gps_found">GPS Found</div>
+					<div class="map_container" >	
+						<div ng-map-start ng-controller="mapCtrl"></div>
+					</div>
+				</div>		
+				<div ng-switch-when="gps_found" class="manuel">
+					<p>Andreas har en tyk arm. Og en tynd!</p>
+					<label for="textarea-a">Textarea:</label>
+					<textarea name="textarea" id="textarea-a">	
+					</textarea>
+				</div>				
 			</div>
 			<label for="select-choice-0" class="select">Hvad kører du med</label>
 			<select class="requiredInput" name="cargo" ng-model="cargo" id="select_cargo">

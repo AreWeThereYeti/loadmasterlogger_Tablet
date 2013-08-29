@@ -8,8 +8,6 @@ function tripCtrl($scope, $http) {
 		$event.preventDefault();
 		$.mobile.changePage("#two");
 	};
-	
-	
 		
 	$scope.submit_end = function($event) {
 		console.log("Submit_end funktion");

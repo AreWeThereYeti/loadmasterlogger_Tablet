@@ -63,7 +63,6 @@ function mapCtrl($scope,$rootScope) {
   $scope.getPositionSuccess = function(position){
   		console.log('getPositionSuccess ran');
   	    $scope.GPS_found = true;
-  	    console.log("gps found")
   		$scope.initialize(position.coords.latitude, position.coords.longitude)
   }
   
