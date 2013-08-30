@@ -12,6 +12,7 @@ angular.module('loadmaster', [])
 	    return {
 	    replace: true,
 	    templateUrl: '../www/js/angular/templates/map_start.html',
+	    controller:mapCtrl,
 	    link:function(scope,element,attrs){
 	    	scope.map_id="map_canvas_start"
 			scope.map_set_position="setstart_location"
@@ -28,6 +29,7 @@ angular.module('loadmaster', [])
 				console.log(' pagewhow ran on #home')
 				scope.drawCurrentPosition()
 			} )
+			$('.gpsnotfound').trigger("create");
 			}
 		}
 	})
@@ -40,20 +42,12 @@ angular.module('loadmaster', [])
 			$('geoTemp').html('Ready...')
 	    	scope.map_id="map_canvas_end"
 	    	scope.map_set_position="setend_location"
-
-	    	/*
-if(window.deviceReady){
-				scope.drawCurrentPosition()
-	    	}else{
-		    	document.addEventListener("deviceready", function(){
-					scope.drawCurrentPosition()
-				}, false);
-	    	}
-*/
 	    	$('#two').bind( "pageshow", function( event ) {
 	    		console.log(' pageshow ran on #two')
 				scope.drawCurrentPosition()
 			} )
+			$('.gpsnotfound').trigger("create");
+
 	    }
 	};
 });

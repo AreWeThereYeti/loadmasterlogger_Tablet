@@ -1,5 +1,9 @@
+
+
 function mapCtrl($scope,$rootScope) {
 	console.log("mapCtrl Loaded");
+
+	$scope.gps_found=null;
 	
 	/* 			Initialize map */
   $scope.initialize = function(latitude, longitude) {
@@ -17,7 +21,8 @@ function mapCtrl($scope,$rootScope) {
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     
-	
+
+    	
 /* 	Add map to #map_canvas */
     $scope.map = new google.maps.Map(document.getElementById($scope.map_id), $scope.mapOptions);
 	window.map=$scope.map
@@ -31,26 +36,19 @@ function mapCtrl($scope,$rootScope) {
 	   title: "Start Position"
 	});
 	
-
-
-	
 	$scope.$emit($scope.map_set_position, [latitude, longitude]);
 	
-	
+/*
 	// adds a listener to the marker
 	// gets the coords when drag event ends
 	// then updates the input with the new coords
-/*
 	google.maps.event.addListener($scope.marker, 'dragend', function(event) {
 		console.debug('new position is '+event.latLng.lat()+' / '+event.latLng.lng());
 	});
 */
-	
-/* 	google.maps.event.trigger($scope.map,'resize'); */
-	
   }
   
-  	$scope.drawCurrentPosition = function(){
+  $scope.drawCurrentPosition = function(){
   		navigator.geolocation.getCurrentPosition(function success(position){
 			$scope.$apply(function(scope){
 		  	scope.getPositionSuccess(position)
@@ -63,15 +61,31 @@ function mapCtrl($scope,$rootScope) {
 	  }, { maximumAge: 5000, timeout: 15000, enableHighAccuracy: true });
   }
   
-  	$scope.getPositionSuccess = function(position){
+  $scope.getPositionSuccess = function(position){
   		console.log('getPositionSuccess ran');
-  		console.log("Præcisionen er " + position.coords.accuracy + "m");                            
-  		$scope.$emit('setAccuracy', position.coords.accuracy);
+  	    $scope.gps_found = true;
   		$scope.initialize(position.coords.latitude, position.coords.longitude)
   }
   
   $scope.getPositionError = function(err){
-	  console.log(err)
+	  	console.log(err)
+	  	console.log("gps not found")
+
+	  	$scope.gps_found = false; 
   }
+  
+  $scope.gpsStateUndefined = function(){
+	return $scope.gps_found==null
+  }
+  
+  $scope.gpsFound = function(){
+	return $scope.gps_found==true
+  }
+  
+  $scope.gpsNotFound = function(){
+  	
+	return $scope.gps_found==false;
 	
+  }
+  
 }
