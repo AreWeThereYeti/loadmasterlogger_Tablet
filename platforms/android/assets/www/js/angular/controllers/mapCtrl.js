@@ -3,6 +3,7 @@
 function mapCtrl($scope,$rootScope) {
 	console.log("mapCtrl Loaded");
 
+	$scope.gps_found=null;
 	
 	/* 			Initialize map */
   $scope.initialize = function(latitude, longitude) {
@@ -62,7 +63,7 @@ function mapCtrl($scope,$rootScope) {
   
   $scope.getPositionSuccess = function(position){
   		console.log('getPositionSuccess ran');
-  	    $scope.GPS_found = true;
+  	    $scope.gps_found = true;
   		$scope.initialize(position.coords.latitude, position.coords.longitude)
   }
   
@@ -70,6 +71,19 @@ function mapCtrl($scope,$rootScope) {
 	  	console.log(err)
 	  	console.log("gps not found")
 
-	  	$scope.GPS_found = false; 
+	  	$scope.gps_found = false; 
   }
+  
+  $scope.gpsStateUndefined = function(){
+	return $scope.gps_found==null
+  }
+  
+  $scope.gpsFound = function(){
+	return $scope.gps_found==true
+  }
+  
+  $scope.gpsNotFound = function(){
+	return $scope.gps_found==false
+  }
+  
 }

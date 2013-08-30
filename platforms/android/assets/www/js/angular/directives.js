@@ -12,6 +12,7 @@ angular.module('loadmaster', [])
 	    return {
 	    replace: true,
 	    templateUrl: '../www/js/angular/templates/map_start.html',
+	    controller:mapCtrl,
 	    link:function(scope,element,attrs){
 	    	scope.map_id="map_canvas_start"
 			scope.map_set_position="setstart_location"
