@@ -126,11 +126,13 @@ function insertRecord() {
 					for (var i = 0, item = null; i < dataset.length; i++) {
 						item = dataset.item(i);
 						var trip={
-							id				: item['Id'],
+							trip_id			: item['_trip_id'],
 							cargo			: item['_cargo'],
 							license_plate 	: item['_license_plate'],
 							start_location 	: item['_start_location'],
+							start_adress 	: item['_start_adress'],
 							end_location 	: item['_end_location'],
+							end_adress	 	: item['_end_adress'],
 							start_timestamp : item['_start_timestamp'],
 							end_timestamp 	: item['_end_timestamp'],
 							start_comments 	: item['_start_comments'],

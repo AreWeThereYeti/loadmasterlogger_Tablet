@@ -29,6 +29,7 @@ angular.module('loadmaster', [])
 				console.log(' pagewhow ran on #home')
 				scope.drawCurrentPosition()
 			} )
+			$('.gpsnotfound').trigger("create");
 			}
 		}
 	})
@@ -54,7 +55,12 @@ if(window.deviceReady){
 	    	$('#two').bind( "pageshow", function( event ) {
 	    		console.log(' pageshow ran on #two')
 				scope.drawCurrentPosition()
+/* 				$('[type="submit"]').button('disable');			 */
+/* 				$("#submit_end").button("disable"); */
+
 			} )
+			$('.gpsnotfound').trigger("create");
+
 	    }
 	};
 });

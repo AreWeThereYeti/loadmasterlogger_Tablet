@@ -83,7 +83,9 @@ function mapCtrl($scope,$rootScope) {
   }
   
   $scope.gpsNotFound = function(){
-	return $scope.gps_found==false
+  	
+	return $scope.gps_found==false;
+	
   }
   
 }
