@@ -1,6 +1,13 @@
 /* trip controller with angularjs */
 function tripCtrl($scope, $http) {
-	$("#submit_start").button("disable");
+	if($("#home").is(':visible')){
+		$("#submit_start").button("disable");
+		}
+		
+	if($("#two").is(':visible')){
+		$("#submit_end").button("disable");
+	}
+
 
 	
 	/* 	Submit buttons */
@@ -26,8 +33,8 @@ function tripCtrl($scope, $http) {
 		$scope.end_location		= null;
 		$scope.start_comments	= null;
 		$scope.end_comments		= null;
-		$scope.start_adress		= null;
-		$scope.end_adress 		= null;
+		$scope.start_address		= null;
+		$scope.end_address 		= null;
 		if($("select").is(':visible')){
 			console.log("select is visible");
 			$("select").prop("selectedIndex",0);
@@ -36,39 +43,38 @@ function tripCtrl($scope, $http) {
 	})
 	
 	$scope.$watch('license_plate + cargo + trip.start_location', function () {
+/*
 		if ($scope.license_plate ==="" || $scope.cargo ==="" || !!$scope.license_plate || !!$scope.cargo || $scope.license_plate =="0" || $scope.cargo =="0"){
-/* 			if($("#submit_start").is(':visible')){	 */
+			if($("#submit_start").is(':visible')){	 
 				console.log("submit_start is visible and disabled");
 				$("#submit_start").button("disable");
 				$("#submit_start").button("refresh");
-/* 			} */
+ 			} 
 		}
+*/
 		
-		console.log("start adress er " + $scope.trip.start_adress)
+		console.log("start address er " + $scope.trip.start_address)
 		console.log("start location er " + $scope.trip.start_location)
-		
 		if($scope.license_plate && $scope.cargo && $scope.license_plate != "0" && $scope.cargo != "0"){
-/* 			if( $scope.trip.start_location == null || $scope.trip.start_adress == ""){ */
-				console.log("checking if adress is visible. trip.start_location er" + $scope.trip.start_location + "og  trip.start_adress er " + $scope.trip.start_adress)
-/* 				if($("#submit_start").is(':visible')){ */
+			if( $scope.trip.start_location !== null || $scope.trip.start_address != ""){
+					if($("#home").is(':visible')){
+					console.log("checking if address is visible. trip.start_location er" + $scope.trip.start_location + "og  trip.start_address er " + $scope.trip.start_address)
 					console.log("submit_start is visible and enabled");
 					$("#submit_start").button("enable");
-					$("#submit_start").button("refresh");
-/* 				} */
-/* 			} */
+					$("#submit_start").button("refresh");			
+				}
+			}
 		}			
 	});
 
-/*
-	$scope.$watch('trip.end_location + trip.end_adress', function () {
-		console.log('tip.end_location or trip.end_adress changed')	
-		if( $scope.trip.end_location != null || $scope.trip.end_adress != null){
-			if($("#submit_end").is(':visible')){
+	$scope.$watch('trip.end_location + trip.end_address', function () {
+		console.log('tip.end_location or trip.end_address changed')	
+		if( $scope.trip.end_location != null || $scope.trip.end_address != null){
+			if($("#two").is(':visible')){
 				console.log("submit_end is visible");
 			    $("#submit_end").button("enable");
 				$("#submit_end").button("refresh");
 			}
 		}
 	});
-*/
 }              
