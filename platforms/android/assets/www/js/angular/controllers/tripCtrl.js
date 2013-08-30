@@ -68,7 +68,7 @@ function tripCtrl($scope, $http) {
 	$scope.$watch('license_plate + cargo + start_location + start_address', function () {
 		if($("#home").is(':visible')){
 			if(!!$scope.license_plate && !!$scope.cargo && $scope.license_plate != "0" && $scope.cargo != "0"){
-				if(!!$scope.start_address && $scope.start_address !=""){
+				if(!!$scope.start_location || (!!$scope.start_address && $scope.start_address !="")){
 					$scope.triggerButtonRefresh("#submit_start")			
 				}else{
 					alert('cant trigger refresh yet')
