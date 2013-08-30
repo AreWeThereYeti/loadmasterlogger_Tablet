@@ -20,33 +20,12 @@ function userCtrl($scope) {
 		end_comments		: null	
 	};
 
-	/* 	Set positions */
-	$scope.$on('setstart_location',function(ev,start_location){
-		$scope.trip.start_location=start_location;
-	});
-	
-	$scope.$on('setend_location',function(ev,end_location){
-		$scope.trip.end_location=end_location;
-	})
+
 	
 	$scope.submitStartNewTrip = function() {
 		$scope.$broadcast('resetTripValues');
 	}
 	
-	/* 	Set timeStamps */
-	$scope.$on('setstart_timestamp',function(ev,start_time_stamp, cargo,license_plate, start_comments){
-		$scope.trip.start_timestamp	= start_time_stamp;
-		$scope.trip.license_plate 	= license_plate;
-		$scope.trip.start_comments 	= start_comments;
-		$scope.trip.cargo 			= cargo;
-		$scope.AddStartValuesToDB();
-	})
-	
-	$scope.$on('setend_timestamp',function(ev,end_time_stamp){
-		$scope.trip.end_timestamp=end_time_stamp;
-		$scope.AddEndValuesToDB();
-
-	})
 	 
 	/* --------------  Database ---------------- */	 	
 	// called when the application loads
@@ -78,7 +57,7 @@ function userCtrl($scope) {
 	 
 			// IMPORTANT FOR DEBUGGING!!!!
 			// you can uncomment this next line if you want the table Trip to be empty each time the application runs
-			// tx.executeSql( 'DROP TABLE Trip');
+			 tx.executeSql( 'DROP TABLE Trip');
 		
 			 
 			// this line actually creates the table User if it does not exist and sets up the three columns and their types
@@ -123,6 +102,11 @@ function userCtrl($scope) {
 		);
 		return false;
 	} 
+	
+		$scope.triggerButtonRefresh = function(id){
+		$(id).button("enable");
+		$(id).button("refresh");
+	}
 }
 
 

@@ -7,8 +7,6 @@ function tripCtrl($scope, $http) {
 	if($("#two").is(':visible')){
 		$("#submit_end").button("disable");
 	}
-
-
 	
 	/* 	Submit buttons */
 	$scope.submit = function($event) {
@@ -42,39 +40,52 @@ function tripCtrl($scope, $http) {
 		}
 	})
 	
-	$scope.$watch('license_plate + cargo + trip.start_location', function () {
-/*
-		if ($scope.license_plate ==="" || $scope.cargo ==="" || !!$scope.license_plate || !!$scope.cargo || $scope.license_plate =="0" || $scope.cargo =="0"){
-			if($("#submit_start").is(':visible')){	 
-				console.log("submit_start is visible and disabled");
-				$("#submit_start").button("disable");
-				$("#submit_start").button("refresh");
- 			} 
-		}
-*/
-		
-		console.log("start address er " + $scope.trip.start_address)
-		console.log("start location er " + $scope.trip.start_location)
-		if($scope.license_plate && $scope.cargo && $scope.license_plate != "0" && $scope.cargo != "0"){
-			if( $scope.trip.start_location !== null || $scope.trip.start_address != ""){
-					if($("#home").is(':visible')){
-					console.log("checking if address is visible. trip.start_location er" + $scope.trip.start_location + "og  trip.start_address er " + $scope.trip.start_address)
-					console.log("submit_start is visible and enabled");
-					$("#submit_start").button("enable");
-					$("#submit_start").button("refresh");			
+	
+			/* 	Set positions */
+	$scope.$on('setstart_location',function(ev,start_location){
+		$scope.start_location=start_location;
+	});
+	
+	$scope.$on('setend_location',function(ev,end_location){
+		$scope.end_location=end_location;
+	})
+	
+	/* 	Set timeStamps */
+	$scope.$on('setstart_timestamp',function(ev,start_time_stamp, cargo,license_plate, start_comments){
+		$scope.start_timestamp	= start_time_stamp;
+		$scope.license_plate 	= license_plate;
+		$scope.start_comments 	= start_comments;
+		$scope.cargo 			= cargo;
+		$scope.AddStartValuesToDB();
+	})
+	
+	$scope.$on('setend_timestamp',function(ev,end_time_stamp){
+		$scope.end_timestamp=end_time_stamp;
+		$scope.AddEndValuesToDB();
+
+	})
+	
+	$scope.$watch('license_plate + cargo + start_location + start_address', function () {
+		if($("#home").is(':visible')){
+			if(!!$scope.license_plate && !!$scope.cargo && $scope.license_plate != "0" && $scope.cargo != "0"){
+				if(!!$scope.start_address && $scope.start_address !=""){
+					$scope.triggerButtonRefresh("#submit_start")			
+				}else{
+					alert('cant trigger refresh yet')
 				}
 			}
 		}			
 	});
 
-	$scope.$watch('trip.end_location + trip.end_address', function () {
-		console.log('tip.end_location or trip.end_address changed')	
-		if( $scope.trip.end_location != null || $scope.trip.end_address != null){
+	$scope.$watch('end_location + end_address', function () {
+		console.log('trip.end_location or trip.end_address changed')	
+		if( $scope.end_location != null || $scope.end_address == ""){
 			if($("#two").is(':visible')){
-				console.log("submit_end is visible");
-			    $("#submit_end").button("enable");
-				$("#submit_end").button("refresh");
+/* 			    $scope.triggerButtonRefresh("#submit_end"); */
 			}
 		}
 	});
+	
 }              
+
+/* $scope.trip.end_address.value.length */

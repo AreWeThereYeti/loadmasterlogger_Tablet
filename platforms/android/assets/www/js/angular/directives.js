@@ -42,22 +42,9 @@ angular.module('loadmaster', [])
 			$('geoTemp').html('Ready...')
 	    	scope.map_id="map_canvas_end"
 	    	scope.map_set_position="setend_location"
-
-	    	/*
-if(window.deviceReady){
-				scope.drawCurrentPosition()
-	    	}else{
-		    	document.addEventListener("deviceready", function(){
-					scope.drawCurrentPosition()
-				}, false);
-	    	}
-*/
 	    	$('#two').bind( "pageshow", function( event ) {
 	    		console.log(' pageshow ran on #two')
 				scope.drawCurrentPosition()
-/* 				$('[type="submit"]').button('disable');			 */
-/* 				$("#submit_end").button("disable"); */
-
 			} )
 			$('.gpsnotfound').trigger("create");
 
