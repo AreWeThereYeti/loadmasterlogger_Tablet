@@ -1,13 +1,6 @@
 /* trip controller with angularjs */
 function tripCtrl($scope, $http) {
-	if($("#home").is(':visible')){
-		$("#submit_start").button("disable");
-		}
-		
-	if($("#two").is(':visible')){
-		$("#submit_end").button("disable");
-	}
-	
+
 	/* 	Submit buttons */
 	$scope.submit = function($event) {
 		$scope.$emit('setstart_timestamp', new Date().getTime(),$scope.cargo,$scope.license_plate,$scope.start_comments);
@@ -19,27 +12,14 @@ function tripCtrl($scope, $http) {
 	$scope.submit_end = function($event) {
 		console.log("Submit_end funktion");
 		$scope.$emit('setend_timestamp', new Date().getTime());
-/* 		$("#submit_start").button("disable"); */
+		$event.preventDefault();
+		$.mobile.changePage("#three");
+	    $("#submit_end").button("enable");
+		$("#submit_end").button("refresh");
+		$("#submit_start").button("enable");
+		$("#submit_start").button("refresh");
+
 	};
-	
-	$scope.$on('resetTripValues',function(){
-		$scope.license_plate 	= null;
-		$scope.cargo			= null;
-		$scope.start_timestamp 	= null;
-		$scope.end_timestamp 	= null;
-		$scope.start_location	= null;
-		$scope.end_location		= null;
-		$scope.start_comments	= null;
-		$scope.end_comments		= null;
-		$scope.start_address		= null;
-		$scope.end_address 		= null;
-		if($("select").is(':visible')){
-			console.log("select is visible");
-			$("select").prop("selectedIndex",0);
-			$('select').selectmenu('refresh', true);
-		}
-	})
-	
 	
 			/* 	Set positions */
 	$scope.$on('setstart_location',function(ev,start_location){
@@ -67,25 +47,27 @@ function tripCtrl($scope, $http) {
 	
 	$scope.$watch('license_plate + cargo + start_location + start_address', function () {
 		if($("#home").is(':visible')){
+			console.log("Vi er på side 1 ")
+
 			if(!!$scope.license_plate && !!$scope.cargo && $scope.license_plate != "0" && $scope.cargo != "0"){
 				if(!!$scope.start_location || (!!$scope.start_address && $scope.start_address !="")){
-					$scope.triggerButtonRefresh("#submit_start")			
-				}else{
-					alert('cant trigger refresh yet')
+					console.log("aktivere knapper på side 1 ")
+
+					$("#submit_start").button("enable");
+					$("#submit_start").button("refresh");			
 				}
 			}
 		}			
 	});
-
+	
 	$scope.$watch('end_location + end_address', function () {
-		console.log('trip.end_location or trip.end_address changed')	
-		if( $scope.end_location != null || $scope.end_address == ""){
-			if($("#two").is(':visible')){
-/* 			    $scope.triggerButtonRefresh("#submit_end"); */
+		if($("#two").is(':visible')){
+			console.log("vi er på side 2")
+			if(!!$scope.end_location || (!!$scope.end_address && $scope.end_address !="")){
+				console.log("aktivere knapper på side 1 ")
+			    $("#submit_end").button("enable");
+				$("#submit_end").button("refresh");
 			}
 		}
 	});
-	
-}              
-
-/* $scope.trip.end_address.value.length */
+}             

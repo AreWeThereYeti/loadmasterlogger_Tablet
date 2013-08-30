@@ -19,13 +19,26 @@ function userCtrl($scope) {
 		start_comments		: null,
 		end_comments		: null	
 	};
-
-
 	
-	$scope.submitStartNewTrip = function() {
-		$scope.$broadcast('resetTripValues');
+		$scope.submitStartNewTrip = function($event){
+		$event.preventDefault();
+		$.mobile.changePage("#home");
+		$scope.license_plate 	= null;
+		$scope.cargo			= null;
+		$scope.start_timestamp 	= null;
+		$scope.end_timestamp 	= null;
+		$scope.start_location	= null;
+		$scope.end_location		= null;
+		$scope.start_comments	= null;
+		$scope.end_comments		= null;
+		$scope.start_address	= null;
+		$scope.end_address 		= null;
+		if($("select").is(':visible')){
+			console.log("select is visible");
+			$("select").prop("selectedIndex",0);
+			$('select').selectmenu('refresh', true);
+		}
 	}
-	
 	 
 	/* --------------  Database ---------------- */	 	
 	// called when the application loads
@@ -98,15 +111,10 @@ function userCtrl($scope) {
 		// this is the section that actually inserts the values into the User table
 		$scope.db.transaction(function(transaction) {
 			transaction.executeSql('UPDATE Trip SET _end_timestamp ="'+$scope.trip.end_timestamp+'", _end_location ="'+$scope.trip.end_location+'", _end_address ="'+$scope.trip.end_address+'", _end_comments ="'+$scope.trip.end_comments+'" WHERE Id= last_insert_rowid()',[]);
-			},function error(err){alert('error on save to local db !!!' + err)}, function success(){}
+			},function error(err){alert('error on save to local db ' + err)}, function success(){}
 		);
 		return false;
 	} 
-	
-		$scope.triggerButtonRefresh = function(id){
-		$(id).button("enable");
-		$(id).button("refresh");
-	}
 }
 
 
