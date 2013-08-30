@@ -78,7 +78,7 @@ function userCtrl($scope) {
 	 
 			// IMPORTANT FOR DEBUGGING!!!!
 			// you can uncomment this next line if you want the table Trip to be empty each time the application runs
-			 tx.executeSql( 'DROP TABLE Trip');
+			// tx.executeSql( 'DROP TABLE Trip');
 		
 			 
 			// this line actually creates the table User if it does not exist and sets up the three columns and their types
