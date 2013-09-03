@@ -71,7 +71,7 @@ var app = {
 var intervalID = setInterval(function(){
 	checkConnection();
 	console.log("firing checkConnection")
-}, 60000);
+}, 5000);
 
 function checkConnection(transaction, results, $scope){
 	console.log("Checking connection");
@@ -174,6 +174,7 @@ function InsertRecordOnServerFunction(trips){  // Function for insert Record int
 		processdata: true,
 		success: function (msg)
 		{
+			console.log(msg)
 			//On Successfull service call
 /* 			dropRowsSynced(msg); Uncomment this when success message is received. Make this function receive synced rows from server*/ 
 		},

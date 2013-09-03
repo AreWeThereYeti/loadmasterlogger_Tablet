@@ -3,7 +3,14 @@ function tripCtrl($scope, $http) {
 
 	/* 	Submit buttons */
 	$scope.submit = function($event) {
-		$scope.$emit('setstart_timestamp', new Date().getTime(),$scope.cargo,$scope.license_plate,$scope.start_comments);
+		$scope.AddStartValuesToDB({
+			license_plate	:	$scope.license_plate,
+			cargo			:	$scope.cargo,
+			start_timestamp	:	new Date().getTime(),
+			start_location	:	$scope.start_location,
+			start_address	:	$scope.start_address,
+			start_comments	:	$scope.start_comments
+		});
 		console.log("Cargo er i submit " + $scope.cargo);
 		$event.preventDefault();
 		$.mobile.changePage("#two");
@@ -11,8 +18,12 @@ function tripCtrl($scope, $http) {
 	};
 		
 	$scope.submit_end = function($event) {
-		console.log("Submit_end funktion");
-		$scope.$emit('setend_timestamp', new Date().getTime());
+		$scope.AddEndValuesToDB({
+			end_timestamp 	:	new Date().getTime(),
+			end_location	:	$scope.end_location,
+			end_address		:	$scope.end_address,
+			end_comments	:	$scope.end_comments
+		});
 		$event.preventDefault();
 		$.mobile.changePage("#three");
 	    $("#submit_end").button("enable");
@@ -30,23 +41,6 @@ function tripCtrl($scope, $http) {
 	
 	$scope.$on('setend_location',function(ev,end_location){
 		$scope.end_location=end_location;
-	})
-	
-	/* 	Set timeStamps */
-	$scope.$on('setstart_timestamp',function(ev,start_time_stamp, cargo,license_plate, start_comments){
-		$scope.start_timestamp	= start_time_stamp;
-		$scope.license_plate 	= license_plate;
-		$scope.start_comments 	= start_comments;
-		$scope.cargo 			= cargo;
-		console.log("cargo er " + $scope.cargo);
-		$scope.AddStartValuesToDB();
-	})
-	
-	$scope.$on('setend_timestamp',function(ev,end_time_stamp){
-		$scope.end_timestamp=end_time_stamp;
-		$scope.AddEndValuesToDB();
-
-
 	})
 	
 	$scope.$watch('license_plate + cargo + start_location + start_address', function () {

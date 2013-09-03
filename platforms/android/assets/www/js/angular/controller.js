@@ -7,7 +7,7 @@ angular.module("loadmaster",[])
 /* User controller with angularjs */
 function userCtrl($scope) {		
 
-		$scope.submitStartNewTrip = function($event){
+	$scope.submitStartNewTrip = function($event){
 		$event.preventDefault();
 		$.mobile.changePage("#home");
 		$scope.license_plate 	= null;
@@ -69,9 +69,9 @@ function userCtrl($scope) {
 	}
 	
 	// this is the function that puts values into the database from page #home
-	$scope.AddStartValuesToDB = function() {
+	$scope.AddStartValuesToDB = function(trip) {
 		
-		console.log("cargo er " + $scope.cargo);
+		console.log("cargo er " + trip.cargo);
 	 
 		if (!window.openDatabase) {
 			alert('Databases are not supported in this browser.');
@@ -83,7 +83,7 @@ function userCtrl($scope) {
 			console.log("Cargo er i submit og vi kører nu addstartvalues to db" + $scope.cargo)
 
 		
-			transaction.executeSql('INSERT INTO Trip(_license_plate, _cargo, _start_timestamp, _start_location, _start_address, _start_comments) VALUES ("'+$scope.license_plate+'", "'+$scope.cargo+'", "'+$scope.start_timestamp+'", "'+$scope.start_location+'", "'+$scope.start_address+'", "'+$scope.start_comments+'")');	
+			transaction.executeSql('INSERT INTO Trip(_license_plate, _cargo, _start_timestamp, _start_location, _start_address, _start_comments) VALUES ("'+trip.license_plate+'", "'+trip.cargo+'", "'+trip.start_timestamp+'", "'+trip.start_location+'", "'+trip.start_address+'", "'+trip.start_comments+'")');	
 		},function error(err){alert('error on save to local db ' + err)}, function success(){});
 		return false;
 	}
@@ -91,19 +91,17 @@ function userCtrl($scope) {
 /* 	"'+$scope.trip.license_plate+'", "'+$scope.trip.cargo+'", "'+$scope.trip.start_timestamp+'", "'+$scope.trip.start_location+'", "'+$scope.trip.start_address+'", "'+$scope.trip.start_comments+'" */
 	
 	// this is the function that puts values into the database from page #home
-	$scope.AddEndValuesToDB = function() {
+	$scope.AddEndValuesToDB = function(trip) {
 	 
 		if (!window.openDatabase) {
 			alert('Databases are not supported in this browser.');
 			return;
 		}
 
-		
-		console.log(+ $scope.end_timestamp + $scope.end_location + $scope.end_address + $scope.end_comments)
-	 
+			 
 		// this is the section that actually inserts the values into the User table
 		$scope.db.transaction(function(transaction) {
-			transaction.executeSql('UPDATE Trip SET _end_timestamp ="'+$scope.end_timestamp+'", _end_location ="'+$scope.end_location+'", _end_address ="'+$scope.end_address+'", _end_comments ="'+$scope.end_comments+'" WHERE Id= last_insert_rowid()',[]);
+			transaction.executeSql('UPDATE Trip SET _end_timestamp ="'+trip.end_timestamp+'", _end_location ="'+trip.end_location+'", _end_address ="'+trip.end_address+'", _end_comments ="'+trip.end_comments+'" WHERE Id= last_insert_rowid()',[]);
 			},function error(err){alert('error on save to local db ' + err)}, function success(){}
 		);
 		return false;
