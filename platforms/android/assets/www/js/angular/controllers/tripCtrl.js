@@ -14,10 +14,12 @@ function tripCtrl($scope, $http) {
 		$scope.$emit('setend_timestamp', new Date().getTime());
 		$event.preventDefault();
 		$.mobile.changePage("#three");
+/*
 	    $("#submit_end").button("enable");
 		$("#submit_end").button("refresh");
 		$("#submit_start").button("enable");
 		$("#submit_start").button("refresh");
+*/
 
 	};
 	
@@ -36,6 +38,7 @@ function tripCtrl($scope, $http) {
 		$scope.license_plate 	= license_plate;
 		$scope.start_comments 	= start_comments;
 		$scope.cargo 			= cargo;
+		console.log("cargo er " + $scope.cargo);
 		$scope.AddStartValuesToDB();
 	})
 	
