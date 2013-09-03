@@ -4,6 +4,8 @@ function tripCtrl($scope, $http) {
 	/* 	Submit buttons */
 	$scope.submit = function($event) {
 		$scope.$emit('setstart_timestamp', new Date().getTime(),$scope.cargo,$scope.license_plate,$scope.start_comments);
+		console.log("Cargo er i submit " + $scope.cargo);
+		$scope.AddStartValuesToDB();
 		$event.preventDefault();
 		$.mobile.changePage("#two");
 
@@ -12,13 +14,15 @@ function tripCtrl($scope, $http) {
 	$scope.submit_end = function($event) {
 		console.log("Submit_end funktion");
 		$scope.$emit('setend_timestamp', new Date().getTime());
+		$scope.AddEndValuesToDB();
+
 		$event.preventDefault();
 		$.mobile.changePage("#three");
 	    $("#submit_end").button("enable");
 		$("#submit_end").button("refresh");
 		$("#submit_start").button("enable");
 		$("#submit_start").button("refresh");
-
+		console.log("Cargo er i submit end " + $scope.cargo);
 	};
 	
 			/* 	Set positions */
@@ -36,12 +40,11 @@ function tripCtrl($scope, $http) {
 		$scope.license_plate 	= license_plate;
 		$scope.start_comments 	= start_comments;
 		$scope.cargo 			= cargo;
-		$scope.AddStartValuesToDB();
+		console.log("Cargo er i submit og vi kører nu addstartvalues to db" + $scope.cargo)
 	})
 	
 	$scope.$on('setend_timestamp',function(ev,end_time_stamp){
 		$scope.end_timestamp=end_time_stamp;
-		$scope.AddEndValuesToDB();
 
 	})
 	
@@ -51,8 +54,6 @@ function tripCtrl($scope, $http) {
 
 			if(!!$scope.license_plate && !!$scope.cargo && $scope.license_plate != "0" && $scope.cargo != "0"){
 				if(!!$scope.start_location || (!!$scope.start_address && $scope.start_address !="")){
-					console.log("aktivere knapper på side 1 ")
-
 					$("#submit_start").button("enable");
 					$("#submit_start").button("refresh");			
 				}
@@ -62,7 +63,7 @@ function tripCtrl($scope, $http) {
 	
 	$scope.$watch('end_location + end_address', function () {
 		if($("#two").is(':visible')){
-			console.log("vi er på side 2")
+/* 			console.log("vi er på side 2") */
 			if(!!$scope.end_location || (!!$scope.end_address && $scope.end_address !="")){
 				console.log("aktivere knapper på side 1 ")
 			    $("#submit_end").button("enable");

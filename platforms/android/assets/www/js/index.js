@@ -17,8 +17,7 @@
  * under the License.
  */
  
-/* window.deviceReady=false; */
-
+var canConnect = false;
  
     // Wait for device API libraries to load
 document.addEventListener("deviceready", onDeviceReady, false);
@@ -68,7 +67,20 @@ var app = {
     }
 };
 
-function isDatabaseEmpty(){
+function checkConnection(){
+	console.log("vi er nu i Checkconnection");
+	if(navigator.connection.type == Connection.UNKNOWN || navigator.connection.type == Connection.WIFI){
+		console.log('Vi fandt en unknown connection');
+		alert('Vi fandt en unknown connection')
+	} else if(navigator.connection.type == Connection.CELL_3G || navigator.connection.type == Connection.CELL_4G){
+		console.log("Found connection and Starting sync ")
+		if(databaseIsEmpty() == false){
+			syncToDatabase();
+		}
+	}
+}
+
+function databaseIsEmpty(){
 
 	// initial variables
 	var shortName = 'WebSqlDB';
@@ -94,20 +106,9 @@ function isDatabaseEmpty(){
 /* Call this function on upload success with recived IDs */
 
 
-function checkConnection(transaction, results, $scope){
-	console.log("vi er nu i CountHandler");
-	if(navigator.connection.type == Connection.UNKNOWN || navigator.connection.type == Connection.WIFI){
-		console.log('Vi fandt en unknown connection');
-		alert('Vi fandt en unknown connection')
-	} else if(navigator.connection.type == Connection.CELL_3G || navigator.connection.type == Connection.CELL_4G){
-		console.log("Found connection and Starting sync ")
-		syncToDatabase($scope);
-	}
-}
-
 /* Alternative method */
 
-function insertRecord() {
+function syncToDatabase() {
 /* 	if (navigator.connection.type == Connection.CELL_3G || navigator.connection.type == Connection.CELL_4G){  //Check internet is online or Off-line.	  */
 		
 		var shortName = 'WebSqlDB';
@@ -125,7 +126,7 @@ function insertRecord() {
 					var trips = new Array();
 					for (var i = 0, item = null; i < dataset.length; i++) {
 						item = dataset.item(i);
-						var trip={
+						var trip = {
 							trip_id			: item['Id'],
 							cargo			: item['_cargo'],
 							license_plate 	: item['_license_plate'],
@@ -162,7 +163,7 @@ function InsertRecordOnServerFunction(trips){  // Function for insert Record int
 		success: function (msg)
 		{
 			//On Successfull service call
-/* 			dropRowsSynced(msg); Uncomment this when success message is received*/ 
+/* 			dropRowsSynced(msg); Uncomment this when success message is received. Make this function receive synced rows from server*/ 
 		},
 		error: function (msg) {
 			alert("Error In Service");

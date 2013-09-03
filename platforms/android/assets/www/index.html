@@ -36,7 +36,6 @@
     </head>
 <body ng-user ng-controller="userCtrl">
 <!-- Start på pålæsning  -->
-<div >
 <div data-role="page" id="home">
 	<div data-role="header">
 		<h1>Pålæsning</h1>
@@ -61,7 +60,7 @@
 			   <option value="Ustabilgrus">UStabilgrus</option>
 			</select>
 			<label for="kommentarer" class="ui-hidden-accessible">Kommentarer</label>
-			<input type="text" name="start_comments" ng-model="start_comments"  id="comments" value="" placeholder="Skriv dine kommentarer her"/>			
+			<input type="text" name="start_comments" ng-model="start_comments"  id="comments_start" value="" placeholder="Skriv dine kommentarer her"/>			
 			<input type="submit" ng-click="submit($event)" data-icon="arrow-r" id="submit_start" disabled="disabled" value="Registrer" data-role="button">
 	    </form>
 	</div>
@@ -90,14 +89,8 @@
 			<h1>{{start_comments}}</h1>
 		</div>
 			<label for="kommentarer" class="ui-hidden-accessible">Kommentarer</label>
-			<input type="text" name="username" ng-model="end_comments" id="comments" value="" placeholder="Skriv dine kommentarer her"/>
+			<input type="text" name="username" ng-model="end_comments" id="comments_end" value="" placeholder="Skriv dine kommentarer her"/>
 			<input type="submit" data-icon="arrow-r" id="submit_end" ng-click="submit_end($event)" disabled="disabled" value="Registrer Aflæsning" data-role="button">
-
-			<!--
-
-			<p><a href="#three" data-role="button" data-corners="true" id="submit_end" ng-click="submit_end($event)" data-icon="arrow-r" data-shadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Registrer aflæsning</span></span></a></p>
-			
--->
 		</div>
 		<div data-role="footer">
 			<h1>Loadmaster ApS</h1>
@@ -115,7 +108,7 @@
 		<h1>Fedt! Det hele lykkedes. Tryk på knappen "ny tur" når </br> du er  klar til en ny pålæsning</h1>
     </div>
     
-    <input type="submit" data-icon="arrow-r" id="submit_end" ng-click="submitStartNewTrip($event)" value="Ny tur" data-role="button">
+    <input type="submit" data-icon="arrow-r" id="submitStartNewTrip" ng-click="submitStartNewTrip($event)" value="Ny tur" data-role="button">
 
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/angular/controller.js"></script>	
