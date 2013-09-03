@@ -6,20 +6,6 @@ angular.module("loadmaster",[])
 
 /* User controller with angularjs */
 function userCtrl($scope) {		
-	$scope.trip =
-    {	
-		license_plate 		: null,
-		cargo				: null,
-		start_timestamp 	: null,
-		end_timestamp 		: null,
-		start_location		: null,
-		end_location		: null,
-		start_address		: null,
-		end_address			: null,
-		start_comments		: null,
-		end_comments		: null	
-	};
-	
 		$scope.submitStartNewTrip = function($event){
 		$event.preventDefault();
 		$.mobile.changePage("#home");
@@ -34,7 +20,6 @@ function userCtrl($scope) {
 		$scope.start_address	= null;
 		$scope.end_address 		= null;
 		if($("select").is(':visible')){
-			console.log("select is visible");
 			$("select").prop("selectedIndex",0);
 			$('select').selectmenu('refresh', true);
 		}
@@ -70,7 +55,7 @@ function userCtrl($scope) {
 	 
 			// IMPORTANT FOR DEBUGGING!!!!
 			// you can uncomment this next line if you want the table Trip to be empty each time the application runs
-			 tx.executeSql( 'DROP TABLE Trip');
+			// tx.executeSql( 'DROP TABLE Trip');
 		
 			 
 			// this line actually creates the table User if it does not exist and sets up the three columns and their types
@@ -84,6 +69,8 @@ function userCtrl($scope) {
 	
 	// this is the function that puts values into the database from page #home
 	$scope.AddStartValuesToDB = function() {
+		
+		console.log("cargo er " + $scope.cargo);
 	 
 		if (!window.openDatabase) {
 			alert('Databases are not supported in this browser.');
@@ -93,10 +80,12 @@ function userCtrl($scope) {
 		// this is the section that actually inserts the values into the User table
 		$scope.db.transaction(function(transaction) {
 		
-			transaction.executeSql('INSERT INTO Trip(_license_plate, _cargo, _start_timestamp, _start_location, _start_address, _start_comments) VALUES ("'+$scope.trip.license_plate+'", "'+$scope.trip.cargo+'", "'+$scope.trip.start_timestamp+'", "'+$scope.trip.start_location+'", "'+$scope.trip.start_address+'", "'+$scope.trip.start_comments+'")');	
+			transaction.executeSql('INSERT INTO Trip(_license_plate, _cargo, _start_timestamp, _start_location, _start_address, _start_comments) VALUES ("'+$scope.license_plate+'", "'+$scope.cargo+'", "'+$scope.start_timestamp+'", "'+$scope.start_location+'", "'+$scope.start_address+'", "'+$scope.start_comments+'")');	
 		},function error(err){alert('error on save to local db ' + err)}, function success(){});
 		return false;
 	}
+	
+/* 	"'+$scope.trip.license_plate+'", "'+$scope.trip.cargo+'", "'+$scope.trip.start_timestamp+'", "'+$scope.trip.start_location+'", "'+$scope.trip.start_address+'", "'+$scope.trip.start_comments+'" */
 	
 	// this is the function that puts values into the database from page #home
 	$scope.AddEndValuesToDB = function() {
@@ -106,17 +95,13 @@ function userCtrl($scope) {
 			return;
 		}
 		
-		console.log($scope.trip.end_timestamp + $scope.trip.end_location + $scope.trip.end_address + $scope.trip.end_comments)
+		console.log(+ $scope.end_timestamp + $scope.end_location + $scope.end_address + $scope.end_comments)
 	 
 		// this is the section that actually inserts the values into the User table
 		$scope.db.transaction(function(transaction) {
-			transaction.executeSql('UPDATE Trip SET _end_timestamp ="'+$scope.trip.end_timestamp+'", _end_location ="'+$scope.trip.end_location+'", _end_address ="'+$scope.trip.end_address+'", _end_comments ="'+$scope.trip.end_comments+'" WHERE Id= last_insert_rowid()',[]);
+			transaction.executeSql('UPDATE Trip SET _end_timestamp ="'+$scope.end_timestamp+'", _end_location ="'+$scope.end_location+'", _end_address ="'+$scope.end_address+'", _end_comments ="'+$scope.end_comments+'" WHERE Id= last_insert_rowid()',[]);
 			},function error(err){alert('error on save to local db ' + err)}, function success(){}
 		);
 		return false;
 	} 
 }
-
-
-
-

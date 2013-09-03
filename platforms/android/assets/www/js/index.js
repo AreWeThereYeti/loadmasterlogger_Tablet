@@ -27,7 +27,6 @@ document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
 	window.deviceReady=true;
 	console.log("Device ready");
-/* 	countHandler(); */
 }
 
 /* ------ Initialize app ----------*/
@@ -68,47 +67,60 @@ var app = {
     }
 };
 
-function isDatabaseEmpty(){
+
+/* Call this function on upload success with recived IDs */
+
+var intervalID = setInterval(function(){
+	checkConnection();
+	console.log("firing checkConnection")
+}, 60000);
+
+function checkConnection(transaction, results, $scope){
+	console.log("Checking connection");
+	if(navigator.connection.type == Connection.UNKNOWN || navigator.connection.type == Connection.WIFI){
+		console.log('Unknown connection');
+	} else if(navigator.connection.type == Connection.CELL_3G || navigator.connection.type == Connection.CELL_4G){
+		console.log("Found connection. Checking if database is empty ")
+		isDatabaseEmpty();
+	}
+}
+
+function isDatabaseEmpty() {
 
 	// initial variables
 	var shortName = 'WebSqlDB';
 	var version = '1.0';
 	var displayName = 'WebSqlDB';
-	var maxSize = 65535;
-
+	var maxSize = 65535;	
 	db = openDatabase(shortName, version, displayName,maxSize);
+	var numberOfRows;
+
 	 
 	if (!window.openDatabase) {
 		alert('Databases are not supported in this browser.');
 		return;
 	}
-	 
-	// this is the section that actually inserts the values into the User table
-	db.transaction(function(transaction) {
-		transaction.executeSql('SELECT COUNT(*) FROM Trip',[], checkConnection);
-		},function error(err){alert('error selecting from database ' + err)}, function success(){}
-	);
-	return false;
-} 
 
-/* Call this function on upload success with recived IDs */
+	query = "SELECT * FROM Trip;";
+	db.transaction(function(transaction){
+         transaction.executeSql(query, [], function(tx, results){
 
-
-function checkConnection(transaction, results, $scope){
-	console.log("vi er nu i CountHandler");
-	if(navigator.connection.type == Connection.UNKNOWN || navigator.connection.type == Connection.WIFI){
-		console.log('Vi fandt en unknown connection');
-		alert('Vi fandt en unknown connection')
-	} else if(navigator.connection.type == Connection.CELL_3G || navigator.connection.type == Connection.CELL_4G){
-		console.log("Found connection and Starting sync ")
-		syncToDatabase($scope);
-	}
+             if (results.rows.length == 0) { 
+                  numberOfRows = results.rows.length;
+                   console.log("table has "+results.rows.length+" rows. returning "+ numberOfRows);
+                 }   else    {
+                  numberOfRows = results.rows.length;    
+                  console.log("table is not empty. returning number of rows : " + numberOfRows + ". Startin sync"); 
+                  syncToDatabase()
+                 }                               
+         },function error(err){alert('error selecting from database ' + err)}, function success(){});              
+	});
+	return numberOfRows;
 }
 
 /* Alternative method */
 
-function insertRecord() {
-/* 	if (navigator.connection.type == Connection.CELL_3G || navigator.connection.type == Connection.CELL_4G){  //Check internet is online or Off-line.	  */
+function syncToDatabase() {
 		
 		var shortName = 'WebSqlDB';
 		var version = '1.0';
@@ -137,10 +149,13 @@ function insertRecord() {
 							end_timestamp 	: item['_end_timestamp'],
 							start_comments 	: item['_start_comments'],
 							end_comments 	: item['_end_comments']
-							
 						};
-						console.log(trip)
-						trips.push(trip)
+						
+						if(!!item['_end_timestamp']){
+							console.log("end_timestamp er ikke null men " + item['_end_timestamp'])
+							console.log(trip)
+							trips.push(trip);	
+						}
 					}
 					InsertRecordOnServerFunction(trips);      // Call Function for insert Record into SQl Server
 
@@ -152,7 +167,7 @@ function insertRecord() {
 function InsertRecordOnServerFunction(trips){  // Function for insert Record into SQl Server 	 
 		$.ajax({
 		type: "POST",
-		url: "http://192.168.1.33:3000/api/v1/trips",
+		url: "http://195.231.85.191:5000/api/v1/trips",
 		data :  {
 		     access_token	:"b2baacd1a2e7e2ff5afd2c22795cff3d", // Skal kun sættes en gang ind i databasen
 		     trips			: trips,
@@ -190,7 +205,7 @@ function dropRowsSynced(){
 /* 	Deletes synced rows from trips table */
 	db.transaction(function(transaction) {
 		transaction.executeSql('DELETE FROM Trip WHERE id = ?', [/* Insert ID of synced rows */]);
-		},function error(err){alert('error selecting from database ' + err)}, function success(){}
+		},function error(err){alert('error deleting from database ' + err)}, function success(){}
 	);
 	return false;
 }
