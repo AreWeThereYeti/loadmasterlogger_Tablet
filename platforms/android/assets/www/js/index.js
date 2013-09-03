@@ -165,11 +165,11 @@ function syncToDatabase() {
 function InsertRecordOnServerFunction(trips){  // Function for insert Record into SQl Server 	 
 		$.ajax({
 		type: "POST",
-		url: "http://195.231.85.191:5000/api/v1/trips",
+		url: "http://localhost:3000/api/v1/trips",
 		data :  {
-		     access_token	:"b2baacd1a2e7e2ff5afd2c22795cff3d", // Skal kun sættes en gang ind i databasen
+		     access_token	:"f8fd3066e1c4cd9315595b14c5a58a14", // Skal kun sættes en gang ind i databasen
 		     trips			: trips,
-		     device_id		: 'new device'
+		     device_id		: 'new'
 		 },			
 		processdata: true,
 		success: function (msg)
