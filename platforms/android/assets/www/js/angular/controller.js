@@ -70,7 +70,7 @@ function userCtrl($scope) {
 	 
 			// IMPORTANT FOR DEBUGGING!!!!
 			// you can uncomment this next line if you want the table Trip to be empty each time the application runs
-			 tx.executeSql( 'DROP TABLE Trip');
+/* 			 tx.executeSql( 'DROP TABLE Trip'); */
 		
 			 
 			// this line actually creates the table User if it does not exist and sets up the three columns and their types
@@ -93,10 +93,12 @@ function userCtrl($scope) {
 		// this is the section that actually inserts the values into the User table
 		$scope.db.transaction(function(transaction) {
 		
-			transaction.executeSql('INSERT INTO Trip(_license_plate, _cargo, _start_timestamp, _start_location, _start_address, _start_comments) VALUES ("'+$scope.trip.license_plate+'", "'+$scope.trip.cargo+'", "'+$scope.trip.start_timestamp+'", "'+$scope.trip.start_location+'", "'+$scope.trip.start_address+'", "'+$scope.trip.start_comments+'")');	
+			transaction.executeSql('INSERT INTO Trip(_license_plate, _cargo, _start_timestamp, _start_location, _start_address, _start_comments) VALUES (3213, 3211, 3213, 3213, 3213, 32131)');	
 		},function error(err){alert('error on save to local db ' + err)}, function success(){});
 		return false;
 	}
+	
+/* 	"'+$scope.trip.license_plate+'", "'+$scope.trip.cargo+'", "'+$scope.trip.start_timestamp+'", "'+$scope.trip.start_location+'", "'+$scope.trip.start_address+'", "'+$scope.trip.start_comments+'" */
 	
 	// this is the function that puts values into the database from page #home
 	$scope.AddEndValuesToDB = function() {
@@ -106,17 +108,13 @@ function userCtrl($scope) {
 			return;
 		}
 		
-		console.log($scope.trip.end_timestamp + $scope.trip.end_location + $scope.trip.end_address + $scope.trip.end_comments)
+		console.log("trip. end timestamp" + $scope.trip.end_timestamp + $scope.trip.end_location + $scope.trip.end_address + $scope.trip.end_comments)
 	 
 		// this is the section that actually inserts the values into the User table
 		$scope.db.transaction(function(transaction) {
-			transaction.executeSql('UPDATE Trip SET _end_timestamp ="'+$scope.trip.end_timestamp+'", _end_location ="'+$scope.trip.end_location+'", _end_address ="'+$scope.trip.end_address+'", _end_comments ="'+$scope.trip.end_comments+'" WHERE Id= last_insert_rowid()',[]);
+			transaction.executeSql('UPDATE Trip SET _end_timestamp ="'+8080808080+'", _end_location ="'+$scope.trip.end_location+'", _end_address ="'+$scope.trip.end_address+'", _end_comments ="'+$scope.trip.end_comments+'" WHERE Id= last_insert_rowid()',[]);
 			},function error(err){alert('error on save to local db ' + err)}, function success(){}
 		);
 		return false;
 	} 
 }
-
-
-
-
