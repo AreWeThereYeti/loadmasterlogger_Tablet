@@ -5,7 +5,6 @@ function tripCtrl($scope, $http) {
 	$scope.submit = function($event) {
 		$scope.$emit('setstart_timestamp', new Date().getTime(),$scope.cargo,$scope.license_plate,$scope.start_comments);
 		console.log("Cargo er i submit " + $scope.cargo);
-		$scope.AddStartValuesToDB();
 		$event.preventDefault();
 		$.mobile.changePage("#two");
 
@@ -14,8 +13,6 @@ function tripCtrl($scope, $http) {
 	$scope.submit_end = function($event) {
 		console.log("Submit_end funktion");
 		$scope.$emit('setend_timestamp', new Date().getTime());
-		$scope.AddEndValuesToDB();
-
 		$event.preventDefault();
 		$.mobile.changePage("#three");
 	    $("#submit_end").button("enable");
@@ -23,6 +20,7 @@ function tripCtrl($scope, $http) {
 		$("#submit_start").button("enable");
 		$("#submit_start").button("refresh");
 		console.log("Cargo er i submit end " + $scope.cargo);
+
 	};
 	
 			/* 	Set positions */
@@ -40,23 +38,32 @@ function tripCtrl($scope, $http) {
 		$scope.license_plate 	= license_plate;
 		$scope.start_comments 	= start_comments;
 		$scope.cargo 			= cargo;
-		console.log("Cargo er i submit og vi kører nu addstartvalues to db" + $scope.cargo)
+		console.log("cargo er " + $scope.cargo);
+		$scope.AddStartValuesToDB();
 	})
 	
 	$scope.$on('setend_timestamp',function(ev,end_time_stamp){
 		$scope.end_timestamp=end_time_stamp;
+		$scope.AddEndValuesToDB();
+
 
 	})
 	
 	$scope.$watch('license_plate + cargo + start_location + start_address', function () {
 		if($("#home").is(':visible')){
 			console.log("Vi er på side 1 ")
-
+			console.log($scope.cargo)
 			if(!!$scope.license_plate && !!$scope.cargo && $scope.license_plate != "0" && $scope.cargo != "0"){
 				if(!!$scope.start_location || (!!$scope.start_address && $scope.start_address !="")){
+					console.log("aktiverer knapper på side 1 ")
 					$("#submit_start").button("enable");
 					$("#submit_start").button("refresh");			
 				}
+			}
+			else if($scope.license_plate === "0" || $scope.cargo === "0" || $scope.license_plate == null || $scope.cargo == null) {
+					console.log("Deaktiverer knapper på side 1 ")
+					$("#submit_start").button("disable");
+					$("#submit_start").button("refresh");		
 			}
 		}			
 	});

@@ -6,7 +6,26 @@ angular.module("loadmaster",[])
 
 /* User controller with angularjs */
 function userCtrl($scope) {		
-	
+
+		$scope.submitStartNewTrip = function($event){
+		$event.preventDefault();
+		$.mobile.changePage("#home");
+		$scope.license_plate 	= null;
+		$scope.cargo			= null;
+		$scope.start_timestamp 	= null;
+		$scope.end_timestamp 	= null;
+		$scope.start_location	= null;
+		$scope.end_location		= null;
+		$scope.start_comments	= null;
+		$scope.end_comments		= null;
+		$scope.start_address	= null;
+		$scope.end_address 		= null;
+		if($("select").is(':visible')){
+			$("select").prop("selectedIndex",0);
+			$('select').selectmenu('refresh', true);
+		}
+	}
+	 
 	/* --------------  Database ---------------- */	 	
 	// called when the application loads
 	$scope.initializeDB = function(){
@@ -51,7 +70,9 @@ function userCtrl($scope) {
 	
 	// this is the function that puts values into the database from page #home
 	$scope.AddStartValuesToDB = function() {
-
+		
+		console.log("cargo er " + $scope.cargo);
+	 
 		if (!window.openDatabase) {
 			alert('Databases are not supported in this browser.');
 			return;
@@ -67,6 +88,8 @@ function userCtrl($scope) {
 		return false;
 	}
 	
+/* 	"'+$scope.trip.license_plate+'", "'+$scope.trip.cargo+'", "'+$scope.trip.start_timestamp+'", "'+$scope.trip.start_location+'", "'+$scope.trip.start_address+'", "'+$scope.trip.start_comments+'" */
+	
 	// this is the function that puts values into the database from page #home
 	$scope.AddEndValuesToDB = function() {
 	 
@@ -74,38 +97,16 @@ function userCtrl($scope) {
 			alert('Databases are not supported in this browser.');
 			return;
 		}
-			 
+
+		
+		console.log(+ $scope.end_timestamp + $scope.end_location + $scope.end_address + $scope.end_comments)
+	 
 		// this is the section that actually inserts the values into the User table
 		$scope.db.transaction(function(transaction) {
 			transaction.executeSql('UPDATE Trip SET _end_timestamp ="'+$scope.end_timestamp+'", _end_location ="'+$scope.end_location+'", _end_address ="'+$scope.end_address+'", _end_comments ="'+$scope.end_comments+'" WHERE Id= last_insert_rowid()',[]);
 			},function error(err){alert('error on save to local db ' + err)}, function success(){}
 		);
 		return false;
-	} 
-
-		$scope.submitStartNewTrip = function($event){
-		$event.preventDefault();
-		$.mobile.changePage("#home");
-		$scope.license_plate 	= null;
-		$scope.cargo			= null;
-		$scope.start_timestamp 	= null;
-		$scope.end_timestamp 	= null;
-		$scope.start_location	= null;
-		$scope.end_location		= null;
-		$scope.start_comments	= null;
-		$scope.end_comments		= null;
-		$scope.start_address	= null;
-		$scope.end_address 		= null;
-		console.log("submitStartNewTrip running")
-		if($("select").is(':visible')){
-			console.log("select is visible");
-			$("select").prop("selectedIndex",0);
-			$('select').selectmenu('refresh', true);
-		}
 	}
-
-}
-
-
-
+} 
 
