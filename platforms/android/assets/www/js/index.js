@@ -205,7 +205,7 @@ function dropRowsSynced(){
 /* 	Deletes synced rows from trips table */
 	db.transaction(function(transaction) {
 		transaction.executeSql('DELETE FROM Trip WHERE id = ?', [/* Insert ID of synced rows */]);
-		},function error(err){alert('error selecting from database ' + err)}, function success(){}
+		},function error(err){alert('error deleting from database ' + err)}, function success(){}
 	);
 	return false;
 }
