@@ -18,6 +18,7 @@
  */
  
 var canConnect = false;
+isAccessTokenInDatabase();
  
     // Wait for device API libraries to load
 document.addEventListener("deviceready", onDeviceReady, false);
@@ -26,6 +27,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
 	window.deviceReady=true;
 	console.log("Device ready");
+	
 }
 
 /* ------ Initialize app ----------*/
@@ -48,6 +50,7 @@ var app = {
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
+        
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
@@ -80,14 +83,22 @@ function isAccessTokenInDatabase(){
 		return;
 	}
 	
+	console.log("is access token in database?")
+	
 	db.transaction(function (tx){
 		tx.executeSql('SELECT * FROM Auth', [], function (tx, result){  // Fetch records from SQLite
 			var dataset = result.rows; 
+			if (dataset.length == 0 ){
+					runSetupScreen();
+
+			}
+/*
 			access_token= dataset.item(0).access_token;	
 			console.log("access token " + access_token);
 			if(access_token == undefined){
 				runSetupScreen();
 			}
+*/
 		});
 	});	
 }

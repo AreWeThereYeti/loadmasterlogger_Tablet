@@ -13,6 +13,21 @@ function userCtrl($scope) {
 		$.mobile.changePage("#home");
 
 	}
+	
+	$scope.submitToken = function($event){
+
+		console.log($scope.access_token)
+		
+		// this is the section that actually inserts the values into the User table
+		$scope.db.transaction(function(transaction) {
+			transaction.executeSql('INSERT INTO AUTH (access_token) VALUES ("'+$scope.access_token+'")',[]);
+			},function error(err){alert('error on save to local db ' + err)}, function success(){}
+		);
+		
+/* 		transaction.executeSql('UPDATE Auth SET access_token ="'+$scope.access_token+'"',[]); */
+
+		return false;
+	}
 	 
 	/* --------------  Database ---------------- */	 	
 	// called when the application loads
@@ -44,11 +59,11 @@ function userCtrl($scope) {
 	 
 			// IMPORTANT FOR DEBUGGING!!!!
 			// you can uncomment these next twp lines if you want the table Trip and the table Auth to be empty each time the application runs
-			// tx.executeSql( 'DROP TABLE Trip');
- 			// tx.executeSql( 'DROP TABLE Auth');
+			 tx.executeSql( 'DROP TABLE Trip');
+ 			 tx.executeSql( 'DROP TABLE Auth');
 
 			tx.executeSql( 'CREATE TABLE IF NOT EXISTS Auth(access_token varchar)', []);
-			tx.executeSql( 'INSERT INTO Auth(access_token ) VALUES ("'+maxSize+'")', []);
+/* 			tx.executeSql( 'INSERT INTO Auth(access_token ) VALUES ("'++'")', []); */
 
 			 
 			// this line actually creates the table User if it does not exist and sets up the three columns and their types
