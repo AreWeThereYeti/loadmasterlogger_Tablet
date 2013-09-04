@@ -8,22 +8,10 @@ angular.module("loadmaster",[])
 function userCtrl($scope) {		
 
 	$scope.submitStartNewTrip = function($event){
+
 		$event.preventDefault();
 		$.mobile.changePage("#home");
-		$scope.license_plate 	= null;
-		$scope.cargo			= null;
-		$scope.start_timestamp 	= null;
-		$scope.end_timestamp 	= null;
-		$scope.start_location	= null;
-		$scope.end_location		= null;
-		$scope.start_comments	= null;
-		$scope.end_comments		= null;
-		$scope.start_address	= null;
-		$scope.end_address 		= null;
-		if($("select").is(':visible')){
-			$("select").prop("selectedIndex",0);
-			$('select').selectmenu('refresh', true);
-		}
+
 	}
 	 
 	/* --------------  Database ---------------- */	 	
