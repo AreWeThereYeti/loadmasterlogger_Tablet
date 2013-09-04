@@ -68,10 +68,12 @@ var app = {
 
 /* Call this function on upload success with recived IDs */
 
+/*
 var intervalID = setInterval(function(){
 	checkConnection();
 	console.log("firing checkConnection")
 }, 5000);
+*/
 
 function checkConnection(transaction, results, $scope){
 	console.log("Checking connection");
