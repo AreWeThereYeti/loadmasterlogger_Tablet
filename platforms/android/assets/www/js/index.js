@@ -66,15 +66,44 @@ var app = {
     }
 };
 
-/* Call this function on upload success with recived IDs */
+function isAccessTokenInDatabase(){
+		// initial variables
+	var shortName = 'WebSqlDB';
+	var version = '1.0';
+	var displayName = 'WebSqlDB';
+	var maxSize = 65535;	
+	db = openDatabase(shortName, version, displayName,maxSize);
 
-/*
+	 
+	if (!window.openDatabase) {
+		alert('Databases are not supported in this browser.');
+		return;
+	}
+	
+	db.transaction(function (tx){
+		tx.executeSql('SELECT * FROM Auth', [], function (tx, result){  // Fetch records from SQLite
+			var dataset = result.rows; 
+			access_token= dataset.item(0).access_token;	
+			console.log("access token " + access_token);
+			if(access_token == undefined){
+				runSetupScreen();
+			}
+		});
+	});	
+}
+
+function runSetupScreen(){
+	console.log("opening modal")
+	$("#modal" ).popup().popup("open");
+}
+
+
 var intervalID = setInterval(function(){
 	checkConnection();
 	console.log("firing checkConnection")
 }, 5000);
-*/
 
+/* check Connection */
 function checkConnection(transaction, results, $scope){
 	console.log("Checking connection");
 	if(navigator.connection.type == Connection.UNKNOWN || navigator.connection.type == Connection.WIFI){
@@ -85,6 +114,7 @@ function checkConnection(transaction, results, $scope){
 	}
 }
 
+/* Is database empty */
 function isDatabaseEmpty() {
 
 	// initial variables
@@ -118,8 +148,7 @@ function isDatabaseEmpty() {
 	return numberOfRows;
 }
 
-/* Alternative method */
-
+/* Sync to server */
 function syncToDatabase() {
 		
 		var shortName = 'WebSqlDB';
@@ -205,8 +234,18 @@ function dropRowsSynced(){
 	 
 /* 	Deletes synced rows from trips table */
 	db.transaction(function(transaction) {
-		transaction.executeSql('DELETE FROM Trip WHERE id = ?', [/* Insert ID of synced rows */]);
+		transaction.executeSql('DELETE FROM Trip WHERE id = ?', [/* Insert array of IDs of synced rows. See below */]);
 		},function error(err){alert('error deleting from database ' + err)}, function success(){}
 	);
 	return false;
 }
+
+/*
+From apple dev docs
+db.transaction(
+    function (transaction) {
+        transaction.executeSql("UPDATE people set shirt=? where name=?;",
+            [ shirt, name ]); // array of values for the ? placeholders
+    }
+);
+*/

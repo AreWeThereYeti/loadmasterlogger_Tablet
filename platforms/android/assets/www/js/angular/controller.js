@@ -43,16 +43,19 @@ function userCtrl($scope) {
 		$scope.db.transaction(function(tx){
 	 
 			// IMPORTANT FOR DEBUGGING!!!!
-			// you can uncomment this next line if you want the table Trip to be empty each time the application runs
+			// you can uncomment these next twp lines if you want the table Trip and the table Auth to be empty each time the application runs
 			// tx.executeSql( 'DROP TABLE Trip');
-		
+ 			// tx.executeSql( 'DROP TABLE Auth');
+
+			tx.executeSql( 'CREATE TABLE IF NOT EXISTS Auth(access_token varchar)', []);
+			tx.executeSql( 'INSERT INTO Auth(access_token ) VALUES ("'+maxSize+'")', []);
+
 			 
 			// this line actually creates the table User if it does not exist and sets up the three columns and their types
 			// note the UserId column is an auto incrementing column which is useful if you want to pull back distinct rows
 			// easily from the table.
 			tx.executeSql( 'CREATE TABLE IF NOT EXISTS Trip(Id INTEGER PRIMARY KEY AUTOINCREMENT, _license_plate varchar, _cargo varchar, _start_timestamp int, _start_location int, _start_address varchar,  _start_comments varchar, _end_timestamp int, _end_location int, _end_address varchar, _end_comments varchar)', [])},
-			function error(err){alert('error on init local db ' + err)}, 
-			function success(){}
+			function error(err){alert('error on init local db ' + err)}, function success(){}
 		) 
 	}
 	
