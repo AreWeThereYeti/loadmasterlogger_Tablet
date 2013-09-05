@@ -11,9 +11,20 @@ function userCtrl($scope) {
 	$scope.version = '1.0';
 	$scope.displayName = 'WebSqlDB';
 	$scope.maxSize = 65535;
+	$scope.host = 'http://192.168.1.33:3000';
 
 	$scope.init = function(){
 		$scope.isAccessTokenInDatabase()
+		$scope.intervalID = setInterval(function(){
+			$scope.$apply(function(scope){
+					document.addEventListener("deviceready", function(){
+						$scope.device_uuid = device.uuid;
+						console.log($scope.device_uuid)
+					}, false);
+				scope.checkConnection();
+		  	})	
+			console.log("firing checkConnection")
+		}, 500000);
 		$scope.initializeDB()
 	}
 	
@@ -33,19 +44,168 @@ function userCtrl($scope) {
 			tx.executeSql('SELECT * FROM Auth', [], function (tx, result){  // Fetch records from SQLite
 				var dataset = result.rows; 
 				if (dataset.length == 0 ){
-						runSetupScreen();
-	
+					$scope.runSetupScreen();
 				}
-	/*
-				access_token= dataset.item(0).access_token;	
-				console.log("access token " + access_token);
-				if(access_token == undefined){
-					runSetupScreen();
+				else if(!!dataset.length){
+				$scope.access_token = dataset.item(0).access_token;	
+				console.log("access token " + $scope.access_token);
 				}
-	*/
 			});
 		});	
-	}	
+	}
+	
+	$scope.runSetupScreen = function(){
+		console.log("opening modal")
+		$("#modal" ).popup().popup("open");
+	}
+		
+	/* check Connection */
+	$scope.checkConnection = function(){
+		console.log("Checking connection");
+		if(navigator.connection.type == Connection.UNKNOWN || navigator.connection.type == Connection.WIFI){
+			console.log('Unknown connection');
+			$scope.isDatabaseEmpty();
+
+		} else if(navigator.connection.type == Connection.CELL_3G || navigator.connection.type == Connection.CELL_4G){
+			console.log("Found connection. Checking if database is empty ")
+		}
+	}
+	
+	/* Is database empty */
+	$scope.isDatabaseEmpty = function() {
+		if(!$scope.db){
+			$scope.db = openDatabase($scope.shortName, $scope.version, $scope.displayName, $scope.maxSize);
+		}	
+		
+		var numberOfRows;
+	 
+		if (!window.openDatabase) {
+			alert('Databases are not supported in this browser.');
+			return;
+		}
+	
+		query = "SELECT * FROM Trip;";
+		$scope.db.transaction(function(transaction){
+	         transaction.executeSql(query, [], function(tx, results){
+	
+	             if (results.rows.length == 0) { 
+	                  numberOfRows = results.rows.length;
+	                   console.log("table has "+results.rows.length+" rows. returning "+ numberOfRows);
+	                 }   else    {
+	                  numberOfRows = results.rows.length;    
+	                  console.log("table is not empty. returning number of rows : " + numberOfRows + ". Startin sync");
+	                  
+					 $scope.syncToDatabase()
+							
+	                   
+	                 }                               
+	         },function error(err){alert('error selecting from database ' + err)}, function success(){});              
+		});
+		return numberOfRows;
+	}
+	
+	/* Sync to server */
+	$scope.syncToDatabase = function () {
+			
+		if(!$scope.db){
+			$scope.db = openDatabase($scope.shortName, $scope.version, $scope.displayName, $scope.maxSize);
+		}	
+			
+			$scope.db.transaction(function (tx)	 
+				{
+					tx.executeSql('SELECT * FROM Trip', [], function (tx, result)  // Fetch records from SQLite		 
+					{	 
+						var dataset = result.rows; 
+						var trips = new Array();
+						for (var i = 0, item = null; i < dataset.length; i++) {
+							item = dataset.item(i);
+							var trip = {
+								trip_id			: item['Id'],
+								cargo			: item['_cargo'],
+								license_plate 	: item['_license_plate'],
+								start_location 	: item['_start_location'],
+								start_address 	: item['_start_address'],
+								end_location 	: item['_end_location'],
+								end_address	 	: item['_end_address'],
+								start_timestamp : item['_start_timestamp'],
+								end_timestamp 	: item['_end_timestamp'],
+								start_comments 	: item['_start_comments'],
+								end_comments 	: item['_end_comments']
+							};
+							
+							if(!!item['_end_timestamp']){
+								console.log("end_timestamp er ikke null men " + item['_end_timestamp'])
+								console.log(trip)
+								trips.push(trip);	
+							}
+						}
+						$scope.InsertRecordOnServerFunction(trips);      // Call Function for insert Record into SQl Server
+	
+					});
+				});
+			}
+	
+	/* Syncs with server */
+	$scope.InsertRecordOnServerFunction = function(trips){  // Function for insert Record into SQl Server
+			$.ajax({
+			type: "POST",
+			url: $scope.host + "/api/v1/trips",
+			data :  {
+			     access_token	:"13c7d1c2c213ba695ea8f06e5b909b44", // Skal kun sættes en gang ind i databasen
+			     trips			: trips,
+			     device_id		: $scope.device_id
+			 },			
+			processdata: true,
+			success: function (msg)
+			{
+				console.log(msg)
+				//On Successfull service call
+	/* 			dropRowsSynced(msg); Uncomment this when success message is received. Make this function receive synced rows from server*/ 
+			},
+			error: function (msg) {
+				alert("Error In Service");
+			}
+	 
+		});
+	
+	};
+	
+	/* Drops synced rows */
+	function dropRowsSynced(){
+		 
+		 if(!$scope.db){
+			$scope.db = openDatabase($scope.shortName, $scope.version, $scope.displayName, $scope.maxSize);
+		}	
+			
+		 
+		if (!window.openDatabase) {
+			alert('Databases are not supported in this browser.');
+			return;
+		}
+		 
+	/* 	Deletes synced rows from trips table */
+		$scope.db.transaction(function(transaction) {
+			transaction.executeSql('DELETE FROM Trip WHERE id = ?', [/* Insert array of IDs of synced rows. See below */]);
+			},function error(err){alert('error deleting from database ' + err)}, function success(){}
+		);
+		return false;
+	}
+	
+	/*
+	From apple dev docs
+	db.transaction(
+	    function (transaction) {
+	        transaction.executeSql("UPDATE people set shirt=? where name=?;",
+	            [ shirt, name ]); // array of values for the ? placeholders
+	    }
+	);
+	*/
+	
+	
+	
+/* 	Alt herfra virker */
+	
+		
 
 	$scope.submitStartNewTrip = function($event){
 
@@ -93,11 +253,6 @@ function userCtrl($scope) {
 		}	
 		// this line will try to create the table User in the database justcreated/openned
 		$scope.db.transaction(function(tx){
-	 
-			// IMPORTANT FOR DEBUGGING!!!!
-			// you can uncomment these next twp lines if you want the table Trip and the table Auth to be empty each time the application runs
-/* 			tx.executeSql( 'DROP TABLE Trip'); */
-/* 			tx.executeSql( 'DROP TABLE Auth'); */
 
 			tx.executeSql( 'CREATE TABLE IF NOT EXISTS Auth(access_token varchar)', []);
 /* 			tx.executeSql( 'INSERT INTO Auth(access_token ) VALUES ("'++'")', []); */
