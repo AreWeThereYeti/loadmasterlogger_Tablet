@@ -3,8 +3,9 @@ console.log("directives loaded");
 angular.module('loadmaster', [])
 	.directive('ngUser', function() {
 	    return {
+	    controller:userCtrl,
 	    link:function(scope,element,attrs){
-			scope.initializeDB()
+			scope.init();
 			}
 		}
 	})

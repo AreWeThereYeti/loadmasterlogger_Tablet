@@ -18,7 +18,6 @@
  */
  
 var canConnect = false;
-isAccessTokenInDatabase();
  
     // Wait for device API libraries to load
 document.addEventListener("deviceready", onDeviceReady, false);
@@ -27,7 +26,6 @@ document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
 	window.deviceReady=true;
 	console.log("Device ready");
-	
 }
 
 /* ------ Initialize app ----------*/
@@ -50,7 +48,6 @@ var app = {
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
-        
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
@@ -68,40 +65,6 @@ var app = {
         console.log('Received Event: ' + id);
     }
 };
-
-function isAccessTokenInDatabase(){
-		// initial variables
-	var shortName = 'WebSqlDB';
-	var version = '1.0';
-	var displayName = 'WebSqlDB';
-	var maxSize = 65535;	
-	db = openDatabase(shortName, version, displayName,maxSize);
-
-	 
-	if (!window.openDatabase) {
-		alert('Databases are not supported in this browser.');
-		return;
-	}
-	
-	console.log("is access token in database?")
-	
-	db.transaction(function (tx){
-		tx.executeSql('SELECT * FROM Auth', [], function (tx, result){  // Fetch records from SQLite
-			var dataset = result.rows; 
-			if (dataset.length == 0 ){
-					runSetupScreen();
-
-			}
-/*
-			access_token= dataset.item(0).access_token;	
-			console.log("access token " + access_token);
-			if(access_token == undefined){
-				runSetupScreen();
-			}
-*/
-		});
-	});	
-}
 
 function runSetupScreen(){
 	console.log("opening modal")
@@ -204,7 +167,7 @@ function syncToDatabase() {
 		}
 
 /* Syncs with server */
-function InsertRecordOnServerFunction(trips){  // Function for insert Record into SQl Server 	 
+function InsertRecordOnServerFunction(trips){  // Function for insert Record into SQl Server
 		$.ajax({
 		type: "POST",
 		url: "http://localhost:3000/api/v1/trips",

@@ -5,7 +5,47 @@ angular.module("loadmaster",[])
 });
 
 /* User controller with angularjs */
-function userCtrl($scope) {		
+function userCtrl($scope) {	
+
+	$scope.shortName = 'WebSqlDB';
+	$scope.version = '1.0';
+	$scope.displayName = 'WebSqlDB';
+	$scope.maxSize = 65535;
+
+	$scope.init = function(){
+		$scope.isAccessTokenInDatabase()
+		$scope.initializeDB()
+	}
+	
+	$scope.isAccessTokenInDatabase = function(){
+			// initial variables
+		if(!$scope.db){
+			$scope.db = openDatabase($scope.shortName, $scope.version, $scope.displayName, $scope.maxSize);
+		}	
+		if (!window.openDatabase) {
+			alert('Databases are not supported in this browser.');
+			return;
+		}
+		
+		console.log("is access token in database?")
+		
+		$scope.db.transaction(function (tx){
+			tx.executeSql('SELECT * FROM Auth', [], function (tx, result){  // Fetch records from SQLite
+				var dataset = result.rows; 
+				if (dataset.length == 0 ){
+						runSetupScreen();
+	
+				}
+	/*
+				access_token= dataset.item(0).access_token;	
+				console.log("access token " + access_token);
+				if(access_token == undefined){
+					runSetupScreen();
+				}
+	*/
+			});
+		});	
+	}	
 
 	$scope.submitStartNewTrip = function($event){
 
@@ -34,10 +74,6 @@ function userCtrl($scope) {
 	$scope.initializeDB = function(){
 	
 			// initial variables
-		var shortName = 'WebSqlDB';
-		var version = '1.0';
-		var displayName = 'WebSqlDB';
-		var maxSize = 65535;
 	 
 		// This alert is used to make sure the application is loaded correctly
 		// you can comment this out once you have the application working
@@ -52,15 +88,16 @@ function userCtrl($scope) {
 	 
 		// this line tries to open the database base locally on the device
 		// if it does not exist, it will create it and return a database object stored in variable db
-		$scope.db = openDatabase(shortName, version, displayName,maxSize);
-	 
+		if(!$scope.db){
+			$scope.db = openDatabase($scope.shortName, $scope.version, $scope.displayName, $scope.maxSize);
+		}	
 		// this line will try to create the table User in the database justcreated/openned
 		$scope.db.transaction(function(tx){
 	 
 			// IMPORTANT FOR DEBUGGING!!!!
 			// you can uncomment these next twp lines if you want the table Trip and the table Auth to be empty each time the application runs
 /* 			tx.executeSql( 'DROP TABLE Trip'); */
-/*  		tx.executeSql( 'DROP TABLE Auth'); */
+/* 			tx.executeSql( 'DROP TABLE Auth'); */
 
 			tx.executeSql( 'CREATE TABLE IF NOT EXISTS Auth(access_token varchar)', []);
 /* 			tx.executeSql( 'INSERT INTO Auth(access_token ) VALUES ("'++'")', []); */
@@ -70,7 +107,7 @@ function userCtrl($scope) {
 			// note the UserId column is an auto incrementing column which is useful if you want to pull back distinct rows
 			// easily from the table.
 			tx.executeSql( 'CREATE TABLE IF NOT EXISTS Trip(Id INTEGER PRIMARY KEY AUTOINCREMENT, _license_plate varchar, _cargo varchar, _start_timestamp int, _start_location int, _start_address varchar,  _start_comments varchar, _end_timestamp int, _end_location int, _end_address varchar, _end_comments varchar)', [])},
-			function error(err){alert('error on init local db ' + err)}, function success(){}
+			function error(err){alert('error on init local db ' + err)}, function success(){console.log("database created")}
 		) 
 	}
 	
@@ -104,7 +141,6 @@ function userCtrl($scope) {
 			return;
 		}
 
-			 
 		// this is the section that actually inserts the values into the User table
 		$scope.db.transaction(function(transaction) {
 			transaction.executeSql('UPDATE Trip SET _end_timestamp ="'+trip.end_timestamp+'", _end_location ="'+trip.end_location+'", _end_address ="'+trip.end_address+'", _end_comments ="'+trip.end_comments+'" WHERE Id= last_insert_rowid()',[]);
