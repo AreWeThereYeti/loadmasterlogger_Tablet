@@ -35,6 +35,28 @@
 	    </script>
     </head>
 <body ng-user ng-controller="userCtrl">
+
+<div data-role="page" id="modalcontainer">
+	<h1>SETUP DEVICE</h1>
+	<h1>Indtast Device id og</br> generer access token. </br> Access token skal indtastes i boksen herunder</h1>
+
+	<div data-role="popup" id="modal" data-transition="flip" data-theme="a" data-overlay-theme="a" data-position-to="origin" data-dismissible="false">
+	   <div data-role="header" data-theme="e">
+	        <h1>Setup</h1>
+	    </div>
+		<div id="inline">
+		   <form id="loginForm">
+		        <label for="device_id">Device Id</label>
+				<h2 id=""></h2>
+		        <label for="accesstoken">Access Token</label>
+		        <input type="text" name="accesstoken" ng-model="access_token" id="accesstoken" value=""  />
+		        <hr />
+		        <input id="Submit_accesstoken" ng-minlength="8" ng-click="submitToken($event)" type="submit" value="submit access token" disabled="disabled" data-role="button" data-inline="true" data-theme="b" required />
+			</form>
+		</div>
+	</div> 
+</div>
+
 <!-- Start på pålæsning  -->
 <div data-role="page" id="home">
 	<div data-role="header">
@@ -68,23 +90,6 @@
 		<h1>Loadmaster ApS</h1>
 	</div>
 </div>
-
-	<div data-role="popup" id="modal" data-transition="flip" data-theme="a" data-overlay-theme="a" data-position-to="origin" data-dismissible="false">
-	   <div data-role="header" data-theme="e">
-	        <h1>Setup. Indtast Device id og</br> generer access token.</h1>
-	    </div><!-- /header -->
-		<div id="inline">
-		   <form id="loginForm">
-		        <label for="device_id">Device Id</label>
-				<h2 id=""></h2>
-		        <label for="accesstoken">Access Token</label>
-		        <input type="text" name="accesstoken" ng-model="access_token" id="accesstoken" value=""  />
-		        <hr />
-		        <input id="Submit_accesstoken" ng-minlength="8" ng-click="submitToken($event)" type="submit" value="submit_token" data-role="button" data-inline="true" data-theme="b" required />
-			</form>
-		</div>
-	</div><!-- /page modal -->
-
 <!-- slut af pålæsning -->
 
 <!-- Start på aflæsning -->

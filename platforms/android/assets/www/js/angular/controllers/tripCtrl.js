@@ -62,6 +62,16 @@ function tripCtrl($scope, $http) {
 		}			
 	});
 	
+	$scope.$watch('access_token', function () {
+		if($("#modal").is(':visible')){
+			if($scope.access_token > 30{
+					$("#Submit_accesstoken").button("enable");
+					$("#Submit_accesstoken").button("refresh");			
+				}
+			}
+		}			
+	});
+	
 	$scope.$watch('end_location + end_address', function () {
 		if($("#two").is(':visible')){
 			if(!!$scope.end_location || (!!$scope.end_address && $scope.end_address !="")){

@@ -14,18 +14,19 @@ function userCtrl($scope) {
 	$scope.host = 'http://192.168.1.33:3000';
 
 	$scope.init = function(){
+		$scope.initializeDB()
 		$scope.isAccessTokenInDatabase()
 		$scope.intervalID = setInterval(function(){
 			$scope.$apply(function(scope){
-					document.addEventListener("deviceready", function(){
-						$scope.device_uuid = device.uuid;
-						console.log($scope.device_uuid)
-					}, false);
-				scope.checkConnection();
+				document.addEventListener("deviceready", function(){
+					$scope.device_uuid = device.uuid;
+					console.log($scope.device_uuid)
+				}, false);
+			scope.checkConnection();
 		  	})	
 			console.log("firing checkConnection")
 		}, 500000);
-		$scope.initializeDB()
+		
 	}
 	
 	$scope.isAccessTokenInDatabase = function(){
@@ -224,8 +225,9 @@ function userCtrl($scope) {
 			},function error(err){alert('error on save to local db ' + err)}, function success(){}
 		);
 		
-/* 		transaction.executeSql('UPDATE Auth SET access_token ="'+$scope.access_token+'"',[]); */
-
+		$event.preventDefault();
+		$.mobile.changePage("#home");
+		
 		return false;
 	}
 	 
