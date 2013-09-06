@@ -20,6 +20,9 @@
     <feature name="NetworkStatus">
         <param name="android-package" value="org.apache.cordova.NetworkManager" />
     </feature>
+    <feature name="Device">
+    	<param name="android-package" value="org.apache.cordova.Device" />
+	</feature>
     <access origin="http://127.0.0.1*" />
     <preference name="useBrowserHistory" value="true" />
     <preference name="exit-on-suspend" value="false" />
@@ -37,7 +40,10 @@
     <preference name="disable-cursor" value="false" />
     <preference name="android-minSdkVersion" value="7" />
     <preference name="android-installLocation" value="auto" />
-    <feature name="Device">
-        <param name="android-package" value="org.apache.cordova.device.Device" />
-    </feature>
+    <access origin="*" />
+    <access origin="csi.gstatic.com" />
+    <access origin="maps.gstatic.com" />
+    <access origin="maps.googleapis.com" />
+    <access origin="mt0.googleapis.com" />
+    <access origin="mt1.googleapis.com" />
 </widget>
