@@ -14,6 +14,9 @@ function userCtrl($scope) {
 	$scope.host = 'http://192.168.1.33:3000';
 
 	$scope.init = function(){
+/* 		debugging function */
+		$scope.dropTables();
+/* 		End of debugging functions */
 		$scope.initializeDB()
 		$scope.isAccessTokenInDatabase()
 		if($scope.access_token != ""){
@@ -310,4 +313,27 @@ $scope.devId = function(){
 		return false;
 	}
 } 
+
+
+/* DEBUGGING functions */
+
+$scope.dropTables = function(){
+
+	shortName = 'WebSqlDB';
+	version = '1.0';
+	displayName = 'WebSqlDB';
+	maxSize = 65535;
+	
+	db = openDatabase(shortName, version, displayName, maxSize);
+
+
+	db.transaction(function(tx){
+
+		// IMPORTANT FOR DEBUGGING!!!!
+		// you can uncomment these next twp lines if you want the table Trip and the table Auth to be empty each time the application runs
+		tx.executeSql( 'DROP TABLE Trip');
+		tx.executeSql( 'DROP TABLE Auth');
+
+	})
+}
 
