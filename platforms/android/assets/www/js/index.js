@@ -20,11 +20,12 @@
 var canConnect = false;
  
     // Wait for device API libraries to load
-document.addEventListener("deviceready", onDeviceReady, false);
+ document.addEventListener("deviceready", function(){
+	alert("deviceready!!!")
+ },true); 
  
      // device APIs are available
 function onDeviceReady() {
-	window.deviceReady=true;
 	console.log("Device ready");
 	alert(device.uuid)
 }

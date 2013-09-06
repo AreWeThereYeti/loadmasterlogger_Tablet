@@ -31,6 +31,12 @@ function userCtrl($scope) {
 		}
 	}
 	
+	
+$scope.devId = function(){
+	alert(device.uuid)
+
+}
+	
 	$scope.isAccessTokenInDatabase = function(){
 			// initial variables
 		if(!$scope.db){

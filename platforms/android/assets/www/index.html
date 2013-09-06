@@ -48,8 +48,10 @@
 	        <label for="device_id">Device Id</label>
 			<h2 id="">{{device_id}}</h2>
 	        <label for="accesstoken">Access Token</label>
-	        <input type="text" name="accesstoken" ng-model="access_token" id="accesstoken" value=""  />
-	        <input id="submit_accesstoken" ng-minlength="8" ng-click="submitToken($event)" type="submit" value="submit access token" disabled="disabled" data-role="button" data-inline="true" data-theme="b" required />
+	        <input type="text" name="accesstoken" ng-model="access_token" id="accesstoken" ng-minlength="4" value="" required />
+	        <input id="submit_accesstoken" ng-click="submitToken($event)" type="submit" value="submit access token" disabled="disabled" data-role="button" data-inline="true" data-theme="b"  />
+	   
+	   	    <input id="devidtest" ng-click="devId($event)" type="submit" value="show device ID" data-role="button" data-inline="true" data-theme="b"  />
 		</form>
 	</div> 
 </div>
