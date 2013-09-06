@@ -63,7 +63,7 @@ function tripCtrl($scope, $http) {
 	});
 	
 	$scope.$watch('access_token', function () {
-		if($("#modal").is(':visible')){
+		if($("#tokencontainer").is(':visible')){
 			if(!!$scope.access_token){
 					$("#submit_accesstoken").button("enable");
 					$("#submit_accesstoken").button("refresh");			

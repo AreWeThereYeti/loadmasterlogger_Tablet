@@ -47,19 +47,15 @@ function userCtrl($scope) {
 			tx.executeSql('SELECT * FROM Auth', [], function (tx, result){  // Fetch records from SQLite
 				var dataset = result.rows; 
 				if (dataset.length == 0 ){
-					$scope.runSetupScreen();
+					$.mobile.changePage("#tokencontainer");
 				}
 				else if(!!dataset.length){
-				$scope.access_token = dataset.item(0).access_token;	
+				$scope.access_token = dataset.item(0).access_token;
+				$.mobile.changePage("#home");
 				console.log("access token " + $scope.access_token);
 				}
 			});
 		});	
-	}
-	
-	$scope.runSetupScreen = function(){
-		console.log("opening modal")
-		$("#modal" ).popup().popup("open");
 	}
 		
 	/* check Connection */
