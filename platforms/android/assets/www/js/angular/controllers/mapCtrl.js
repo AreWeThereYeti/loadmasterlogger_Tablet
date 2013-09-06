@@ -3,8 +3,11 @@
 function mapCtrl($scope,$rootScope) {
 	console.log("mapCtrl Loaded");
 
-	$scope.gps_found=null;
-	
+	$scope.reInit = function(position){
+		console.log("reinit map")
+		$scope.gps_found = null;
+		$scope.initialize()
+	}
 	/* 			Initialize map */
   $scope.initialize = function(latitude, longitude) {
    	$scope.markerPosition = new google.maps.LatLng(latitude, longitude);
@@ -51,7 +54,7 @@ function mapCtrl($scope,$rootScope) {
   $scope.drawCurrentPosition = function(){
   		navigator.geolocation.getCurrentPosition(function success(position){
 			$scope.$apply(function(scope){
-		  	scope.getPositionSuccess(position)
+		  		scope.getPositionSuccess(position)
 		  })
 	  }, 
 	  function error(error){
@@ -75,7 +78,7 @@ function mapCtrl($scope,$rootScope) {
   }
   
   $scope.gpsStateUndefined = function(){
-	return $scope.gps_found==null
+	return $scope.gps_found==null;
   }
   
   $scope.gpsFound = function(){

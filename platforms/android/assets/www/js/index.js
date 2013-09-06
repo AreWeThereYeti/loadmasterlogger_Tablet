@@ -17,8 +17,7 @@
  * under the License.
  */
  
-/* window.deviceReady=false; */
-
+var canConnect = false;
  
     // Wait for device API libraries to load
 document.addEventListener("deviceready", onDeviceReady, false);
@@ -67,145 +66,22 @@ var app = {
     }
 };
 
+function dropTables(){
 
-/* Call this function on upload success with recived IDs */
-
-var intervalID = setInterval(function(){
-	checkConnection();
-	console.log("firing checkConnection")
-}, 60000);
-
-function checkConnection(transaction, results, $scope){
-	console.log("Checking connection");
-	if(navigator.connection.type == Connection.UNKNOWN || navigator.connection.type == Connection.WIFI){
-		console.log('Unknown connection');
-	} else if(navigator.connection.type == Connection.CELL_3G || navigator.connection.type == Connection.CELL_4G){
-		console.log("Found connection. Checking if database is empty ")
-		isDatabaseEmpty();
-	}
-}
-
-function isDatabaseEmpty() {
-
-	// initial variables
-	var shortName = 'WebSqlDB';
-	var version = '1.0';
-	var displayName = 'WebSqlDB';
-	var maxSize = 65535;	
-	db = openDatabase(shortName, version, displayName,maxSize);
-	var numberOfRows;
-
-	 
-	if (!window.openDatabase) {
-		alert('Databases are not supported in this browser.');
-		return;
-	}
-
-	query = "SELECT * FROM Trip;";
-	db.transaction(function(transaction){
-         transaction.executeSql(query, [], function(tx, results){
-
-             if (results.rows.length == 0) { 
-                  numberOfRows = results.rows.length;
-                   console.log("table has "+results.rows.length+" rows. returning "+ numberOfRows);
-                 }   else    {
-                  numberOfRows = results.rows.length;    
-                  console.log("table is not empty. returning number of rows : " + numberOfRows + ". Startin sync"); 
-                  syncToDatabase()
-                 }                               
-         },function error(err){alert('error selecting from database ' + err)}, function success(){});              
-	});
-	return numberOfRows;
-}
-
-/* Alternative method */
-
-function syncToDatabase() {
-		
-		var shortName = 'WebSqlDB';
-		var version = '1.0';
-		var displayName = 'WebSqlDB';
-		var maxSize = 65535;
+	shortName = 'WebSqlDB';
+	version = '1.0';
+	displayName = 'WebSqlDB';
+	maxSize = 65535;
 	
-		db = openDatabase(shortName, version, displayName,maxSize);
-		
-		db.transaction(function (tx)	 
-			{
-				tx.executeSql('SELECT * FROM Trip', [], function (tx, result)  // Fetch records from SQLite		 
-				{	 
-					var dataset = result.rows; 
-					var trips = new Array();
-					for (var i = 0, item = null; i < dataset.length; i++) {
-						item = dataset.item(i);
-						var trip={
-							trip_id			: item['Id'],
-							cargo			: item['_cargo'],
-							license_plate 	: item['_license_plate'],
-							start_location 	: item['_start_location'],
-							start_address 	: item['_start_address'],
-							end_location 	: item['_end_location'],
-							end_address	 	: item['_end_address'],
-							start_timestamp : item['_start_timestamp'],
-							end_timestamp 	: item['_end_timestamp'],
-							start_comments 	: item['_start_comments'],
-							end_comments 	: item['_end_comments']
-						};
-						
-						if(!!item['_end_timestamp']){
-							console.log("end_timestamp er ikke null men " + item['_end_timestamp'])
-							console.log(trip)
-							trips.push(trip);	
-						}
-					}
-					InsertRecordOnServerFunction(trips);      // Call Function for insert Record into SQl Server
+	db = openDatabase(shortName, version, displayName, maxSize);
 
-				});
-			});
-		}
 
-/* Syncs with server */
-function InsertRecordOnServerFunction(trips){  // Function for insert Record into SQl Server 	 
-		$.ajax({
-		type: "POST",
-		url: "http://195.231.85.191:5000/api/v1/trips",
-		data :  {
-		     access_token	:"b2baacd1a2e7e2ff5afd2c22795cff3d", // Skal kun sættes en gang ind i databasen
-		     trips			: trips,
-		     device_id		: 'new device'
-		 },			
-		processdata: true,
-		success: function (msg)
-		{
-			//On Successfull service call
-/* 			dropRowsSynced(msg); Uncomment this when success message is received*/ 
-		},
-		error: function (msg) {
-			alert("Error In Service");
-		}
- 
-	});
+	db.transaction(function(tx){
 
-};
+		// IMPORTANT FOR DEBUGGING!!!!
+		// you can uncomment these next twp lines if you want the table Trip and the table Auth to be empty each time the application runs
+		tx.executeSql( 'DROP TABLE Trip');
+		tx.executeSql( 'DROP TABLE Auth');
 
-/* Drops synced rows */
-function dropRowsSynced(){
-	// initial variables
-	var shortName = 'WebSqlDB';
-	var version = '1.0';
-	var displayName = 'WebSqlDB';
-	var maxSize = 65535;
-
-	db = openDatabase(shortName, version, displayName,maxSize);
-	 
-	if (!window.openDatabase) {
-		alert('Databases are not supported in this browser.');
-		return;
-	}
-	 
-/* 	Deletes synced rows from trips table */
-	db.transaction(function(transaction) {
-		transaction.executeSql('DELETE FROM Trip WHERE id = ?', [/* Insert ID of synced rows */]);
-		},function error(err){alert('error deleting from database ' + err)}, function success(){}
-	);
-	return false;
+	})
 }

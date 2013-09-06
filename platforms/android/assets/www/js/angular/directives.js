@@ -3,8 +3,9 @@ console.log("directives loaded");
 angular.module('loadmaster', [])
 	.directive('ngUser', function() {
 	    return {
+	    controller:userCtrl,
 	    link:function(scope,element,attrs){
-			scope.initializeDB()
+			scope.init();
 			}
 		}
 	})
@@ -16,8 +17,6 @@ angular.module('loadmaster', [])
 	    link:function(scope,element,attrs){
 	    	scope.map_id="map_canvas_start"
 			scope.map_set_position="setstart_location"
-
-	    	$('geoTemp').html('Ready...')
 	    	if(window.deviceReady){
 				scope.drawCurrentPosition()
 	    	}else{
@@ -26,7 +25,8 @@ angular.module('loadmaster', [])
 				}, false);
 	    	}
 			$('#home').bind( "pageshow", function( event ) { 
-				console.log(' pagewhow ran on #home')
+				console.log(' pagewhow ran on #home. Drawing position')
+				scope.reInit()
 				scope.drawCurrentPosition()
 			} )
 			$('.gpsnotfound').trigger("create");
@@ -44,6 +44,7 @@ angular.module('loadmaster', [])
 	    	scope.map_set_position="setend_location"
 	    	$('#two').bind( "pageshow", function( event ) {
 	    		console.log(' pageshow ran on #two')
+				scope.reInit()
 				scope.drawCurrentPosition()
 			} )
 			$('.gpsnotfound').trigger("create");
