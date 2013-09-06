@@ -64,12 +64,15 @@ function tripCtrl($scope, $http) {
 	
 	$scope.$watch('access_token', function () {
 		if($("#modal").is(':visible')){
-			if($scope.access_token > 30{
-					$("#Submit_accesstoken").button("enable");
-					$("#Submit_accesstoken").button("refresh");			
+			if(!!$scope.access_token){
+					$("#submit_accesstoken").button("enable");
+					$("#submit_accesstoken").button("refresh");			
 				}
-			}
-		}			
+			else if($scope.access_token == ""){
+					$("#submit_accesstoken").button("disable");
+					$("#submit_accesstoken").button("refresh");			
+				}			
+			}			
 	});
 	
 	$scope.$watch('end_location + end_address', function () {

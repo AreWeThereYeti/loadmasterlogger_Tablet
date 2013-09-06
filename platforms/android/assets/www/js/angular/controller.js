@@ -16,17 +16,19 @@ function userCtrl($scope) {
 	$scope.init = function(){
 		$scope.initializeDB()
 		$scope.isAccessTokenInDatabase()
-		$scope.intervalID = setInterval(function(){
-			$scope.$apply(function(scope){
-				document.addEventListener("deviceready", function(){
-					$scope.device_uuid = device.uuid;
-					console.log($scope.device_uuid)
-				}, false);
-			scope.checkConnection();
-		  	})	
-			console.log("firing checkConnection")
-		}, 500000);
-		
+		if($scope.access_token != ""){
+			$scope.intervalID = setInterval(function(){
+				$scope.$apply(function(scope){
+					document.addEventListener("deviceready", function(){
+						$scope.device_uuid = device.uuid;
+						console.log($scope.device_uuid)
+					}, false);
+				scope.checkConnection();
+			  	})	
+				console.log("firing checkConnection")
+			}, 5000);
+			
+		}
 	}
 	
 	$scope.isAccessTokenInDatabase = function(){
