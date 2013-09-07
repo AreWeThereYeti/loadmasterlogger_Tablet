@@ -6,7 +6,7 @@ angular.module("loadmaster",[])
 
 /* User controller with angularjs */
 function userCtrl($scope) {	
-
+	
 	$scope.shortName = 'WebSqlDB';
 	$scope.version = '1.0';
 	$scope.displayName = 'WebSqlDB';
@@ -16,7 +16,7 @@ function userCtrl($scope) {
 	$scope.init = function(){
 /* 		debugging function */
 
-		$scope.dropTables();
+/* 		$scope.dropTables(); */
 
 /* 		End of debugging functions */
 		$scope.initializeDB()
@@ -25,8 +25,6 @@ function userCtrl($scope) {
 			$scope.intervalID = setInterval(function(){
 				$scope.$apply(function(scope){
 					document.addEventListener("deviceready", function(){
-						$scope.device_uuid = device.uuid;
-						console.log($scope.device_uuid)
 					}, false);
 				scope.checkConnection();
 			  	})	
@@ -37,11 +35,14 @@ function userCtrl($scope) {
 	}
 	
 	
+/*
 $scope.devId = function(){
-	alert(device.uuid)
+	console.log("calling devid");
+	alert(device.name)
 
 }
 	
+*/
 	$scope.isAccessTokenInDatabase = function(){
 			// initial variables
 		if(!$scope.db){

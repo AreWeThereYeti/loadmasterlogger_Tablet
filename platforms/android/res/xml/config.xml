@@ -20,8 +20,8 @@
     <feature name="NetworkStatus">
         <param name="android-package" value="org.apache.cordova.NetworkManager" />
     </feature>
-    <feature name="Device">
-    	<param name="android-package" value="org.apache.cordova.Device" />
+	 <feature name="Device">
+	    <param name="android-package" value="org.apache.cordova.Device" />
 	</feature>
     <access origin="http://127.0.0.1*" />
     <preference name="useBrowserHistory" value="true" />
