@@ -15,7 +15,9 @@ function userCtrl($scope) {
 
 	$scope.init = function(){
 /* 		debugging function */
+
 		$scope.dropTables();
+
 /* 		End of debugging functions */
 		$scope.initializeDB()
 		$scope.isAccessTokenInDatabase()
@@ -312,9 +314,8 @@ $scope.devId = function(){
 		);
 		return false;
 	}
-} 
-
-
+	
+	
 /* DEBUGGING functions */
 
 $scope.dropTables = function(){
@@ -336,4 +337,8 @@ $scope.dropTables = function(){
 
 	})
 }
+	
+} 
+
+
 
