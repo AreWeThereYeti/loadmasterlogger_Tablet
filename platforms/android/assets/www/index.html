@@ -36,24 +36,23 @@
     </head>
 <body ng-user ng-controller="userCtrl">
 
-<div data-role="page" id="modalcontainer">
+<div data-role="page" id="tokencontainer">
 	<h1>SETUP DEVICE</h1>
 	<h1>Indtast Device id og</br> generer access token. </br> Access token skal indtastes i boksen herunder</h1>
 
-	<div data-role="popup" id="modal" data-transition="flip" data-theme="a" data-overlay-theme="a" data-position-to="origin" data-dismissible="false">
-	   <div data-role="header" data-theme="e">
-	        <h1>Setup</h1>
-	    </div>
-		<div id="inline">
-		   <form id="loginForm">
-		        <label for="device_id">Device Id</label>
-				<h2 id=""></h2>
-		        <label for="accesstoken">Access Token</label>
-		        <input type="text" name="accesstoken" ng-model="access_token" id="accesstoken" value=""  />
-		        <hr />
-		        <input id="submit_accesstoken" ng-minlength="8" ng-click="submitToken($event)" type="submit" value="submit access token" disabled="disabled" data-role="button" data-inline="true" data-theme="b" required />
-			</form>
-		</div>
+   <div data-role="header" data-theme="e">
+        <h1>Setup</h1>
+    </div>
+	<div id="inline">
+	   <form id="loginForm">
+	        <label for="device_id">Device Id</label>
+	        <input type="text" name="IMEI" ng-model="imei" id="imei" ng-minlength="8" value="" required />
+	        <label for="accesstoken">Access Token</label>
+	        <input type="text" name="accesstoken" ng-model="access_token" id="accesstoken" ng-minlength="8" value="" required />
+	        <input id="submit_accesstoken" ng-click="submitToken($event)" type="submit" value="submit access token" disabled="disabled" data-role="button" data-inline="true" data-theme="b"  />
+	   
+	   	    <input id="devidtest" ng-click="devId($event)" type="submit" value="show device ID" data-role="button" data-inline="true" data-theme="b"  />
+		</form>
 	</div> 
 </div>
 
@@ -70,7 +69,8 @@
 			   <option value="flute">Nummerplade2</option>
 			   <option value="Andreas' mor">Nummerplade3</option>
 			</select>
-		    
+	        <p id="deviceProperties">Loading device properties...</p>
+
 		    <div class="map_container" >	
 				<div ng-map-start></div>
 			</div>

@@ -17,16 +17,37 @@
  * under the License.
  */
  
+
+
+ 
 var canConnect = false;
  
     // Wait for device API libraries to load
-document.addEventListener("deviceready", onDeviceReady, false);
+ document.addEventListener("deviceready", function(){
+
+
+ },true); 
  
      // device APIs are available
 function onDeviceReady() {
-	window.deviceReady=true;
 	console.log("Device ready");
+	         
 }
+
+/* Device id not working */
+/*
+setTimeout(function(){
+		alert("triggerDeviceInfo")
+		console.log("triggerDeviceInfo")
+	    var element = document.getElementById('deviceProperties');
+	    element.innerHTML = 'Device Name: ' + device.name + '<br />' +'<br/>'+
+	                        'Device Cordova: ' + device.cordova + '<br />' + '<br/>' +
+	                        'Device Platform: ' + device.platform + '<br />' + '<br/>' +
+	                        'Device UUID: ' + device.uuid + '<br />' + '<br/>' +
+	                        'Device Version: ' + device.version + '<br />' + '<br/>';
+	} ,10000);
+*/
+
 
 /* ------ Initialize app ----------*/
 

@@ -6,7 +6,7 @@ angular.module("loadmaster",[])
 
 /* User controller with angularjs */
 function userCtrl($scope) {	
-
+	
 	$scope.shortName = 'WebSqlDB';
 	$scope.version = '1.0';
 	$scope.displayName = 'WebSqlDB';
@@ -14,14 +14,17 @@ function userCtrl($scope) {
 	$scope.host = 'http://192.168.1.33:3000';
 
 	$scope.init = function(){
+/* 		debugging function */
+
+/* 		$scope.dropTables(); */
+
+/* 		End of debugging functions */
 		$scope.initializeDB()
 		$scope.isAccessTokenInDatabase()
 		if($scope.access_token != ""){
 			$scope.intervalID = setInterval(function(){
 				$scope.$apply(function(scope){
 					document.addEventListener("deviceready", function(){
-						$scope.device_uuid = device.uuid;
-						console.log($scope.device_uuid)
 					}, false);
 				scope.checkConnection();
 			  	})	
@@ -31,6 +34,15 @@ function userCtrl($scope) {
 		}
 	}
 	
+	
+/*
+$scope.devId = function(){
+	console.log("calling devid");
+	alert(device.name)
+
+}
+	
+*/
 	$scope.isAccessTokenInDatabase = function(){
 			// initial variables
 		if(!$scope.db){
@@ -47,19 +59,18 @@ function userCtrl($scope) {
 			tx.executeSql('SELECT * FROM Auth', [], function (tx, result){  // Fetch records from SQLite
 				var dataset = result.rows; 
 				if (dataset.length == 0 ){
-					$scope.runSetupScreen();
+					$.mobile.changePage("#tokencontainer");
 				}
 				else if(!!dataset.length){
-				$scope.access_token = dataset.item(0).access_token;	
-				console.log("access token " + $scope.access_token);
+					console.log("dataset item 1 " + dataset.item(0).imei)
+					$scope.access_token = dataset.item(0).access_token;
+					$scope.imei = dataset.item(0).imei;
+
+					$.mobile.changePage("#home");
+					console.log("access token " + $scope.access_token + "og imei er " + $scope.imei);
 				}
 			});
 		});	
-	}
-	
-	$scope.runSetupScreen = function(){
-		console.log("opening modal")
-		$("#modal" ).popup().popup("open");
 	}
 		
 	/* check Connection */
@@ -156,7 +167,7 @@ function userCtrl($scope) {
 			data :  {
 			     access_token	:"13c7d1c2c213ba695ea8f06e5b909b44", // Skal kun sættes en gang ind i databasen
 			     trips			: trips,
-			     device_id		: $scope.device_id
+			     device_id		: $scope.imei
 			 },			
 			processdata: true,
 			success: function (msg)
@@ -223,7 +234,7 @@ function userCtrl($scope) {
 		
 		// this is the section that actually inserts the values into the User table
 		$scope.db.transaction(function(transaction) {
-			transaction.executeSql('INSERT INTO AUTH (access_token) VALUES ("'+$scope.access_token+'")',[]);
+			transaction.executeSql('INSERT INTO AUTH (access_token, imei) VALUES ("'+$scope.access_token+'", "'+$scope.imei+'")',[]);
 			},function error(err){alert('error on save to local db ' + err)}, function success(){}
 		);
 		
@@ -258,7 +269,7 @@ function userCtrl($scope) {
 		// this line will try to create the table User in the database justcreated/openned
 		$scope.db.transaction(function(tx){
 
-			tx.executeSql( 'CREATE TABLE IF NOT EXISTS Auth(access_token varchar)', []);
+			tx.executeSql( 'CREATE TABLE IF NOT EXISTS Auth(access_token varchar, imei varchar)', []);
 /* 			tx.executeSql( 'INSERT INTO Auth(access_token ) VALUES ("'++'")', []); */
 
 			 
@@ -290,7 +301,6 @@ function userCtrl($scope) {
 		return false;
 	}
 	
-/* 	"'+$scope.trip.license_plate+'", "'+$scope.trip.cargo+'", "'+$scope.trip.start_timestamp+'", "'+$scope.trip.start_location+'", "'+$scope.trip.start_address+'", "'+$scope.trip.start_comments+'" */
 	
 	// this is the function that puts values into the database from page #home
 	$scope.AddEndValuesToDB = function(trip) {
@@ -307,5 +317,31 @@ function userCtrl($scope) {
 		);
 		return false;
 	}
+	
+	
+/* DEBUGGING functions */
+
+$scope.dropTables = function(){
+
+	shortName = 'WebSqlDB';
+	version = '1.0';
+	displayName = 'WebSqlDB';
+	maxSize = 65535;
+	
+	db = openDatabase(shortName, version, displayName, maxSize);
+
+
+	db.transaction(function(tx){
+
+		// IMPORTANT FOR DEBUGGING!!!!
+		// you can uncomment these next twp lines if you want the table Trip and the table Auth to be empty each time the application runs
+		tx.executeSql( 'DROP TABLE Trip');
+		tx.executeSql( 'DROP TABLE Auth');
+
+	})
+}
+	
 } 
+
+
 
