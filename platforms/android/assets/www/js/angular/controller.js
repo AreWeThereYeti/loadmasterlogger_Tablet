@@ -62,9 +62,12 @@ $scope.devId = function(){
 					$.mobile.changePage("#tokencontainer");
 				}
 				else if(!!dataset.length){
-				$scope.access_token = dataset.item(0).access_token;
-				$.mobile.changePage("#home");
-				console.log("access token " + $scope.access_token);
+					console.log("dataset item 1 " + dataset.item(0).imei)
+					$scope.access_token = dataset.item(0).access_token;
+					$scope.imei = dataset.item(0).imei;
+
+					$.mobile.changePage("#home");
+					console.log("access token " + $scope.access_token + "og imei er " + $scope.imei);
 				}
 			});
 		});	
@@ -164,7 +167,7 @@ $scope.devId = function(){
 			data :  {
 			     access_token	:"13c7d1c2c213ba695ea8f06e5b909b44", // Skal kun sættes en gang ind i databasen
 			     trips			: trips,
-			     device_id		: $scope.device_id
+			     device_id		: $scope.imei
 			 },			
 			processdata: true,
 			success: function (msg)
@@ -231,7 +234,7 @@ $scope.devId = function(){
 		
 		// this is the section that actually inserts the values into the User table
 		$scope.db.transaction(function(transaction) {
-			transaction.executeSql('INSERT INTO AUTH (access_token) VALUES ("'+$scope.access_token+'")',[]);
+			transaction.executeSql('INSERT INTO AUTH (access_token, imei) VALUES ("'+$scope.access_token+'", "'+$scope.imei+'")',[]);
 			},function error(err){alert('error on save to local db ' + err)}, function success(){}
 		);
 		
@@ -266,7 +269,7 @@ $scope.devId = function(){
 		// this line will try to create the table User in the database justcreated/openned
 		$scope.db.transaction(function(tx){
 
-			tx.executeSql( 'CREATE TABLE IF NOT EXISTS Auth(access_token varchar)', []);
+			tx.executeSql( 'CREATE TABLE IF NOT EXISTS Auth(access_token varchar, imei varchar)', []);
 /* 			tx.executeSql( 'INSERT INTO Auth(access_token ) VALUES ("'++'")', []); */
 
 			 
@@ -298,7 +301,6 @@ $scope.devId = function(){
 		return false;
 	}
 	
-/* 	"'+$scope.trip.license_plate+'", "'+$scope.trip.cargo+'", "'+$scope.trip.start_timestamp+'", "'+$scope.trip.start_location+'", "'+$scope.trip.start_address+'", "'+$scope.trip.start_comments+'" */
 	
 	// this is the function that puts values into the database from page #home
 	$scope.AddEndValuesToDB = function(trip) {
