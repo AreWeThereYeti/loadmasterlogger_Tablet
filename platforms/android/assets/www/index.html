@@ -36,10 +36,10 @@
     </head>
 <body ng-user ng-controller="userCtrl">
 
+<!-- Start setup  -->
 <div data-role="page" id="tokencontainer">
 	<h1>SETUP DEVICE</h1>
 	<h1>Indtast Device id og generer access token. </br> Access token skal indtastes i boksen herunder</h1>
-
    <div data-role="header" data-theme="e">
         <h1>Setup</h1>
     </div>
@@ -58,7 +58,7 @@
 		<h1>Loadmaster ApS</h1>
 	</div> 
 </div>
-
+<!-- end setup -->
 
 <!-- Start på pålæsning  -->
 <div data-role="page" id="home">
@@ -87,7 +87,6 @@
 			<label for="kommentarer" class="ui-hidden-accessible">Kommentarer</label>
 			<input type="text" name="start_comments" ng-model="start_comments"  id="comments_start" value="" placeholder="Skriv dine kommentarer her"/>			
 			<input type="submit" ng-click="submit($event)" data-icon="arrow-r" id="submit_start" disabled="disabled" value="Registrer" data-role="button">
-
 	    </form>
 	</div>
 	<div data-role="footer">
@@ -134,6 +133,10 @@
     </div>
     
     <input type="submit" data-icon="arrow-r" id="submitStartNewTrip" ng-click="submitStartNewTrip($event)" value="Ny tur" data-role="button">
+
+	<div data-role="footer">
+		<h1>Loadmaster ApS</h1>
+	</div>
 
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/angular/controller.js"></script>	
