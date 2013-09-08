@@ -64,11 +64,11 @@ function tripCtrl($scope, $http) {
 	
 	$scope.$watch('access_token', function () {
 		if($("#tokencontainer").is(':visible')){
-			if(!!$scope.access_token){
+			if(!!$scope.access_token && !!$scope.imei){
 					$("#submit_accesstoken").button("enable");
 					$("#submit_accesstoken").button("refresh");			
 				}
-			else if($scope.access_token == ""){
+			else if($scope.access_token == "" || $scope.imei == "" || $scope.access_token == null || $scope.imei == null || $scope.access_token == undefined || $scope.imei == undefined){
 					$("#submit_accesstoken").button("disable");
 					$("#submit_accesstoken").button("refresh");			
 				}			

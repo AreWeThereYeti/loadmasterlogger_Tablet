@@ -51,6 +51,9 @@ body {
 	display: block;
 }
 
+[data-role=footer]{bottom:0; position:absolute !important; top: auto !important; width:100%;}  
+
+
 /* Landscape layout (with min-width) */
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
     .app {
