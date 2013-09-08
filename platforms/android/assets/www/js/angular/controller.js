@@ -16,11 +16,16 @@ function userCtrl($scope) {
 	$scope.init = function(){
 /* 		debugging function */
 
-/* 		$scope.dropTables(); */
+		$scope.dropTables();
 
 /* 		End of debugging functions */
 		$scope.initializeDB()
 		$scope.isAccessTokenInDatabase()
+		
+	    $.mobile.buttonMarkup.hoverDelay = 0;
+		$.mobile.defaultPageTransition   = 'none';
+	    $.mobile.defaultDialogTransition = 'none';
+		
 		if($scope.access_token != ""){
 			$scope.intervalID = setInterval(function(){
 				$scope.$apply(function(scope){
@@ -34,15 +39,6 @@ function userCtrl($scope) {
 		}
 	}
 	
-	
-/*
-$scope.devId = function(){
-	console.log("calling devid");
-	alert(device.name)
-
-}
-	
-*/
 	$scope.isAccessTokenInDatabase = function(){
 			// initial variables
 		if(!$scope.db){

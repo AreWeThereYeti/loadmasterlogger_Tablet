@@ -25,7 +25,6 @@ angular.module('loadmaster', [])
 				}, false);
 	    	}
 			$('#home').bind( "pageshow", function( event ) { 
-				console.log(' pagewhow ran on #home. Drawing position')
 				scope.reInit()
 				scope.drawCurrentPosition()
 			} )
@@ -43,12 +42,10 @@ angular.module('loadmaster', [])
 	    	scope.map_id="map_canvas_end"
 	    	scope.map_set_position="setend_location"
 	    	$('#two').bind( "pageshow", function( event ) {
-	    		console.log(' pageshow ran on #two')
 				scope.reInit()
 				scope.drawCurrentPosition()
 			} )
 			$('.gpsnotfound').trigger("create");
-
 	    }
 	};
 });

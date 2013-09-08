@@ -37,7 +37,7 @@
 <body ng-user ng-controller="userCtrl">
 
 <!-- Start setup  -->
-<div data-role="page" id="tokencontainer">
+<div data-role="page" data-dom-cache="false" id="tokencontainer">
 	<h1>SETUP DEVICE</h1>
 	<h1>Indtast Device id og generer access token. </br> Access token skal indtastes i boksen herunder</h1>
    <div data-role="header" data-theme="e">
@@ -61,7 +61,7 @@
 <!-- end setup -->
 
 <!-- Start på pålæsning  -->
-<div data-role="page" id="home">
+<div data-role="page" data-dom-cache="false" id="home">
 	<div data-role="header">
 		<h1>Pålæsning</h1>
 	</div>
@@ -96,7 +96,7 @@
 <!-- slut af pålæsning -->
 
 <!-- Start på aflæsning -->
-<div data-role="page" id="two" ng-controller="tripCtrl">
+<div data-role="page" data-dom-cache="false" id="two" ng-controller="tripCtrl">
 	<div data-role="header">
 		<h1>Aflæsning</h1>
 	</div>
@@ -122,7 +122,7 @@
 </div><!-- /page -->
 
 <!-- Start of the History page -->
-<div data-role="page" id="three">
+<div data-role="page" data-dom-cache="false" id="three">
 
     <div data-role="header">
         <h1>Registring færdig</h1>
