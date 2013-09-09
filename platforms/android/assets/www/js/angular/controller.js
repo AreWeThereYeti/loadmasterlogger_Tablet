@@ -14,7 +14,7 @@ function userCtrl($scope) {
 	$scope.version = '1.0';
 	$scope.displayName = 'WebSqlDB';
 	$scope.maxSize = 65535;
-	$scope.host = 'http://192.168.1.64:3000';
+	$scope.host = 'http://192.168.1.33:3000';
 
 	$scope.init = function(){
 /* 		debugging function */
@@ -168,22 +168,22 @@ function userCtrl($scope) {
 			type: "POST",
 			url: $scope.host + "/api/v1/trips",
 			data :  {
-			     access_token	:"13c7d1c2c213ba695ea8f06e5b909b44", // Skal kun sættes en gang ind i databasen
+			     access_token	: "0ae586c0a77f660543c54d68b2697d04", // Skal kun sættes en gang ind i databasen
 			     trips			: trips,
-			     device_id		: 123
+			     device_id		: "new device"
 			 },			
 			processdata: true,
 			success: function (msg)
 			{
 				console.log('succes!!!!')
-				console.log(msg)
+				console.log()
 				//On Successfull service call
-				dropRowsSynced(); //Uncomment this when success message is received. Make this function receive synced rows from server 
+				dropAllRows(); //Uncomment this when success message is received. Make this function receive synced rows from server 
 			},
 			error: function (msg) {
 				console.log(msg);
-				console.log(JSON.parse(msg.responseText).err_ids);					
-				
+				console.log(JSON.parse(msg.responseText).err_ids);	
+				dropRowsSynced(JSON.parse(msg.responseText).err_ids)				
 			}
 	 
 		});
@@ -191,7 +191,7 @@ function userCtrl($scope) {
 	};
 	
 	/* Drops synced rows */
-	function dropRowsSynced(){
+	function dropAllRows(){
 		 
 		 if(!$scope.db){
 			$scope.db = openDatabase($scope.shortName, $scope.version, $scope.displayName, $scope.maxSize);
@@ -202,31 +202,37 @@ function userCtrl($scope) {
 			alert('Databases are not supported in this browser.');
 			return;
 		}
-		 
-	/* 	Deletes synced rows from trips table */
-		$scope.db.transaction(function(transaction) {
-			transaction.executeSql('DELETE FROM Trip WHERE _is_finished = 1', [/* Insert array of IDs of synced rows. See below */]);
-			},function error(err){alert('error deleting from database ' + err)}, function success(){}
-		);
-		return false;
-	}
-	
-	/*
-	From apple dev docs
-	db.transaction(
-	    function (transaction) {
-	        transaction.executeSql("UPDATE people set shirt=? where name=?;",
-	            [ shirt, name ]); // array of values for the ? placeholders
-	    }
-	);
-	*/
-	
-	
-	
-/* 	Alt herfra virker */
-	
-		
+		 		 
+		/* 	Deletes synced rows from trips table */
+			$scope.db.transaction(function(transaction) {
+				transaction.executeSql('DELETE FROM Trip WHERE _is_finished = 1', [/* Insert array of IDs of synced rows. See below */]);
+				},function error(err){alert('error deleting from database ' + err)}, function success(){}
+			);
+			return false;
 
+		}
+	
+		/* Drops synced rows */
+	function dropRowsSynced(err_ids){
+		 
+		 if(!$scope.db){
+			$scope.db = openDatabase($scope.shortName, $scope.version, $scope.displayName, $scope.maxSize);
+		}	
+			
+		if (!window.openDatabase) {
+			alert('Databases are not supported in this browser.');
+			return;
+		}
+		 		 
+		/* 	Deletes synced rows from trips table */
+			$scope.db.transaction(function(transaction) {
+				transaction.executeSql('DELETE FROM Trip WHERE id <> *', [err_ids]);
+				},function error(err){alert('error deleting from database ' + err)}, function success(){}
+			);
+			return false;
+		}	
+	
+		/* 	Alt herfra virker */
 	$scope.submitStartNewTrip = function($event){
 
 		$event.preventDefault();
@@ -301,8 +307,7 @@ function userCtrl($scope) {
 			transaction.executeSql('INSERT INTO Trip(_license_plate, _cargo, _start_timestamp, _start_location, _start_address, _start_comments) VALUES ("'+trip.license_plate+'", "'+trip.cargo+'", "'+trip.start_timestamp+'", "'+trip.start_location+'", "'+trip.start_address+'", "'+trip.start_comments+'")');	
 		},function error(err){alert('error on save to local db ' + err)}, function success(){});
 		return false;
-	}
-	
+	}	
 	
 	// this is the function that puts values into the database from page #home
 	$scope.AddEndValuesToDB = function(trip) {
