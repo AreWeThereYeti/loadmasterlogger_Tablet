@@ -6,7 +6,7 @@ function tripCtrl($scope, $http) {
 		$scope.AddStartValuesToDB({
 			license_plate	:	$scope.license_plate,
 			cargo			:	$scope.cargo,
-			start_timestamp	:	new Date().getTime(),
+			start_timestamp	:	Math.round(+new Date()/1000),
 			start_location	:	$scope.start_location,
 			start_address	:	$scope.start_address,
 			start_comments	:	$scope.start_comments
@@ -23,7 +23,7 @@ function tripCtrl($scope, $http) {
 		
 	$scope.submit_end = function($event) {
 		$scope.AddEndValuesToDB({
-			end_timestamp 	:	new Date().getTime(),
+			end_timestamp 	:	Math.round(+new Date()/1000),
 			end_location	:	$scope.end_location,
 			end_address		:	$scope.end_address,
 			end_comments	:	$scope.end_comments
@@ -64,11 +64,11 @@ function tripCtrl($scope, $http) {
 	
 	$scope.$watch('access_token', function () {
 		if($("#tokencontainer").is(':visible')){
-			if(!!$scope.access_token){
+			if(!!$scope.access_token && !!$scope.imei){
 					$("#submit_accesstoken").button("enable");
 					$("#submit_accesstoken").button("refresh");			
 				}
-			else if($scope.access_token == ""){
+			else if($scope.access_token == "" || $scope.imei == "" || $scope.access_token == null || $scope.imei == null || $scope.access_token == undefined || $scope.imei == undefined){
 					$("#submit_accesstoken").button("disable");
 					$("#submit_accesstoken").button("refresh");			
 				}			

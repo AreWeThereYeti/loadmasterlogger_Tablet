@@ -36,28 +36,31 @@
     </head>
 <body ng-user ng-controller="userCtrl">
 
-<div data-role="page" id="tokencontainer">
+<!-- Start setup  -->
+<div data-role="page" data-dom-cache="false" id="tokencontainer">
 	<h1>SETUP DEVICE</h1>
-	<h1>Indtast Device id og</br> generer access token. </br> Access token skal indtastes i boksen herunder</h1>
-
+	<h1>Indtast Device id og generer access token. </br> Access token skal indtastes i boksen herunder</h1>
    <div data-role="header" data-theme="e">
         <h1>Setup</h1>
     </div>
 	<div id="inline">
 	   <form id="loginForm">
 	        <label for="device_id">Device Id</label>
-	        <input type="text" name="IMEI" ng-model="imei" id="imei" ng-minlength="8" value="" required />
-	        <label for="accesstoken">Access Token</label>
-	        <input type="text" name="accesstoken" ng-model="access_token" id="accesstoken" ng-minlength="8" value="" required />
+	        <input type="text" name="IMEI" ng-model="imei" id="imei" ng-minlength="8" value="" placeholder="indtast imei" required />
+	        <label for="accesstoken">Access Token. Genereres ved indtastning af imei i administrator interface</label>
+	        <input type="text" name="accesstoken" ng-model="access_token" id="accesstoken" ng-minlength="8" value="" placeholder="indtast accesstoken" required />
 	        <input id="submit_accesstoken" ng-click="submitToken($event)" type="submit" value="submit access token" disabled="disabled" data-role="button" data-inline="true" data-theme="b"  />
-	   
-	   	    <input id="devidtest" ng-click="devId($event)" type="submit" value="show device ID" data-role="button" data-inline="true" data-theme="b"  />
+<!-- 	   	    <input id="devidtest" ng-click="devId($event)" type="submit" value="show device ID" data-role="button" data-inline="true" data-theme="b"  /> -->
 		</form>
+	</div>
+	<div data-role="footer">
+		<h1>Loadmaster ApS</h1>
 	</div> 
 </div>
+<!-- end setup -->
 
 <!-- Start på pålæsning  -->
-<div data-role="page" id="home">
+<div data-role="page" data-dom-cache="false" id="home">
 	<div data-role="header">
 		<h1>Pålæsning</h1>
 	</div>
@@ -83,7 +86,6 @@
 			<label for="kommentarer" class="ui-hidden-accessible">Kommentarer</label>
 			<input type="text" name="start_comments" ng-model="start_comments"  id="comments_start" value="" placeholder="Skriv dine kommentarer her"/>			
 			<input type="submit" ng-click="submit($event)" data-icon="arrow-r" id="submit_start" disabled="disabled" value="Registrer" data-role="button">
-
 	    </form>
 	</div>
 	<div data-role="footer">
@@ -93,7 +95,7 @@
 <!-- slut af pålæsning -->
 
 <!-- Start på aflæsning -->
-<div data-role="page" id="two" ng-controller="tripCtrl">
+<div data-role="page" data-dom-cache="false" id="two" ng-controller="tripCtrl">
 	<div data-role="header">
 		<h1>Aflæsning</h1>
 	</div>
@@ -119,7 +121,7 @@
 </div><!-- /page -->
 
 <!-- Start of the History page -->
-<div data-role="page" id="three">
+<div data-role="page" data-dom-cache="false" id="three">
 
     <div data-role="header">
         <h1>Registring færdig</h1>
@@ -130,6 +132,10 @@
     </div>
     
     <input type="submit" data-icon="arrow-r" id="submitStartNewTrip" ng-click="submitStartNewTrip($event)" value="Ny tur" data-role="button">
+
+	<div data-role="footer">
+		<h1>Loadmaster ApS</h1>
+	</div>
 
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/angular/controller.js"></script>	
