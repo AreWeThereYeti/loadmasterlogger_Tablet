@@ -61,7 +61,7 @@ function mapCtrl($scope,$rootScope) {
 		  $scope.$apply(function(scope){
 			  scope.getPositionError(error)
 		  })
-	  }, { maximumAge: 5000, timeout: 15000, enableHighAccuracy: true });
+	  }, { maximumAge: 3000, timeout: 15000, enableHighAccuracy: true });
   }
   
   $scope.getPositionSuccess = function(position){

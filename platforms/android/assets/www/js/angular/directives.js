@@ -18,7 +18,7 @@ angular.module('loadmaster', [])
 	    	scope.map_id="map_canvas_start"
 			scope.map_set_position="setstart_location"
 	    	if(window.deviceReady){
-	    	  setTimeout(function(){scope.drawCurrentPosition()}, 5000) //Is this working
+	    	  scope.drawCurrentPosition() //Is this working??
 	    	}else{
 		    	document.addEventListener("deviceready", function(){
 					scope.drawCurrentPosition()
