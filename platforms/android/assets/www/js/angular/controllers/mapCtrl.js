@@ -50,7 +50,7 @@ function mapCtrl($scope,$rootScope) {
 	});
 */
   }
-  
+    
   $scope.drawCurrentPosition = function(){
   		navigator.geolocation.getCurrentPosition(function success(position){
 			$scope.$apply(function(scope){
