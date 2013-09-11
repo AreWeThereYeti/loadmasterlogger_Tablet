@@ -14,7 +14,7 @@ function userCtrl($scope) {
 	$scope.version = '1.0';
 	$scope.displayName = 'WebSqlDB';
 	$scope.maxSize = 65535;
-	$scope.host = 'http://192.168.1.33:3000';
+	$scope.host = 'http://195.231.85.191:5000';
 
 	$scope.init = function(){
 /* 		debugging function */
@@ -157,41 +157,64 @@ function userCtrl($scope) {
 							}
 						}
 						$scope.InsertRecordOnServerFunction(trips);      // Call Function for insert Record into SQl Server
-	
 					});
 				});
 			}
 	
 	/* Syncs with server */
 	$scope.InsertRecordOnServerFunction = function(trips){  // Function for insert Record into SQl Server
-			$.ajax({
+		$.ajax({
 			type: "POST",
 			url: $scope.host + "/api/v1/trips",
 			data :  {
-			     access_token	: "0ae586c0a77f660543c54d68b2697d04", // Skal kun sættes en gang ind i databasen
+			     access_token	: $scope.access_token, // Skal kun sættes en gang ind i databasen
 			     trips			: trips,
-			     device_id		: "new device"
-			 },			
+			     device_id		: $scope.imei
+			 },
+						
 			processdata: true,
 			success: function (msg)
 			{
 				console.log('succes!!!!')
 				console.log()
 				//On Successfull service call
-				dropAllRows(); //Uncomment this when success message is received. Make this function receive synced rows from server 
+				$scope.dropAllRows(); //Uncomment this when success message is received. Make this function receive synced rows from server 
 			},
 			error: function (msg) {
 				console.log(msg);
-				console.log(JSON.parse(msg.responseText).err_ids);	
-				dropRowsSynced(JSON.parse(msg.responseText).err_ids)				
+				console.log(msg.status);
+				if(JSON.parse(msg.responseText).err_ids != 0){	
+					$scope.dropRowsSynced(JSON.parse(msg.responseText).err_ids)
+				}
+				else if(msg.status == '401'){
+					$scope.resetAccessToken()
+				}					
 			}
-	 
 		});
-	
 	};
 	
+/* 	Reset access token if incorrect */
+	$scope.resetAccessToken = function(){
+	 	if(!$scope.db){
+			$scope.db = openDatabase($scope.shortName, $scope.version, $scope.displayName, $scope.maxSize);
+		}	
+		 
+		if (!window.openDatabase) {
+			alert('Databases are not supported in this browser.');
+			return;
+		}
+		
+		/* 	Deletes synced rows from trips table */
+		$scope.db.transaction(function(transaction) {
+			transaction.executeSql('DELETE FROM Auth', [/* Insert array of IDs of synced rows. See below */]);
+			},function error(err){alert('error resetting accesstoken ' + err)}, function success(){}
+		);
+		return false;
+	}
+
+	
 	/* Drops synced rows */
-	function dropAllRows(){
+	$scope.dropAllRows = function(){
 		 
 		 if(!$scope.db){
 			$scope.db = openDatabase($scope.shortName, $scope.version, $scope.displayName, $scope.maxSize);
@@ -213,7 +236,7 @@ function userCtrl($scope) {
 		}
 	
 		/* Drops synced rows */
-	function dropRowsSynced(err_ids){
+	$scope.dropRowsSynced = function(err_ids){
 		 
 		 if(!$scope.db){
 			$scope.db = openDatabase($scope.shortName, $scope.version, $scope.displayName, $scope.maxSize);
