@@ -167,7 +167,7 @@ function userCtrl($scope) {
 			type: "POST",
 			url: $scope.host + "/api/v1/trips",
 			data :  {
-			     access_token	: $scope.access_token, // Skal kun sættes en gang ind i databasen
+			     access_token	: $scope.acces_token, // Skal kun sættes en gang ind i databasen
 			     trips			: trips,
 			     device_id		: $scope.imei
 			 },
@@ -181,12 +181,16 @@ function userCtrl($scope) {
 				$scope.dropAllRows(); //Uncomment this when success message is received. Make this function receive synced rows from server 
 			},
 			error: function (msg) {
+				window.msg = msg;
 				console.log(msg);
 				console.log(msg.status);
-				if(JSON.parse(msg.responseText).err_ids != 0){	
-					$scope.dropRowsSynced(JSON.parse(msg.responseText).err_ids)
+				if(!!msg.responseText && !!msg.responseText.err_ids){				
+					if(JSON.parse(msg.responseText).err_ids != 0){	
+						$scope.dropRowsSynced(JSON.parse(msg.responseText).err_ids)
+					}
 				}
-				else if(msg.status == '401'){
+
+				else if(msg.status == 401){
 					$scope.resetAccessToken()
 				}					
 			}
@@ -198,6 +202,8 @@ function userCtrl($scope) {
 	 	if(!$scope.db){
 			$scope.db = openDatabase($scope.shortName, $scope.version, $scope.displayName, $scope.maxSize);
 		}	
+		
+		console.log("Deleting access token and device id from table")
 		 
 		if (!window.openDatabase) {
 			alert('Databases are not supported in this browser.');
@@ -209,7 +215,7 @@ function userCtrl($scope) {
 			transaction.executeSql('DELETE FROM Auth', [/* Insert array of IDs of synced rows. See below */]);
 			},function error(err){alert('error resetting accesstoken ' + err)}, function success(){}
 		);
-		return false;
+		$.mobile.changePage("#tokencontainer");
 	}
 
 	
