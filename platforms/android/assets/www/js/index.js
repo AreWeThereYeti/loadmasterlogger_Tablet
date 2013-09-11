@@ -23,31 +23,18 @@
 var canConnect = false;
  
     // Wait for device API libraries to load
- document.addEventListener("deviceready", function(){
-
-
- },true); 
+document.addEventListener("deviceready", function(){
+ 	document.addEventListener("backbutton", backKeyDown, true);
+},true); 
  
      // device APIs are available
 function onDeviceReady() {
 	console.log("Device ready");
-	         
 }
 
-/* Device id not working */
-/*
-setTimeout(function(){
-		alert("triggerDeviceInfo")
-		console.log("triggerDeviceInfo")
-	    var element = document.getElementById('deviceProperties');
-	    element.innerHTML = 'Device Name: ' + device.name + '<br />' +'<br/>'+
-	                        'Device Cordova: ' + device.cordova + '<br />' + '<br/>' +
-	                        'Device Platform: ' + device.platform + '<br />' + '<br/>' +
-	                        'Device UUID: ' + device.uuid + '<br />' + '<br/>' +
-	                        'Device Version: ' + device.version + '<br />' + '<br/>';
-	} ,10000);
-*/
-
+  function backKeyDown() {
+        navigator.app.exitApp();
+    }
 
 /* ------ Initialize app ----------*/
 

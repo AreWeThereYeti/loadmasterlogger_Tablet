@@ -30,16 +30,19 @@ function userCtrl($scope) {
 	    $.mobile.defaultDialogTransition = 'none';
 		
 		if($scope.access_token != ""){
-			$scope.intervalID = setInterval(function(){
+			$scope.checkInterval();		
+		}
+	}
+	
+	$scope.checkInterval = function(){
+		$scope.intervalID = setInterval(function(){
 				$scope.$apply(function(scope){
 					document.addEventListener("deviceready", function(){
 					}, false);
 				scope.checkConnection();
 			  	})	
 				console.log("firing checkConnection")
-			}, 5000);
-			
-		}
+			}, 5000);	
 	}
 	
 	$scope.isAccessTokenInDatabase = function(){
@@ -167,7 +170,7 @@ function userCtrl($scope) {
 			type: "POST",
 			url: $scope.host + "/api/v1/trips",
 			data :  {
-			     access_token	: $scope.acces_token, // Skal kun sættes en gang ind i databasen
+			     access_token	: $scope.access_token, // Skal kun sættes en gang ind i databasen
 			     trips			: trips,
 			     device_id		: $scope.imei
 			 },
@@ -215,6 +218,9 @@ function userCtrl($scope) {
 			transaction.executeSql('DELETE FROM Auth', [/* Insert array of IDs of synced rows. See below */]);
 			},function error(err){alert('error resetting accesstoken ' + err)}, function success(){}
 		);
+		console.log("access token er " + $scope.access_token)
+		alert("Access token er forkert")
+		clearInterval($scope.intervalID);
 		$.mobile.changePage("#tokencontainer");
 	}
 
@@ -261,12 +267,11 @@ function userCtrl($scope) {
 			return false;
 		}	
 	
-		/* 	Alt herfra virker */
+		/* 	Starting new trip*/
 	$scope.submitStartNewTrip = function($event){
 
 		$event.preventDefault();
 		$.mobile.changePage("#home");
-
 	}
 	
 	$scope.submitToken = function($event){
@@ -279,6 +284,7 @@ function userCtrl($scope) {
 			},function error(err){alert('error on save to local db ' + err)}, function success(){}
 		);
 		
+		$scope.checkInterval()
 		$event.preventDefault();
 		$.mobile.changePage("#home");
 		
