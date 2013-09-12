@@ -19,7 +19,7 @@ function userCtrl($scope) {
 	$scope.init = function(){
 /* 		debugging function */
 
-/* 		$scope.dropTables(); */
+		$scope.dropTables();
 
 /* 		End of debugging functions */
 		$scope.initializeDB()

@@ -6,7 +6,7 @@ function mapCtrl($scope,$rootScope) {
 	/* 			Initialize map */
   $scope.initialize = function(latitude, longitude) {
     $scope.mapOptions = {
-      center: new google.maps.LatLng(55.67610, 12.56834),
+      center: new google.maps.LatLng(55.67610, 12.56834), //Får ikke et coordinat til at starte med så viser grå skærm
       zoom: 12,
       streetViewControl: false,
       zoomControl: true,
@@ -54,6 +54,7 @@ function mapCtrl($scope,$rootScope) {
 		// on the map. Let's store a reference to it here so
 		// that it can be updated in several places.
 		$scope.locationMarker = null;
+	 
 	 
 		// Get the location of the user's browser using the
 		// native geolocation service. When we invoke this method
@@ -103,6 +104,7 @@ function mapCtrl($scope,$rootScope) {
 			// Log that a newer, perhaps more accurate
 			// position has been found.
 			console.log( "Newer Position Found" );
+			console.log(position.coords.latitude, position.coords.longitude)
 			 
 			// Set the new position of the existing marker.
 			$scope.updateMarker($scope.locationMarker, position.coords.latitude, position.coords.longitude, "Updated / Accurate Position");
