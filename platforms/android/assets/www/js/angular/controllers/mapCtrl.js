@@ -8,33 +8,33 @@ function mapCtrl($scope,$rootScope) {
 		$scope.gps_found = null;
 		$scope.initialize()
 	}
-	
 	/* 			Initialize map */
   $scope.initialize = function(latitude, longitude) {
    	$scope.markerPosition = new google.maps.LatLng(latitude, longitude);
-   		$scope.mapOptions = {
-	      	center: new google.maps.LatLng(latitude, longitude),
-		  	zoom: 12,
-		  	streetViewControl: false,
-		  	zoomControl: true,
-		  	zoomControlOptions: {
-	      		style: google.maps.ZoomControlStyle.LARGE
-		  	},
-		  	maptypecontrol :false,
-		  	disableDefaultUI: true,
-		  	mapTypeId: google.maps.MapTypeId.ROADMAP
-		};
+    $scope.mapOptions = {
+      center: new google.maps.LatLng(latitude, longitude),
+      zoom: 12,
+      streetViewControl: false,
+      zoomControl: true,
+      zoomControlOptions: {
+      	style: google.maps.ZoomControlStyle.LARGE
+	  },
+      maptypecontrol :false,
+      disableDefaultUI: true,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    
+
     	
 /* 	Add map to #map_canvas */
     $scope.map = new google.maps.Map(document.getElementById($scope.map_id), $scope.mapOptions);
 	window.map=$scope.map
     
-/* 	   Place marker on map_start */
+/* 	      Place marker on map_start */
 	$scope.marker = new google.maps.Marker({
 	   position: $scope.markerPosition,
 	   draggable:false,
 	   animation: google.maps.Animation.DROP,
-	   icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
 	   map: $scope.map,
 	   title: "Start Position"
 	});
@@ -51,15 +51,8 @@ function mapCtrl($scope,$rootScope) {
 */
   }
     
-    $scope.updatePosition = function(){
-		console.log("updating position")
-    }
-    
-    
-    
   $scope.drawCurrentPosition = function(){
-  		navigator.geolocation.watchPosition(function success(position){
-  			console.log("updating position")
+  		navigator.geolocation.getCurrentPosition(function success(position){
 			$scope.$apply(function(scope){
 		  		scope.getPositionSuccess(position)
 		  })
@@ -68,13 +61,12 @@ function mapCtrl($scope,$rootScope) {
 		  $scope.$apply(function(scope){
 			  scope.getPositionError(error)
 		  })
-	  }, { maximumAge: 3000, timeout: 3000, enableHighAccuracy: true });
+	  }, { maximumAge: 3000, timeout: 15000, enableHighAccuracy: true });
   }
   
   $scope.getPositionSuccess = function(position){
   		console.log('getPositionSuccess ran');
   	    $scope.gps_found = true;
-  	    $scope.updatePosition();
   		$scope.initialize(position.coords.latitude, position.coords.longitude)
   }
   
@@ -84,9 +76,6 @@ function mapCtrl($scope,$rootScope) {
 
 	  	$scope.gps_found = false; 
   }
-  
-  
-  
   
   $scope.gpsStateUndefined = function(){
 	return $scope.gps_found==null;
