@@ -17,16 +17,8 @@ angular.module('loadmaster', [])
 	    link:function(scope,element,attrs){
 	    	scope.map_id="map_canvas_start"
 			scope.map_set_position="setstart_location"
-	    	if(window.deviceReady){
-	    	  scope.drawCurrentPosition() //Is this working??
-	    	}else{
-		    	document.addEventListener("deviceready", function(){
-					scope.drawCurrentPosition()
-				}, false);
-	    	}
 			$('#home').bind( "pageshow", function( event ) { 
-				scope.reInit()
-				scope.drawCurrentPosition()
+				scope.initialize()
 			} )
 			$('.gpsnotfound').trigger("create");
 			}
@@ -42,9 +34,8 @@ angular.module('loadmaster', [])
 	    	scope.map_id="map_canvas_end"
 	    	scope.map_set_position="setend_location"
 	    	$('#two').bind( "pageshow", function( event ) {
-				scope.reInit()
-				scope.drawCurrentPosition()
-			} )
+				scope.initialize()			
+				} )
 			$('.gpsnotfound').trigger("create");
 	    }
 	};

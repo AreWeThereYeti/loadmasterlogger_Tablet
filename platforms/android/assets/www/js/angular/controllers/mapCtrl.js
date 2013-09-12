@@ -2,18 +2,13 @@
 
 function mapCtrl($scope,$rootScope) {
 	console.log("mapCtrl Loaded");
-
-	$scope.reInit = function(position){
-		console.log("reinit map")
-		$scope.gps_found = null;
-		$scope.initialize()
-	}
+	
+	
 	/* 			Initialize map */
   $scope.initialize = function(latitude, longitude) {
-   	$scope.markerPosition = new google.maps.LatLng(latitude, longitude);
     $scope.mapOptions = {
-      center: new google.maps.LatLng(latitude, longitude),
-      zoom: 12,
+      center: new google.maps.LatLng(40.700683, -73.925972),
+      zoom: 14,
       streetViewControl: false,
       zoomControl: true,
       zoomControlOptions: {
@@ -24,59 +19,112 @@ function mapCtrl($scope,$rootScope) {
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     
-
-    	
 /* 	Add map to #map_canvas */
-    $scope.map = new google.maps.Map(document.getElementById($scope.map_id), $scope.mapOptions);
-	window.map=$scope.map
-    
-/* 	      Place marker on map_start */
-	$scope.marker = new google.maps.Marker({
-	   position: $scope.markerPosition,
-	   draggable:false,
-	   animation: google.maps.Animation.DROP,
-	   map: $scope.map,
-	   title: "Start Position"
-	});
-	
-	$scope.$emit($scope.map_set_position, [latitude, longitude]);
-	
-/*
-	// adds a listener to the marker
-	// gets the coords when drag event ends
-	// then updates the input with the new coords
-	google.maps.event.addListener($scope.marker, 'dragend', function(event) {
-		console.debug('new position is '+event.latLng.lat()+' / '+event.latLng.lng());
-	});
-*/
+    $scope.map = new google.maps.Map(document.getElementById($scope.map_id), $scope.mapOptions);    
   }
-    
-  $scope.drawCurrentPosition = function(){
-  		navigator.geolocation.getCurrentPosition(function success(position){
-			$scope.$apply(function(scope){
-		  		scope.getPositionSuccess(position)
-		  })
-	  }, 
-	  function error(error){
-		  $scope.$apply(function(scope){
-			  scope.getPositionError(error)
-		  })
-	  }, { maximumAge: 3000, timeout: 15000, enableHighAccuracy: true });
-  }
-  
-  $scope.getPositionSuccess = function(position){
-  		console.log('getPositionSuccess ran');
-  	    $scope.gps_found = true;
-  		$scope.initialize(position.coords.latitude, position.coords.longitude)
-  }
-  
-  $scope.getPositionError = function(err){
-	  	console.log(err)
-	  	console.log("gps not found")
 
-	  	$scope.gps_found = false; 
-  }
-  
+
+	$scope.addMarkerToMap = function( latitude, longitude, label ){
+		// Create the marker - this will automatically place it
+		// on the existing Google map (that we pass-in).
+		var marker = new google.maps.Marker({
+				map: $scope.map,
+				position: new google.maps.LatLng(latitude,longitude),
+			title: (label || "")
+		});
+	 
+		// Return the new marker reference.
+		return( marker );
+	}
+
+// I update the marker's position and label.
+	$scope.updateMarker = function( marker, latitude, longitude, label ){
+		// Update the position.
+		marker.setPosition(
+			new google.maps.LatLng(latitude, longitude)
+		);
+ 
+		// Update the title if it was provided.
+		if (label){
+			marker.setTitle( label );
+		}
+	}
+		
+	// -------------------------------------------------- //
+ 
+	// Check to see if this browser supports geolocation.
+	if (navigator.geolocation) {
+	 
+		// This is the location marker that we will be using
+		// on the map. Let's store a reference to it here so
+		// that it can be updated in several places.
+		$scope.locationMarker = null;
+	 
+	 
+		// Get the location of the user's browser using the
+		// native geolocation service. When we invoke this method
+		// only the first callback is requied. The second
+		// callback - the error handler - and the third
+		// argument - our configuration options - are optional.
+		navigator.geolocation.getCurrentPosition(
+			function( position ){
+	 
+			// Check to see if there is already a location.
+			// There is a bug in FireFox where this gets
+			// invoked more than once with a cahced result.
+			if ($scope.locationMarker){
+				return;
+			}
+		 
+			// Log that this is the initial position.
+			console.log( "Initial Position Found" );
+	 
+			// Add a marker to the map using the position.
+			$scope.locationMarker = $scope.addMarkerToMap(
+				position.coords.latitude,
+				position.coords.longitude,
+				"Initial Position"
+			);
+	 
+		},
+		function( error ){
+			console.log( "Something went wrong: ", error );
+			}, 
+			{timeout: (5 * 1000), maximumAge: (1000 * 60 * 15), enableHighAccuracy: true}
+		);
+	 
+		// Now tha twe have asked for the position of the user,
+		// let's watch the position to see if it updates. This
+		// can happen if the user physically moves, of if more
+		// accurate location information has been found (ex.
+		// GPS vs. IP address).
+		//
+		// NOTE: This acts much like the native setInterval(),
+		// invoking the given callback a number of times to
+		// monitor the position. As such, it returns a "timer ID"
+		// that can be used to later stop the monitoring.
+		$scope.positionTimer = navigator.geolocation.watchPosition(
+			function( position ){
+		 
+			// Log that a newer, perhaps more accurate
+			// position has been found.
+			console.log( "Newer Position Found" );
+			 
+			// Set the new position of the existing marker.
+			$scope.updateMarker($scope.locationMarker, position.coords.latitude, position.coords.longitude, "Updated / Accurate Position");
+			$scope.$emit($scope.map_set_position, [position.coords.latitude, position.coords.longitude]);
+			}
+		);
+	 
+			// If the position hasn't updated within 5 minutes, stop
+			// monitoring the position for changes.
+		setTimeout(function(){
+			// Clear the position watcher.
+			navigator.geolocation.clearWatch( positionTimer );
+			}, (500 * 60 * 5)
+		);	 
+	}
+
   $scope.gpsStateUndefined = function(){
 	return $scope.gps_found==null;
   }
