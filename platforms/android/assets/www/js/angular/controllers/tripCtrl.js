@@ -18,7 +18,6 @@ function tripCtrl($scope, $http) {
 		$('select').selectmenu('refresh', true);
 		$event.preventDefault();
 		$.mobile.changePage("#two");
-
 	};
 		
 	$scope.submit_end = function($event) {

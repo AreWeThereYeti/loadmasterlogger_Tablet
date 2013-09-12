@@ -18,7 +18,7 @@ angular.module('loadmaster', [])
 	    	scope.map_id="map_canvas_start"
 			scope.map_set_position="setstart_location"
 			$('#home').bind( "pageshow", function( event ) { 
-				scope.initialize()
+				scope.initialize();
 			} )
 			$('.gpsnotfound').trigger("create");
 			}

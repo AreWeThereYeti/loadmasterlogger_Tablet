@@ -2,13 +2,12 @@
 
 function mapCtrl($scope,$rootScope) {
 	console.log("mapCtrl Loaded");
-	
-	
+		
 	/* 			Initialize map */
   $scope.initialize = function(latitude, longitude) {
     $scope.mapOptions = {
-      center: new google.maps.LatLng(40.700683, -73.925972),
-      zoom: 14,
+      center: new google.maps.LatLng(55.67610, 12.56834),
+      zoom: 12,
       streetViewControl: false,
       zoomControl: true,
       zoomControlOptions: {
@@ -19,10 +18,9 @@ function mapCtrl($scope,$rootScope) {
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     
-/* 	Add map to #map_canvas */
+	/* 	Add map to #map_canvas */
     $scope.map = new google.maps.Map(document.getElementById($scope.map_id), $scope.mapOptions);    
   }
-
 
 	$scope.addMarkerToMap = function( latitude, longitude, label ){
 		// Create the marker - this will automatically place it
@@ -34,24 +32,21 @@ function mapCtrl($scope,$rootScope) {
 		});
 	 
 		// Return the new marker reference.
-		return( marker );
+		return(marker );
 	}
 
-// I update the marker's position and label.
-	$scope.updateMarker = function( marker, latitude, longitude, label ){
+	// I update the marker's position and label.
+	$scope.updateMarker = function(marker, latitude, longitude, label ){
 		// Update the position.
-		marker.setPosition(
-			new google.maps.LatLng(latitude, longitude)
-		);
+		marker.setPosition(new google.maps.LatLng(latitude, longitude));
  
 		// Update the title if it was provided.
 		if (label){
 			marker.setTitle( label );
 		}
+		$scope.map.setCenter(new google.maps.LatLng(latitude, longitude));
 	}
-		
-	// -------------------------------------------------- //
- 
+		 
 	// Check to see if this browser supports geolocation.
 	if (navigator.geolocation) {
 	 
@@ -59,7 +54,6 @@ function mapCtrl($scope,$rootScope) {
 		// on the map. Let's store a reference to it here so
 		// that it can be updated in several places.
 		$scope.locationMarker = null;
-	 
 	 
 		// Get the location of the user's browser using the
 		// native geolocation service. When we invoke this method
@@ -121,7 +115,7 @@ function mapCtrl($scope,$rootScope) {
 		setTimeout(function(){
 			// Clear the position watcher.
 			navigator.geolocation.clearWatch( positionTimer );
-			}, (500 * 60 * 5)
+			}, (1000 * 60 * 5)
 		);	 
 	}
 
@@ -138,5 +132,4 @@ function mapCtrl($scope,$rootScope) {
 	return $scope.gps_found==false;
 	
   }
-  
 }
