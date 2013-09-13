@@ -269,7 +269,7 @@ function userCtrl($scope) {
 	
 		/* 	Starting new trip*/
 	$scope.submitStartNewTrip = function($event){
-
+		$scope.$broadcast("resettingGPS")
 		$event.preventDefault();
 		$.mobile.changePage("#home");
 	}

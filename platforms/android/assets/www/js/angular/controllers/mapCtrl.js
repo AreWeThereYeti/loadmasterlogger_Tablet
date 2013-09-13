@@ -5,6 +5,9 @@ function mapCtrl($scope,$rootScope) {
 		
 	/* 			Initialize map */
 	$scope.initialize = function(latitude, longitude) {
+	
+	
+	
 		$scope.mapOptions = {
 		  center: new google.maps.LatLng(55.67610, 12.56834), //Får ikke et coordinat til at starte med så viser grå skærm
 		  zoom: 12,
@@ -49,63 +52,6 @@ function mapCtrl($scope,$rootScope) {
 		}
 		$scope.map.setCenter(new google.maps.LatLng(latitude, longitude));
 	}
-		 
-	// Check to see if this browser supports geolocation.
-	/*
-if (navigator.geolocation) {
-	 
-		// This is the location marker that we will be using
-		// on the map. Let's store a reference to it here so
-		// that it can be updated in several places.
-		$scope.locationMarker = null;
-	 
-	 
-		// Get the location of the user's browser using the
-		// native geolocation service. When we invoke this method
-		// only the first callback is requied. The second
-		// callback - the error handler - and the third
-		// argument - our configuration options - are optional.
-		navigator.geolocation.getCurrentPosition(
-			function( position ){
-	 
-			// Check to see if there is already a location.
-			// There is a bug in FireFox where this gets
-			// invoked more than once with a cahced result.
-			if ($scope.locationMarker){
-				return;
-			}
-		 
-			// Log that this is the initial position.
-			console.log( "Initial Position Found" );
-	 
-			// Add a marker to the map using the position.
-			$scope.locationMarker = $scope.addMarkerToMap(
-				position.coords.latitude,
-				position.coords.longitude,
-				"Initial Position"
-			);
-	 
-		},
-		function( error ){
-			console.log( "Something went wrong: ", error );
-			}, 
-			{timeout: (5 * 1000), maximumAge: (1000 * 60 * 15), enableHighAccuracy: true}
-		);
-	 
-		// Now tha twe have asked for the position of the user,
-		// let's watch the position to see if it updates. This
-		// can happen if the user physically moves, of if more
-		// accurate location information has been found (ex.
-		// GPS vs. IP address).
-		//
-		// NOTE: This acts much like the native setInterval(),
-		// invoking the given callback a number of times to
-		// monitor the position. As such, it returns a "timer ID"
-		// that can be used to later stop the monitoring.		
-		
- 
-	}
-*/
 	
 	$scope.startWatchPosition = function(){
 		$scope.positionTimer = navigator.geolocation.watchPosition(function( position ){
@@ -134,7 +80,10 @@ if (navigator.geolocation) {
 			}, (1000 * 60 * 5)
 		);	
 	}
-
+	$scope.$on("resettingGPS", function(){
+		$scope.gps_found = null;
+	})
+	
 	$scope.gpsStateUndefined = function(){
 		return $scope.gps_found==null;
 	}
