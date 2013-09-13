@@ -6,8 +6,6 @@ function mapCtrl($scope,$rootScope) {
 	/* 			Initialize map */
 	$scope.initialize = function(latitude, longitude) {
 	
-	
-	
 		$scope.mapOptions = {
 		  center: new google.maps.LatLng(55.67610, 12.56834), //Får ikke et coordinat til at starte med så viser grå skærm
 		  zoom: 12,
@@ -70,7 +68,7 @@ function mapCtrl($scope,$rootScope) {
 			}
 			$scope.updateMarker($scope.locationMarker, position.coords.latitude, position.coords.longitude, "Updated / Accurate Position");
 			$scope.$emit($scope.map_set_position, [position.coords.latitude, position.coords.longitude]);
-		});
+		}, $scope.error, {maximumAge:6000, timeout:5000});
 	 
 			// If the position hasn't updated within 5 minutes, stop
 			// monitoring the position for changes.
@@ -80,6 +78,12 @@ function mapCtrl($scope,$rootScope) {
 			}, (1000 * 60 * 5)
 		);	
 	}
+	
+	$scope.error = function(err){
+			console.log("position not found" + err);
+			$scope.gpsNotFound();
+		}
+	
 	$scope.$on("resettingGPS", function(){
 		$scope.gps_found = null;
 	})
