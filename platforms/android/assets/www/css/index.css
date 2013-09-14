@@ -52,6 +52,14 @@ body {
 	display: block;
 }
 
+.padding_bottom{
+	margin-bottom: 30px;
+}
+
+#comments_start, #comments_end{
+	height: 75px;
+}
+
 [data-role=footer]{bottom:0; position:absolute !important; top: auto !important; width:100%;}  
 
 
