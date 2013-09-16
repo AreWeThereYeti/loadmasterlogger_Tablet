@@ -23,31 +23,19 @@
 var canConnect = false;
  
     // Wait for device API libraries to load
- document.addEventListener("deviceready", function(){
+document.addEventListener("deviceready", function(){
+ 	document.addEventListener("backbutton", backKeyDown, true);
 
-
- },true); 
+},true); 
  
      // device APIs are available
 function onDeviceReady() {
 	console.log("Device ready");
-	         
 }
 
-/* Device id not working */
-/*
-setTimeout(function(){
-		alert("triggerDeviceInfo")
-		console.log("triggerDeviceInfo")
-	    var element = document.getElementById('deviceProperties');
-	    element.innerHTML = 'Device Name: ' + device.name + '<br />' +'<br/>'+
-	                        'Device Cordova: ' + device.cordova + '<br />' + '<br/>' +
-	                        'Device Platform: ' + device.platform + '<br />' + '<br/>' +
-	                        'Device UUID: ' + device.uuid + '<br />' + '<br/>' +
-	                        'Device Version: ' + device.version + '<br />' + '<br/>';
-	} ,10000);
-*/
-
+  function backKeyDown() {
+        navigator.app.exitApp();
+    }
 
 /* ------ Initialize app ----------*/
 
@@ -87,6 +75,7 @@ var app = {
     }
 };
 
+
 function dropTables(){
 
 	shortName = 'WebSqlDB';
@@ -102,7 +91,7 @@ function dropTables(){
 		// IMPORTANT FOR DEBUGGING!!!!
 		// you can uncomment these next twp lines if you want the table Trip and the table Auth to be empty each time the application runs
 		tx.executeSql( 'DROP TABLE Trip');
-		tx.executeSql( 'DROP TABLE Auth');
+/* 		tx.executeSql( 'DROP TABLE Auth'); */
 
 	})
 }

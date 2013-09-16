@@ -59,93 +59,110 @@
 </div>
 <!-- end setup -->
 
-<!-- Start på pålæsning  -->
-<div data-role="page" data-dom-cache="false" id="home">
-	<div data-role="header">
-		<h1>Pålæsning</h1>
-	</div>
-	<div data-role="content">
-	    <form name="myForm" ng-controller="tripCtrl">
-			<label for="select-choice-0" class="select">Vælg din nummerplade</label>
-			<select class="requiredInput" name="license_plate" ng-model="license_plate" id="select_license_plate" type="text">
-			   <option value="0" selected>Vælg nummerplade</option>
-			   <option value="testnummerplade1">testnummerplade1</option>
-			   <option value="testnummerplade2">Testnummerplade2</option>
-   			   <option value="testnummerplade3">Testnummerplade3</option>
-			   <option value="testnummerplade4">Testnummerplade4</option>
-			</select>
-		    <div class="map_container" >	
-				<div ng-map-start></div>
-			</div>
-			<label for="select-choice-0" class="select">Hvad kører du med</label>
-			<select class="requiredInput" name="cargo" ng-model="cargo" id="select_cargo">
-				<option value="0" selected>Vælg last</option>
-			   <option value="Stabilgrus">Stabilgrus</option>
-			   <option value="Ustabilgrus">UStabilgrus</option>
-			   <option value="Sten">Sten</option>
-			   <option value="Jord">Jord</option>
-			   <option value="Sand">Sand</option>
-			   <option value="Andet">Andet</option>
-			</select>
-			<label for="kommentarer" class="ui-hidden-accessible">Kommentarer</label>
-			<input type="text" name="start_comments" ng-model="start_comments"  id="comments_start" value="" placeholder="Skriv dine kommentarer her"/>			
-			<input type="submit" ng-click="submit($event)" data-icon="arrow-r" id="submit_start" disabled="disabled" value="Registrer" data-role="button">
-	    </form>
-	</div>
-	<div data-role="footer">
-		<h1>Loadmaster ApS</h1>
-	</div>
-</div>
-<!-- slut af pålæsning -->
-
-<!-- Start på aflæsning -->
-<div data-role="page" data-dom-cache="false" id="two" ng-controller="tripCtrl">
-	<div data-role="header">
-		<h1>Aflæsning</h1>
-	</div>
-	<div data-role="content">	
-		<h1>{{license_plate}}</h1>
-		<div class="map_container">
-			<div ng-map-end ng-controller="mapCtrl">
+	<!-- Start på pålæsning  -->
+	<div data-role="page" data-dom-cache="false" id="home">
+		<div data-role="header">
+			<h1>Pålæsning</h1>
 		</div>
-		</div>
-		<div class="opsummering">
-			<span class="last_symbol"></span>
-			<h1>{{cargo}}</h1>
-			<span class="kommentar_symbol"></span>
-			<h1>{{start_comments}}</h1>
-		</div>
-			<label for="kommentarer" class="ui-hidden-accessible">Kommentarer</label>
-			<input type="text" name="username" ng-model="end_comments" id="comments_end" value="" placeholder="Skriv dine kommentarer her"/>
-			<input type="submit" data-icon="arrow-r" id="submit_end" ng-click="submit_end($event)" disabled="disabled" value="Registrer Aflæsning" data-role="button">
+		<div data-role="content">
+		    <form name="myForm" ng-controller="tripCtrl">
+		    	<div class="padding_bottom">
+					<label for="select-choice-0" class="select">Vælg din nummerplade</label>
+					<select class="requiredInput" name="license_plate" ng-model="license_plate" id="select_license_plate" type="text">
+					   <option value="0" selected>Vælg nummerplade</option>
+					   <option value="testnummerplade1">testnummerplade1</option>
+					   <option value="testnummerplade2">Testnummerplade2</option>
+		   			   <option value="testnummerplade3">Testnummerplade3</option>
+					   <option value="testnummerplade4">Testnummerplade4</option>
+				</select>
+		    	</div>
+		    	<div class="padding_bottom">
+				    <div class="map_container" >	
+						<div ng-map-start></div>
+					</div>
+		    	</div>
+		    	<div class="padding_bottom">
+					<label for="select-choice-0" class="select">Hvad kører du med</label>
+					<select class="requiredInput" name="cargo" ng-model="cargo" id="select_cargo">
+						<option value="0" selected>Vælg last</option>
+					   <option value="Stabilgrus">Stabilgrus</option>
+					   <option value="Ustabilgrus">UStabilgrus</option>
+					   <option value="Sten">Sten</option>
+					   <option value="Jord">Jord</option>
+					   <option value="Sand">Sand</option>
+					   <option value="Andet">Andet</option>
+					</select>
+		    	</div>
+		    	<div class="padding_bottom">
+					<label for="kommentarer" class="ui-hidden-accessible">Kommentarer</label>
+					<input type="text" name="start_comments" ng-model="start_comments"  id="comments_start" value="" placeholder="Skriv dine kommentarer her"/>						</div>
+				<input type="submit" ng-click="submit($event)" data-icon="arrow-r" id="submit_start" disabled="disabled" value="Registrer" data-role="button" data-theme="b">
+		    </form>
 		</div>
 		<div data-role="footer">
 			<h1>Loadmaster ApS</h1>
 		</div>
-</div><!-- /page -->
-
-<!-- Start of the History page -->
-<div data-role="page" data-dom-cache="false" id="three">
-
-    <div data-role="header">
-        <h1>Registring færdig</h1>
-    </div>
-
-    <div data-role="content">	
-		<h1>Fedt! Det hele lykkedes. Tryk på knappen "ny tur" når </br> du er  klar til en ny pålæsning</h1>
-    </div>
-    
-    <input type="submit" data-icon="arrow-r" id="submitStartNewTrip" ng-click="submitStartNewTrip($event)" value="Ny tur" data-role="button">
-
-	<div data-role="footer">
-		<h1>Loadmaster ApS</h1>
 	</div>
+	<!-- slut af pålæsning -->
+	
+	<!-- Start på aflæsning -->
+	<div data-role="page" data-dom-cache="false" id="two" ng-controller="tripCtrl">
+		<div data-role="header">
+			<h1>Aflæsning</h1>
+		</div>
+		<div data-role="content">	
+			<div class="padding_bottom">
+				<h1>Din nummer plade er {{$scope.trip.license_plate}}</h1>
+			</div>
+<!-- 			<div class="padding_bottom"> -->
+				<div class="map_container">
+					<div ng-map-end ng-controller="mapCtrl"></div>
+				</div>
+<!-- 			</div> -->
+			<div class="opsummering padding_bottom">
+				<span class="last_symbol"></span>
+				<h1>{{cargo}}</h1>
+				<span class="kommentar_symbol"></span>
+				<h1>{{start_comments}}</h1>
+			</div>
+			<div class="padding_bottom">
+				<label for="kommentarer" class="ui-hidden-accessible">Kommentarer</label>
+				<input type="text" name="username" ng-model="end_comments" id="comments_end" value="" placeholder="Skriv dine kommentarer her"/>
+			</div>
+			<input type="submit" data-icon="arrow-r" id="submit_end" ng-click="submit_end($event)" disabled="disabled" value="Registrer Aflæsning" data-role="button" data-theme="b">
+		</div>
+		<div data-role="footer">
+			<h1>Loadmaster ApS</h1>
+		</div>
+	</div><!-- /page -->
+	
+	<!-- Start of the History page -->
+	<div data-role="page" data-dom-cache="false" id="three">
+	
+	    <div data-role="header">
+	        <h1>Registring færdig</h1>
+	    </div>
+	    
+		<div class="padding_bottom">
+	        <h1>Oversigt over kørt tur</h1>
+	    </div>
+		<div class="padding_bottom">
+		   <div class="map_container">
+				<div ng-map-finish ng-controller="mapCtrl"></div>
+		   </div>
+	    
+	    <input type="submit" data-icon="arrow-r" id="submitStartNewTrip" ng-click="submitStartNewTrip($event)" value="Ny tur" data-role="button">
+	
+		<div data-role="footer">
+			<h1>Loadmaster ApS</h1>
+		</div>
 
         <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/angular/controller.js"></script>	
-   	    <script type="text/javascript" src="js/angular/controllers/tripCtrl.js"></script>	
-        <script type="text/javascript" src="js/angular/controllers/mapCtrl.js"></script>         
-        <script type="text/javascript" src="js/angular/directives.js"></script>	
+        <script type="text/javascript" src="loadmaster_assets/assets/angular/controller.js"></script>	
+   	    <script type="text/javascript" src="loadmaster_assets/assets/angular/controllers/tripCtrl.js"></script>	
+        <script type="text/javascript" src="loadmaster_assets/assets/angular/controllers/mapCtrl.js"></script>         
+        <script type="text/javascript" src="loadmaster_assets/assets/angular/directives.js"></script>	
+        <script type="text/javascript" src="js/moment.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
             app.initialize();
