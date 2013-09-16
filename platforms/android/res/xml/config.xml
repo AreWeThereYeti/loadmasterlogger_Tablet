@@ -17,12 +17,9 @@
     <feature name="Storage">
         <param name="android-package" value="org.apache.cordova.Storage" />
     </feature>
-    <feature name="NetworkStatus">
-        <param name="android-package" value="org.apache.cordova.NetworkManager" />
+    <feature name="Device">
+        <param name="android-package" value="org.apache.cordova.Device" />
     </feature>
-	 <feature name="Device">
-	    <param name="android-package" value="org.apache.cordova.Device" />
-	</feature>
     <access origin="http://127.0.0.1*" />
     <preference name="useBrowserHistory" value="true" />
     <preference name="exit-on-suspend" value="false" />
@@ -46,4 +43,7 @@
     <access origin="maps.googleapis.com" />
     <access origin="mt0.googleapis.com" />
     <access origin="mt1.googleapis.com" />
+    <feature name="NetworkStatus">
+        <param name="android-package" value="org.apache.cordova.networkinformation.NetworkManager" />
+    </feature>
 </widget>
