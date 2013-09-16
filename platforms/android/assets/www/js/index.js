@@ -25,6 +25,7 @@ var canConnect = false;
     // Wait for device API libraries to load
 document.addEventListener("deviceready", function(){
  	document.addEventListener("backbutton", backKeyDown, true);
+
 },true); 
  
      // device APIs are available
@@ -73,6 +74,7 @@ var app = {
         console.log('Received Event: ' + id);
     }
 };
+
 
 function dropTables(){
 
