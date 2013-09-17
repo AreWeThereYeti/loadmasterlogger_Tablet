@@ -50,7 +50,6 @@
 	        <label for="accesstoken">Access Token. Genereres ved indtastning af imei i administrator interface</label>
 	        <input type="text" name="accesstoken" ng-model="access_token" id="accesstoken" ng-minlength="8" value="" placeholder="indtast accesstoken" required />
 	        <input id="submit_accesstoken" ng-click="submitToken($event)" type="submit" value="submit access token" disabled="disabled" data-role="button" data-inline="true" data-theme="b"  />
-<!-- 	   	    <input id="devidtest" ng-click="devId($event)" type="submit" value="show device ID" data-role="button" data-inline="true" data-theme="b"  /> -->
 		</form>
 	</div>
 	<div data-role="footer">
@@ -99,6 +98,7 @@
 				<input type="submit" ng-click="submit($event)" data-icon="arrow-r" id="submit_start" disabled="disabled" value="Registrer" data-role="button" data-theme="b">
 		    </form>
 		</div>
+		<div class="database"></div>
 		<div data-role="footer">
 			<h1>Loadmaster ApS</h1>
 		</div>
@@ -112,7 +112,6 @@
 		</div>
 		<div data-role="content">	
 			<div class="padding_bottom">
-				<h1>Din nummer plade er {{$scope.trip.license_plate}}</h1>
 			</div>
 <!-- 			<div class="padding_bottom"> -->
 				<div class="map_container">
@@ -139,7 +138,7 @@
 	<!-- Start of the History page -->
 	<div data-role="page" data-dom-cache="false" id="three">
 	
-	    <div data-role="header">
+	    <div data-role="header" class="padding_bottom">
 	        <h1>Registring færdig</h1>
 	    </div>
 	    
@@ -150,6 +149,7 @@
 		   <div class="map_container">
 				<div ng-map-finish ng-controller="mapCtrl"></div>
 		   </div>
+		</div>
 	    
 	    <input type="submit" data-icon="arrow-r" id="submitStartNewTrip" ng-click="submitStartNewTrip($event)" value="Ny tur" data-role="button">
 	
