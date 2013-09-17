@@ -46,14 +46,22 @@ body {
     width:100%;
 }
 
+.vertical_align{
+	text-align: center;
+}
+
 #map_canvas_start, #map_canvas_end,  #map_canvas_finish, .map_container{
 	height: 300px;
 	width: 100%;
 	display: block;
 }
-
+        
 .padding_bottom{
 	margin-bottom: 30px;
+}
+
+.gpsnotfound{
+	padding-top: 50px;
 }
 
 #comments_start, #comments_end{
@@ -61,6 +69,16 @@ body {
 }
 
 [data-role=footer]{bottom:0; position:absolute !important; top: auto !important; width:100%;}  
+
+/*======= Map Styling! Not Legal! ============*/ 
+.gmnoprint a, .gmnoprint span {
+    display:none;
+}
+
+#GMapsID div div a div img{
+    display:none;
+}
+
 
 
 /* Landscape layout (with min-width) */
