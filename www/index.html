@@ -17,24 +17,153 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<html>
+<html ng-app="loadmaster">
     <head>
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+<!--         Jquery -->
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.3.2.min.css" />
+		    <script src="js/jquery-2.0.3.min.js" charset="utf-8"></script>  
+		    <script src="js/jquery.mobile-1.3.2.min.js" charset="utf-8"></script>  
+<!-- 		AngularJS -->
+		    <script src="js/angular.min.js" charset="utf-8"></script>
         <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Hello World</title>
+<!--        	Google maps api  -->
+        <script type="text/javascript" src="js/googlemapsapi.js">
+        <title>Loadmaster Logger</title>
+	    </script>
     </head>
-    <body>
-        <div class="app">
-            <h1>PhoneGap</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
-        </div>
-        <script type="text/javascript" src="phonegap.js"></script>
+<body ng-user ng-controller="userCtrl">
+
+<!-- Start setup  -->
+<div data-role="page" data-dom-cache="false" id="tokencontainer">
+	<h1>SETUP DEVICE</h1>
+	<h1>Indtast Device id og generer access token. </br> Access token skal indtastes i boksen herunder</h1>
+   <div data-role="header" data-theme="e">
+        <h1>Setup</h1>
+    </div>
+	<div id="inline">
+	   <form id="loginForm">
+	        <label for="device_id">Device Id</label>
+	        <input type="text" name="IMEI" ng-model="imei" id="imei" ng-minlength="4" value="" placeholder="indtast imei" required />
+	        <label for="accesstoken">Access Token. Genereres ved indtastning af imei i administrator interface</label>
+	        <input type="text" name="accesstoken" ng-model="access_token" id="accesstoken" ng-minlength="8" value="" placeholder="indtast accesstoken" required />
+	        <input id="submit_accesstoken" ng-click="submitToken($event)" type="submit" value="submit access token" disabled="disabled" data-role="button" data-inline="true" data-theme="b"  />
+<!-- 	   	    <input id="devidtest" ng-click="devId($event)" type="submit" value="show device ID" data-role="button" data-inline="true" data-theme="b"  /> -->
+		</form>
+	</div>
+	<div data-role="footer">
+		<h1>Loadmaster ApS</h1>
+	</div> 
+</div>
+<!-- end setup -->
+
+	<!-- Start på pålæsning  -->
+	<div data-role="page" data-dom-cache="false" id="home">
+		<div data-role="header">
+			<h1>Pålæsning</h1>
+		</div>
+		<div data-role="content">
+		    <form name="myForm" ng-controller="tripCtrl">
+		    	<div class="padding_bottom">
+					<label for="select-choice-0" class="select">Vælg din nummerplade</label>
+					<select class="requiredInput" name="license_plate" ng-model="license_plate" id="select_license_plate" type="text">
+					   <option value="0" selected>Vælg nummerplade</option>
+					   <option value="testnummerplade1">testnummerplade1</option>
+					   <option value="testnummerplade2">Testnummerplade2</option>
+		   			   <option value="testnummerplade3">Testnummerplade3</option>
+					   <option value="testnummerplade4">Testnummerplade4</option>
+				</select>
+		    	</div>
+		    	<div class="padding_bottom">
+				    <div class="map_container" >	
+						<div ng-map-start></div>
+					</div>
+		    	</div>
+		    	<div class="padding_bottom">
+					<label for="select-choice-0" class="select">Hvad kører du med</label>
+					<select class="requiredInput" name="cargo" ng-model="cargo" id="select_cargo">
+						<option value="0" selected>Vælg last</option>
+					   <option value="Stabilgrus">Stabilgrus</option>
+					   <option value="Ustabilgrus">UStabilgrus</option>
+					   <option value="Sten">Sten</option>
+					   <option value="Jord">Jord</option>
+					   <option value="Sand">Sand</option>
+					   <option value="Andet">Andet</option>
+					</select>
+		    	</div>
+		    	<div class="padding_bottom">
+					<label for="kommentarer" class="ui-hidden-accessible">Kommentarer</label>
+					<input type="text" name="start_comments" ng-model="start_comments"  id="comments_start" value="" placeholder="Skriv dine kommentarer her"/>						</div>
+				<input type="submit" ng-click="submit($event)" data-icon="arrow-r" id="submit_start" disabled="disabled" value="Registrer" data-role="button" data-theme="b">
+		    </form>
+		</div>
+		<div data-role="footer">
+			<h1>Loadmaster ApS</h1>
+		</div>
+	</div>
+	<!-- slut af pålæsning -->
+	
+	<!-- Start på aflæsning -->
+	<div data-role="page" data-dom-cache="false" id="two" ng-controller="tripCtrl">
+		<div data-role="header">
+			<h1>Aflæsning</h1>
+		</div>
+		<div data-role="content">	
+			<div class="padding_bottom">
+				<h1>Du er nu igang med en tur. Når du er nået frem til din destination, tryk på registrer knappen for at afslutte turen</h1>
+			</div>
+<!-- 			<div class="padding_bottom"> -->
+				<div class="map_container">
+					<div ng-map-end ng-controller="mapCtrl"></div>
+				</div>
+<!-- 			</div> -->
+			<div class="opsummering padding_bottom">
+				<span class="last_symbol"></span>
+				<h1>{{cargo}}</h1>
+				<span class="kommentar_symbol"></span>
+				<h1>{{start_comments}}</h1>
+			</div>
+			<div class="padding_bottom">
+				<label for="kommentarer" class="ui-hidden-accessible">Kommentarer</label>
+				<input type="text" name="username" ng-model="end_comments" id="comments_end" value="" placeholder="Skriv dine kommentarer her"/>
+			</div>
+			<input type="submit" data-icon="arrow-r" id="submit_end" ng-click="submit_end($event)" disabled="disabled" value="Registrer Aflæsning" data-role="button" data-theme="b">
+		</div>
+		<div data-role="footer">
+			<h1>Loadmaster ApS</h1>
+		</div>
+	</div><!-- /page -->
+	
+	<!-- Start of the History page -->
+	<div data-role="page" data-dom-cache="false" id="three">
+	
+	    <div data-role="header">
+	        <h1>Registrering færdig</h1>
+	    </div>
+	    
+		<div class="padding_bottom">
+	        <h1>Turen er nu afsluttet og din tur er gemt</h1>
+	    </div>
+		<div class="padding_bottom">
+		   <div class="map_container">
+				<div ng-map-finish ng-controller="mapCtrl"></div>
+		   </div>
+	    
+	    <input type="submit" data-icon="arrow-r" id="submitStartNewTrip" ng-click="submitStartNewTrip($event)" value="Ny tur" data-role="button">
+	
+		<div data-role="footer">
+			<h1>Loadmaster ApS</h1>
+		</div>
+
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="loadmaster_assets/assets/angular/controller.js"></script>	
+   	    <script type="text/javascript" src="loadmaster_assets/assets/angular/controllers/tripCtrl.js"></script>	
+        <script type="text/javascript" src="loadmaster_assets/assets/angular/controllers/mapCtrl.js"></script>         
+        <script type="text/javascript" src="loadmaster_assets/assets/angular/directives.js"></script>	
         <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/moment.js"></script>
         <script type="text/javascript">
             app.initialize();
         </script>

@@ -16,6 +16,28 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+ 
+
+
+ 
+var canConnect = false;
+ 
+    // Wait for device API libraries to load
+document.addEventListener("deviceready", function(){
+ 	document.addEventListener("backbutton", backKeyDown, true);
+},true); 
+ 
+     // device APIs are available
+function onDeviceReady() {
+	console.log("Device ready");
+}
+
+  function backKeyDown() {
+        navigator.app.exitApp();
+    }
+
+/* ------ Initialize app ----------*/
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -38,12 +60,36 @@ var app = {
     // Update DOM on a Received Event
     receivedEvent: function(id) {
         var parentElement = document.getElementById(id);
+
+
+		/* Outcommented because of error
         var listeningElement = parentElement.querySelector('.listening');
         var receivedElement = parentElement.querySelector('.received');
 
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
-
+		*/
+		
         console.log('Received Event: ' + id);
     }
 };
+
+function dropTables(){
+
+	shortName = 'WebSqlDB';
+	version = '1.0';
+	displayName = 'WebSqlDB';
+	maxSize = 65535;
+	
+	db = openDatabase(shortName, version, displayName, maxSize);
+
+
+	db.transaction(function(tx){
+
+		// IMPORTANT FOR DEBUGGING!!!!
+		// you can uncomment these next twp lines if you want the table Trip and the table Auth to be empty each time the application runs
+		tx.executeSql( 'DROP TABLE Trip');
+/* 		tx.executeSql( 'DROP TABLE Auth'); */
+
+	})
+}
