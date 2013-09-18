@@ -50,7 +50,12 @@ body {
 	text-align: center;
 }
 
-#map_canvas_start, #map_canvas_end,  #map_canvas_finish, .map_container{
+#map_canvas_start #map-container, 
+#map_canvas_end #map-container,  
+#map_canvas_finish #map-container, 
+.map_container,
+#map-container-end,
+#map-container-finish{
 	height: 300px;
 	width: 100%;
 	display: block;
