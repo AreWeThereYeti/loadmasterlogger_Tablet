@@ -79,6 +79,10 @@ body {
 	margin-bottom: 20px;
 }
 
+.padding_top{
+	padding-top: 40px;
+}
+
 #map_canvas_start #map-container, 
 #map_canvas_end #map-container,  
 #map_canvas_finish #map-container, 
@@ -109,7 +113,7 @@ body {
 	display: block
 }
 	
-.timestamp{
+.fontsize{
 	font-size: 14px;
 	color: #2d2d2d;
 }
@@ -164,7 +168,7 @@ body {
 	background-position: center center;
 	}
 	
-	.ui-btn, .ui-btn-inner { padding: 10px; }
+.ui-btn, .ui-btn-inner { padding: 10px; }
 
 [data-role=footer]{bottom:0; position:absolute !important; top: auto !important; width:100%;}  
 
@@ -218,17 +222,17 @@ h1 {
 
 @keyframes fade {
     from { opacity: 1.0; }
-    50% { opacity: 0.4; }
+    50% { opacity: 0.8; }
     to { opacity: 1.0; }
 }
  
 @-webkit-keyframes fade {
     from { opacity: 1.0; }
-    50% { opacity: 0.4; }
+    50% { opacity: 0.8; }
     to { opacity: 1.0; }
 }
  
 .blink {
-    animation:fade 3000ms infinite;
-    -webkit-animation:fade 3000ms infinite;
+    animation:fade 1000ms infinite;
+    -webkit-animation:fade 1000ms infinite;
 }
