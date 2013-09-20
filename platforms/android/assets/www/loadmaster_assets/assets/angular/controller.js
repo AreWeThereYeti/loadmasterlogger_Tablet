@@ -16,6 +16,12 @@ function userCtrl($scope) {
 	$scope.displayName = 'WebSqlDB';
 	$scope.maxSize = 65535;
 	$scope.host = 'http://195.231.85.191:5000';
+	
+	$scope.$on("setcargo", function(evt, cargo){
+		$scope.cargo = cargo;
+		$('.weight').trigger("create");
+	})
+	
 
 	$scope.init = function(){
 /* 		debugging function */
@@ -61,6 +67,7 @@ function userCtrl($scope) {
 				else if(!!dataset.length){
 					$scope.access_token = dataset.item(0).access_token;
 					$scope.imei = dataset.item(0).imei;
+					$scope.license_plate = dataset.item(0).license_plate;
 					$.mobile.changePage("#home");
 				}
 			});
@@ -72,9 +79,10 @@ function userCtrl($scope) {
 		console.log("Checking connection");
 		if(navigator.connection.type == Connection.UNKNOWN || navigator.connection.type == Connection.NONE || navigator.connection.type == Connection.CELL || navigator.connection.type == Connection.CELL_2G){
 			console.log('Unknown connection');
+			$scope.isDatabaseEmpty();
+
 		} else if(navigator.connection.type == Connection.CELL_3G || navigator.connection.type == Connection.CELL_4G || navigator.connection.type == Connection.WIFI ||navigator.connection.type == Connection.ETHERNET){
 			console.log("Found connection. Checking if database is empty ")
-			$scope.isDatabaseEmpty();
 		}
 	}
 	
@@ -169,7 +177,7 @@ function userCtrl($scope) {
 							var trip = {
 								trip_id			: item['Id'],
 								cargo			: item['_cargo'],
-								license_plate 	: item['_license_plate'],
+								license_plate 	: $scope.license_plate,
 								start_location 	: item['_start_location'],
 								start_address 	: item['_start_address'],
 								end_location 	: item['_end_location'],
@@ -294,7 +302,7 @@ function userCtrl($scope) {
 		
 		// this is the section that actually inserts the values into the User table
 		$scope.db.transaction(function(transaction) {
-			transaction.executeSql('INSERT INTO AUTH (access_token, imei) VALUES ("'+$scope.access_token+'", "'+$scope.imei+'")',[]);
+			transaction.executeSql('INSERT INTO AUTH (access_token, imei, license_plate) VALUES ("'+$scope.access_token+'", "'+$scope.imei+'", "'+$scope.license_plate+'")',[]);
 			},function error(err){alert('error on save to local db ' + err)}, function success(){}
 		);
 		
@@ -323,12 +331,12 @@ function userCtrl($scope) {
 		// this line will try to create the table User in the database justcreated/openned
 		$scope.db.transaction(function(tx){
 
-			tx.executeSql( 'CREATE TABLE IF NOT EXISTS Auth(access_token varchar, imei varchar)', []);
+			tx.executeSql( 'CREATE TABLE IF NOT EXISTS Auth(access_token varchar, imei varchar, license_plate varchar)', []);
 			 
 			// this line actually creates the table User if it does not exist and sets up the three columns and their types
 			// note the UserId column is an auto incrementing column which is useful if you want to pull back distinct rows
 			// easily from the table.
-			tx.executeSql( 'CREATE TABLE IF NOT EXISTS Trip(Id INTEGER PRIMARY KEY AUTOINCREMENT, _license_plate varchar, _cargo varchar, _start_timestamp int, _start_location int, _start_address varchar,  _start_comments varchar, _end_timestamp int, _end_location int, _end_address varchar, _end_comments varchar, _is_finished int)', [])},
+			tx.executeSql( 'CREATE TABLE IF NOT EXISTS Trip(Id INTEGER PRIMARY KEY AUTOINCREMENT, _cargo varchar, _start_timestamp int, _start_location int, _start_address varchar,  _start_comments varchar, _end_timestamp int, _end_location int, _end_address varchar, _end_comments varchar, _is_finished int)', [])},
 			function error(err){alert('error on init local db ' + err)}, function success(){console.log("database created")}
 		) 
 	}
@@ -336,12 +344,12 @@ function userCtrl($scope) {
 	// this is the function that puts values into the database from page #home
 	$scope.AddStartValuesToDB = function(trip) {
 		$scope.startlocation=trip.start_location
-		console.log("cargo er " + trip.cargo);
+		$scope.start_timestamp = moment().format("HH:mm:ss DD-MM-YYYY")
 	 
 		// this is the section that actually inserts the values into the User table
 		$scope.db.transaction(function(transaction) {
 			console.log("Cargo er i submit og vi kører nu addstartvalues to db" + $scope.cargo);
-			transaction.executeSql('INSERT INTO Trip(_license_plate, _cargo, _start_timestamp, _start_location, _start_address, _start_comments) VALUES ("'+trip.license_plate+'", "'+trip.cargo+'", "'+trip.start_timestamp+'", "'+trip.start_location+'", "'+trip.start_address+'", "'+trip.start_comments+'")');	
+			transaction.executeSql('INSERT INTO Trip(_cargo, _start_timestamp, _start_location, _start_address, _start_comments) VALUES ("'+trip.cargo+'", "'+trip.start_timestamp+'", "'+trip.start_location+'", "'+trip.start_address+'", "'+trip.start_comments+'")');	
 		},function error(err){alert('error on save to local db ' + err)}, function success(){});
 		return false;
 	}	
@@ -349,6 +357,8 @@ function userCtrl($scope) {
 	// this is the function that puts values into the database from page #home
 	$scope.AddEndValuesToDB = function(trip) {
 	 	$scope.endlocation=trip.end_location
+		$scope.end_timestamp = moment().format("HH:mm:ss DD-MM-YYYY")
+
 
 		// this is the section that actually inserts the values into the User table
 		$scope.db.transaction(function(transaction) {
@@ -358,6 +368,7 @@ function userCtrl($scope) {
 		return false;
 	}
 	
+
 	
 /* DEBUGGING functions */
 
