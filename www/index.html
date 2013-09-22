@@ -78,15 +78,18 @@
 					</div>
 		    	</div>
 		    	<div class="padding_bottom">
-					<label for="select-choice-0" class="select">Hvad kører du med</label>
-					<select class="requiredInput" name="cargo" ng-model="cargo" id="select_cargo">
-						<option value="0" selected>Vælg last</option>
-					   <option value="Stabilgrus">Stabilgrus</option>
-					   <option value="Sten">Sten</option>
-					   <option value="Jord">Jord</option>
-					   <option value="Sand">Sand</option>
-					   <option value="Andet">Andet</option>
-					</select>
+<!--
+					<ul data-role="listview"  data-filter="true" data-inset="true" data-filter-reveal="true"  class="ui-listview">
+						<li>Stabilgrus</li>
+						<li>Ustabilgrus</li>
+						<li>Sten</li>
+						<li>Grus</li>
+						<li>Sand</li>
+					</ul>
+-->
+				<input type="text" id="searchField" ng-model="cargo" placeholder="Indtast din last her">
+				<ul id="suggestions" data-role="listview" data-inset="true"></ul>
+					
 		    	</div>
 		    	<div class="padding_bottom">
 					<label for="kommentarer" class="ui-hidden-accessible">Kommentarer</label>
@@ -167,16 +170,38 @@
 		<div data-role="footer">
 			<h1>Loadmaster ApS</h1>
 		</div>
-
+		
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="src/loadmaster_assets/assets/angular/controller.js"></script>	
    	    <script type="text/javascript" src="src/loadmaster_assets/assets/angular/controllers/tripCtrl.js"></script>	
         <script type="text/javascript" src="src/loadmaster_assets/assets/angular/controllers/mapCtrl.js"></script>         
         <script type="text/javascript" src="src/loadmaster_assets/assets/angular/directives.js"></script>	
         <script type="text/javascript" src="src/js/moment.js"></script>
+        <script type="text/javascript" src="src/js/jqm.autoComplete-1.5.2-min.js"></script>
         <script type="text/javascript" src="src/js/index.js"></script>
         <script type="text/javascript">
             app.initialize();
         </script>
+        
+        <script>
+			$("#home").bind("pageshow", function(e) {
+	
+				var data = ['Dyr', 'Korn', 'Jord', 'Stabilgrus', 'Sand', 'Grus', 'Sten', 'Cement', 'Kalk', 'Mursten', 'foder', 'Maml', 'Haml'];
+	
+				$("#searchField").autocomplete({
+					target: $('#suggestions'),
+					source: data,
+					callback: function(e) {
+						var $a = $(e.currentTarget);
+						$('#searchField').val($a.text());
+						$("#searchField").autocomplete('clear');
+					},
+					link: 'target.html?term=',
+					minLength: 1
+				});
+			});
+		</script>
+        
+        
     </body>
 </html>
