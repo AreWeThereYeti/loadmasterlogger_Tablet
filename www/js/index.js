@@ -25,6 +25,7 @@ var canConnect = false;
     // Wait for device API libraries to load
 document.addEventListener("deviceready", function(){
  	document.addEventListener("backbutton", backKeyDown, true);
+/*  	acquire(); */
 },true); 
  
      // device APIs are available
@@ -73,6 +74,29 @@ var app = {
         console.log('Received Event: ' + id);
     }
 };
+
+/*
+function acquire() {
+			cordova.require('cordova/plugin/powermanagement').acquire(
+					function() { alert( 'hooray' ); },
+					function() { alert( 'oh no!' ); }
+					);
+};
+		
+function release() {
+			cordova.require('cordova/plugin/powermanagement').release(
+					function() { alert( 'hooray' ); },
+					function() { alert( 'oh no!' ); }
+					);
+}
+		
+function dim() {
+			cordova.require('cordova/plugin/powermanagement').dim(
+					function() { alert( 'hooray' ); },
+					function() { alert( 'oh no!' ); }
+					);
+}
+*/
 
 function dropTables(){
 
