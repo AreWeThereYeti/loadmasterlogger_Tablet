@@ -25,6 +25,11 @@ var canConnect = false;
     // Wait for device API libraries to load
 document.addEventListener("deviceready", function(){
  	document.addEventListener("backbutton", backKeyDown, true);
+ 	function acquire() {
+	    cordova.require('cordova/plugin/powermanagement').acquire(
+	    	onPower()
+	    )
+	}
 
 },true); 
  
@@ -74,6 +79,7 @@ var app = {
         console.log('Received Event: ' + id);
     }
 };
+
 
 
 function dropTables(){

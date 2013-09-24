@@ -38,19 +38,19 @@
 
 <!-- Start setup  -->
 <div data-role="page" data-dom-cache="false" id="tokencontainer" >
-   <div data-role="header" data-theme="a" class="padding_bottom">
+   <div data-role="header" data-theme="a" class="margin_bottom_top">
         <h1>Setup</h1>
     </div>
     
 	<h1>SETUP DEVICE</h1>
-	<h1 class="padding_bottom" >Indtast Device id og generer access token. </br> Access token skal indtastes i boksen herunder</h1>
+	<h1 class="margin_bottom_top" >Indtast Device id og generer access token. </br> Access token skal indtastes i boksen herunder</h1>
 	
 	<div id="inline">
 	   <form id="loginForm">
 	        <label for="license_plate">Nummerplade</label>
-	        <input type="text" class="requiredInput padding_bottom" name="license_plate" ng-model="license_plate" placeholder="indtast nummerplade" id="select_license_plate" type="text" required />
+	        <input type="text" class="requiredInput margin_bottom_top" name="license_plate" ng-model="license_plate" placeholder="indtast nummerplade" id="select_license_plate" type="text" required />
 	        <label for="device_id">Device Id</label>
-	        <input type="text" name="IMEI" class="padding_bottom" ng-model="imei" id="imei" ng-minlength="4" value="" placeholder="indtast imei" required />
+	        <input type="text" name="IMEI" class="margin_bottom_top" ng-model="imei" id="imei" ng-minlength="4" value="" placeholder="indtast imei" required />
 	        <label for="accesstoken">Access Token. Genereres ved indtastning af imei i administrator interface</label>
 	        <input type="text" name="accesstoken" ng-model="access_token" id="accesstoken" ng-minlength="8" value="" placeholder="indtast accesstoken" required />
 	        <input id="submit_accesstoken" ng-click="submitToken($event)" type="submit" value="submit access token" disabled="disabled" data-role="button" data-inline="true" data-theme="b"  />
@@ -70,23 +70,23 @@
 		</div>
 		<div data-role="content">
 		    <form name="myForm" ng-controller="tripCtrl">
-		    	<div class="padding_bottom">
+		    	<div class="margin_bottom_top">
 					<h1>{{licence_plate}}</h1>
 		    	</div>
-		    	<div class="padding_bottom">
+		    	<div class="margin_bottom_top">
 				    <div class="map_container" >	
 						<div ng-map-start></div>
 					</div>
 		    	</div>
-		    	<div class="padding_bottom">
-		    	<div ng-cargo-autocomplete>
-					<input type="text" ng-cargo-autocomplete ng-model="cargo" placeholder="Indtast din last her">
-					<ul id="suggestions" data-role="listview" data-inset="true"></ul>
-		    	</div>	
+		    	<div class="margin_bottom_top">
+			    	<div ng-cargo-autocomplete class="margin_bottom_top">
+						<input type="text" ng-cargo-autocomplete ng-model="cargo" class="ng_cargo" placeholder="Indtast din last her">
+						<ul id="suggestions" data-role="listview" data-inset="true"></ul>
+			    	</div>	
 		    	</div>
-		    	<div class="padding_bottom">
+		    	<div class="margin_bottom_top">
 					<label for="kommentarer" class="ui-hidden-accessible">Kommentarer</label>
-					<input type="text" name="start_comments" ng-model="start_comments"  id="comments_start" value="" placeholder="Skriv dine kommentarer her"/>						</div>
+					<input type="text" name="start_comments" ng-model="start_comments"  id="comments_start" value="" placeholder="Skriv dine kommentarer her"/>	</div>
 				<input type="submit" ng-click="submit($event)" class="biggerbtn" data-icon="arrow-r" id="submit_start" disabled="disabled" value="Registrer" data-role="button" data-theme="b">
 		    </form>
 		</div>
@@ -103,13 +103,13 @@
 			<h1>Aflæsning</h1>
 		</div>
 		<div data-role="content">	
-			<div class="padding_bottom">
+			<div class="margin_bottom_top">
 				<h1>Du er nu igang med en tur. Når du er nået frem til din destination, tryk på registrer knappen for at afslutte turen</h1>
 			</div>
-				<div class="map_container padding_bottom">
+				<div class="map_container margin_bottom_top">
 					<div ng-map-end ng-controller="mapCtrl"></div>
 				</div>
-			<div class="opsummering centered padding_bottom">
+			<div class="opsummering centered margin_bottom_top">
 				<div class="ui-grid-a">
 					<div class="ui-block-a">
 					    <span class="weight"></span><h2 class="inlineblock centered vertical-centered margintop30" >{{cargo}}</h2>
@@ -120,7 +120,7 @@
 				</div>
 
 			</div>
-			<div class="padding_bottom">
+			<div class="margin_bottom_top">
 				<label for="kommentarer" class="ui-hidden-accessible">Kommentarer</label>
 				<input type="text" name="username" ng-model="end_comments" id="comments_end" value="" placeholder="Skriv dine kommentarer her"/>
 			</div>
@@ -133,20 +133,20 @@
 	
 	<!-- Start of the History page -->
 	<div data-role="page" data-dom-cache="false" id="three">
-		    <div data-role="header" class="padding_bottom">
+		    <div data-role="header" class="margin_bottom_top">
 	        <h1>Registring færdig</h1>
 
 	    </div>
 	    
-		<div class="padding_bottom">
+		<div class="margin_bottom_top">
 	        <h1>Turen er nu afsluttet og din tur er gemt</h1>
 	    </div>
-		<div class="padding_bottom">
+		<div class="margin_bottom_top">
 		   <div class="map_container">
 				<div ng-map-finish ng-controller="mapCtrl"></div>
 		   </div>
 		</div>
-		<div class="ui-grid-a padding_bottom centered">
+		<div class="ui-grid-a margin_bottom_top centered">
 			<div class="ui-block-a fontsize"><span>Start tid : </span>{{start_timestamp}}</div>
 			<div class="ui-block-b fontsize"><span>Slut tid : </span>{{end_timestamp}}</div>
 		</div>

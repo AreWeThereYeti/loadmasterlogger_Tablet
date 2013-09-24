@@ -45,6 +45,10 @@ body {
     width:100%;
 }
 
+.ui-header .ui-title{
+	font-size: 22px !important;
+}
+
 
 /* Generic styles */
 .centered{
@@ -75,8 +79,9 @@ body {
 	margin-right: 20px;
 }
 
-.padding_bottom{
-	margin-bottom: 20px;
+.margin_bottom_top{
+	margin-bottom: 30px;
+	margin-top: 30px;
 }
 
 .padding_top{
@@ -93,6 +98,15 @@ body {
 	width: 100%;
 	display: block;
 	box-shadow: 0px 0px 10px 0px #bebebe;
+}
+
+.ng_cargo{
+	height: 50px;
+	
+}
+
+.database{
+	text-align: center;
 }
 
 .overlay{
@@ -114,16 +128,27 @@ body {
 }
 	
 .fontsize{
-	font-size: 14px;
+	font-size: 18px;
 	color: #2d2d2d;
 }
 
 .gpsnotfound{
 	padding-top: 50px;
+	width: 90%;
+	margin: 0 auto;
+}
+
+.gpsnotfound .textarea{
+	height:100px;
+}
+
+.textarea{
+	margin: 0 auto !important;
+	height: 50px;	
 }
 
 #comments_start, #comments_end{
-	height: 75px;
+	height: 50px;
 }
 
 .searching {
