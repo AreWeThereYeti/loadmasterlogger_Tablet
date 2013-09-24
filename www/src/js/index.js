@@ -24,15 +24,8 @@ var canConnect = false;
  
     // Wait for device API libraries to load
 document.addEventListener("deviceready", function(){
- 	document.addEventListener("backbutton", backKeyDown, true);
-		
-	function acquire() {
-		cordova.require('cordova/plugin/powermanagement').acquire(
-				function() { alert( 'successfully acquired full wake lock' ); },
-				function() { alert( 'error acquiring full wake lock' ); }
-				);
-	};
-
+ 	document.addEventListener("backbutton", backKeyDown, true);	
+ 	acquire()
 },true); 
  
      // device APIs are available
@@ -43,6 +36,13 @@ function onDeviceReady() {
   function backKeyDown() {
         navigator.app.exitApp();
     }
+    
+    	function acquire() {
+		cordova.require('cordova/plugin/powermanagement').acquire(
+				function() { alert( 'successfully acquired full wake lock' ); },
+				function() { alert( 'error acquiring full wake lock' ); }
+				);
+	};
 
 /* ------ Initialize app ----------*/
 
