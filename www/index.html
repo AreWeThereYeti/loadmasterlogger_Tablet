@@ -31,7 +31,7 @@
         <link rel="stylesheet" type="text/css" href="src/css/index.css" />
 <!--        	Google maps api  -->
         <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false">
-        <title>Loadmaster Logger</title>
+        <title>Loadmaster Logger FMS</title>
 	    </script>
     </head>
 <body ng-user ng-controller="userCtrl">
@@ -57,7 +57,7 @@
 		<h2 class="centered">Hvis du ser denne skærm, kontakt venligst Loadmaster</h2>
 	</div>
 	<div data-role="footer">
-		<h1>Loadmaster ApS</h1>
+		<h1>Loadmaster Logger FMS</h1>
 	</div> 
 </div>
 <!-- end setup -->
@@ -91,7 +91,7 @@
 		</div>
 		<div class="database"></div>
 		<div data-role="footer">
-			<h1>Loadmaster ApS</h1>
+			<h1>Loadmaster Logger FMS</h1>
 		</div>
 	</div>
 	<!-- slut af pålæsning -->
@@ -126,14 +126,14 @@
 			<input type="submit" data-icon="arrow-r" class="biggerbtn" id="submit_end" ng-click="submit_end($event)" disabled="disabled" value="Registrer Aflæsning" data-role="button" data-theme="b">
 		</div>
 		<div data-role="footer">
-			<h1>Loadmaster ApS</h1>
+			<h1>Loadmaster Logger FMS</h1>
 		</div>
 	</div><!-- /page -->
 	
 	<!-- Start of the History page -->
 	<div data-role="page" data-dom-cache="false" id="three">
-		    <div data-role="header" class="margin_bottom_top">
-	        <h1>Registring færdig</h1>
+		    <div data-role="header">
+	        <h1 class="margin_bottom_top">Registring færdig</h1>
 
 	    </div>
 	    
@@ -160,7 +160,7 @@
 	    <input type="submit" data-icon="arrow-r" id="submitStartNewTrip" ng-click="submitStartNewTrip($event)" value="Ny tur" data-role="button">
 	
 		<div data-role="footer">
-			<h1>Loadmaster ApS</h1>
+			<h1>Loadmaster Logger FMS</h1>
 		</div>
 		
         <script type="text/javascript" src="cordova.js"></script>
