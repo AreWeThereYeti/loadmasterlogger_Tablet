@@ -37,12 +37,12 @@ function onDeviceReady() {
         navigator.app.exitApp();
     }
     
-    	function acquire() {
-		cordova.require('cordova/plugin/powermanagement').acquire(
-				function() { alert( 'successfully acquired full wake lock' ); },
-				function() { alert( 'error acquiring full wake lock' ); }
-				);
-	};
+	function acquire() {
+	cordova.require('cordova/plugin/powermanagement').acquire(
+			function() { console.log( 'successfully acquired full wake lock' ); },
+			function() { console.log( 'error acquiring full wake lock' ); }
+		);
+};
 
 /* ------ Initialize app ----------*/
 
