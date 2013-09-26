@@ -29,9 +29,10 @@
 <!-- 		AngularJS -->
 		<script src="src/js/angular.min.js" charset="utf-8"></script>
         <link rel="stylesheet" type="text/css" href="src/css/index.css" />
+        <link rel="stylesheet" type="text/css" href="src/css/buttons.css" />
 <!--        	Google maps api  -->
         <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false">
-        <title>Loadmaster Logger FMS</title>
+        <title>LoadMaster Logger FMS</title>
 	    </script>
     </head>
 <body ng-user ng-controller="userCtrl">
@@ -57,7 +58,7 @@
 		<h2 class="centered">Hvis du ser denne skærm, kontakt venligst Loadmaster</h2>
 	</div>
 	<div data-role="footer">
-		<h1>Loadmaster Logger FMS</h1>
+		<h1>LoadMaster Logger FMS</h1>
 	</div> 
 </div>
 <!-- end setup -->
@@ -73,9 +74,7 @@
 					<h1>{{licence_plate}}</h1>
 		    	</div>
 		    	<div class="margin_bottom_top">
-				    <div class="map_container" >	
 						<div ng-map-start></div>
-					</div>
 		    	</div>
 		    	<div class="margin_bottom_top">
 			    	<div ng-cargo-autocomplete class="margin_bottom_top">
@@ -86,12 +85,12 @@
 		    	<div class="margin_bottom_top">
 					<label for="kommentarer" class="ui-hidden-accessible">Kommentarer</label>
 					<input type="text" name="start_comments" ng-model="start_comments"  id="comments_start" value="" placeholder="Skriv dine kommentarer her"/>	</div>
-				<input type="submit" ng-click="submit($event)" class="biggerbtn" data-icon="arrow-r" id="submit_start" disabled="disabled" value="Registrer" data-role="button" data-theme="b">
+				<input type="submit" ng-click="submit($event)" class="biggerbtn" data-icon="arrow-r" id="submit_start" disabled="disabled" value="Start Tur" data-role="button" data-theme="b">
 		    </form>
 		</div>
 		<div class="database"></div>
 		<div data-role="footer">
-			<h1>Loadmaster Logger FMS</h1>
+			<h1>LoadMaster Logger FMS</h1>
 		</div>
 	</div>
 	<!-- slut af pålæsning -->
@@ -105,7 +104,7 @@
 			<div class="margin_bottom_top">
 				<h1>Du er nu igang med en tur. Når du er nået frem til din destination, tryk på registrer knappen for at afslutte turen</h1>
 			</div>
-				<div class="map_container margin_bottom_top">
+				<div class="margin_bottom_top">
 					<div ng-map-end ng-controller="mapCtrl"></div>
 				</div>
 			<div class="opsummering centered margin_bottom_top">
@@ -126,7 +125,7 @@
 			<input type="submit" data-icon="arrow-r" class="biggerbtn" id="submit_end" ng-click="submit_end($event)" disabled="disabled" value="Registrer Aflæsning" data-role="button" data-theme="b">
 		</div>
 		<div data-role="footer">
-			<h1>Loadmaster Logger FMS</h1>
+			<h1>LoadMaster Logger FMS</h1>
 		</div>
 	</div><!-- /page -->
 	
@@ -160,7 +159,7 @@
 	    <input type="submit" data-icon="arrow-r" id="submitStartNewTrip" ng-click="submitStartNewTrip($event)" value="Ny tur" data-role="button">
 	
 		<div data-role="footer">
-			<h1>Loadmaster Logger FMS</h1>
+			<h1>LoadMaster Logger FMS</h1>
 		</div>
 		
         <script type="text/javascript" src="cordova.js"></script>
@@ -170,7 +169,7 @@
         <script type="text/javascript" src="src/loadmaster_assets/vendor/assets/javascripts/loadmaster_assets/angular/directives.js"></script>	
         <script type="text/javascript" src="src/js/moment.js"></script>
         <script type="text/javascript" src="src/js/jqm.autoComplete-1.5.2-min.js"></script>
-		<script type="text/javascript" charset="utf-8" src="src/js/powermanagement.js"></script>
+		    <script type="text/javascript" charset="utf-8" src="src/js/powermanagement.js"></script>
         <script type="text/javascript" src="src/js/index.js"></script>
         <script type="text/javascript">
             app.initialize();

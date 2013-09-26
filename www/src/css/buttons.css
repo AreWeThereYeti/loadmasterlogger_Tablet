@@ -1,0 +1,66 @@
+ul.ui-listview li .ui-btn-inner{
+	padding: 0px;
+	font-size: 18px;
+}
+
+ul.ui-listview li .ui-btn-inner .ui-btn-text a{
+	padding:10px;
+}
+
+.ng_cargo{
+	height: 30px;
+}
+
+.weight{
+	vertical-align: middle;
+	display: inline-block;
+	height: 47px;
+	width: 40px;
+	margin-right: 10px;
+	opacity: 0.85;
+	-moz-opacity: 0.45;
+	filter: alpha(opacity=45);
+	background-image: url(../img/weight.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.licenseplate{	
+	vertical-align: middle;
+	display: inline-block;
+	height: 45px;
+	width: 62px;
+	margin-right: 10px;
+	opacity: 0.85;
+	-moz-opacity: 0.45;
+	filter: alpha(opacity=45);
+	background-image: url(../img/truck.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+	
+.ui-btn .ui-btn-inner { padding: 20px;font-size: 25px; }
+
+.ui-btn-up-b {
+	font-weight: 400;
+}
+
+
+.gpsnotfound{
+	padding-top: 50px;
+	width: 90%;
+	margin: 0 auto;
+}
+
+.gpsnotfound .textarea{
+	height:100px;
+}
+
+.textarea{
+	margin: 0 auto !important;
+	height: 50px;	
+}
+
+#comments_start, #comments_end{
+	height: 50px;
+}
