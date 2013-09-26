@@ -25,7 +25,6 @@ var canConnect = false;
     // Wait for device API libraries to load
 document.addEventListener("deviceready", function(){
  	document.addEventListener("backbutton", backKeyDown, true);	
- 	acquire()
 },true); 
  
      // device APIs are available
@@ -37,12 +36,7 @@ function onDeviceReady() {
         navigator.app.exitApp();
     }
     
-	function acquire() {
-	cordova.require('cordova/plugin/powermanagement').acquire(
-			function() { console.log( 'successfully acquired full wake lock' ); },
-			function() { console.log( 'error acquiring full wake lock' ); }
-		);
-};
+
 
 /* ------ Initialize app ----------*/
 
