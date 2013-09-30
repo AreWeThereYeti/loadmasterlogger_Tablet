@@ -18,161 +18,46 @@
     under the License.
 -->
 <html ng-app="loadmaster">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-<!--         Jquery -->
-        <link rel="stylesheet" type="text/css" href="src/css/jquery.mobile-1.3.2.min.css" />
-		<script src="src/js/jquery-2.0.3.min.js" charset="utf-8"></script>  
-		<script src="src/js/jquery.mobile-1.3.2.min.js" charset="utf-8"></script>  
-<!-- 		AngularJS -->
-		<script src="src/js/angular.min.js" charset="utf-8"></script>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+  <!--         Jquery -->
+    <link rel="stylesheet" type="text/css" href="src/css/jquery.mobile-1.3.2.min.css" />
+  	<script src="src/js/jquery-2.0.3.min.js" charset="utf-8"></script>  
+  	<script src="src/js/jquery.mobile-1.3.2.min.js" charset="utf-8"></script>  
+  <!-- 		AngularJS -->
+  	<script src="src/js/angular.min.js" charset="utf-8"></script>
         <link rel="stylesheet" type="text/css" href="src/css/index.css" />
         <link rel="stylesheet" type="text/css" href="src/css/buttons.css" />
-<!--        	Google maps api  -->
-        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false">
-        <title>LoadMaster Logger FMS</title>
-	    </script>
-    </head>
-<body ng-user ng-controller="userCtrl">
-
-<!-- Start setup  -->
-<div data-role="page" data-dom-cache="false" id="tokencontainer" >
-   <div data-role="header" data-theme="a" class="margin_bottom_top">
-        <h1>Setup</h1>
-    </div>  
-	<h1>SETUP DEVICE</h1>
-	<h1 class="margin_bottom_top" >Indtast Device id og generer access token. </br> Access token skal indtastes i boksen herunder</h1>
-	
-	<div id="inline">
-	   <form id="loginForm">
-	        <label for="license_plate">Nummerplade</label>
-	        <input type="text" class="requiredInput margin_bottom_top" name="license_plate" ng-model="license_plate" placeholder="indtast nummerplade" id="select_license_plate" type="text" required />
-	        <label for="device_id">Device Id</label>
-	        <input type="text" name="IMEI" class="margin_bottom_top" ng-model="imei" id="imei" ng-minlength="4" value="" placeholder="indtast imei" required />
-	        <label for="accesstoken">Access Token. Genereres ved indtastning af imei i administrator interface</label>
-	        <input type="text" name="accesstoken" ng-model="access_token" id="accesstoken" ng-minlength="8" value="" placeholder="indtast accesstoken" required />
-	        <input id="submit_accesstoken" ng-click="submitToken($event)" type="submit" value="submit access token" disabled="disabled" data-role="button" data-inline="true" data-theme="b"  />
-		</form>
-		<h2 class="centered">Hvis du ser denne skærm, kontakt venligst Loadmaster</h2>
-	</div>
-	<div data-role="footer">
-		<h1>LoadMaster Logger FMS</h1>
-	</div> 
-</div>
-<!-- end setup -->
-
-	<!-- Start på pålæsning  -->
-	<div data-role="page" data-dom-cache="false" id="home">
-		<div data-role="header">
-			<h1>Pålæsning</h1>
+  <!--        	Google maps api  -->
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false">
+      <title>LoadMaster Logger FMS</title>
+    </script>
+  </head>
+  <body ng-user ng-controller="userCtrl">
+    <div ng-trip>
+      <div ng-mobile-access-page data-role="page" data-dom-cache="false" id="tokencontainer" >
+      </div>
+    	<div ng-mobile-trip-start data-role="page" data-dom-cache="false" id="home">
+    	</div>
+    	<div ng-mobile-trip-end data-role="page" data-dom-cache="false" id="two">
+    	</div>
+    	<div ng-mobile-trip-ended data-role="page" data-dom-cache="false" id="three" startlocation="startlocation" endlocation="endlocation">
+    	</div>
 		</div>
-		<div data-role="content">
-		    <form name="myForm" ng-controller="tripCtrl">
-		    	<div class="margin_bottom_top">
-					<h1>{{licence_plate}}</h1>
-		    	</div>
-		    	<div class="margin_bottom_top">
-						<div ng-map-start></div>
-		    	</div>
-		    	<div class="margin_bottom_top">
-			    	<div ng-cargo-autocomplete class="margin_bottom_top">
-						<input type="text" ng-cargo-autocomplete ng-model="cargo" class="ng_cargo" placeholder="Indtast din last her">
-						<ul id="suggestions" data-role="listview" data-inset="true"></ul>
-			    	</div>	
-		    	</div>
-		    	<div class="margin_bottom_top">
-					<label for="kommentarer" class="ui-hidden-accessible">Kommentarer</label>
-					<input type="text" name="start_comments" ng-model="start_comments"  id="comments_start" value="" placeholder="Skriv dine kommentarer her"/>	</div>
-				<input type="submit" ng-click="submit($event)" class="biggerbtn" data-icon="arrow-r" id="submit_start" disabled="disabled" value="Start Tur" data-role="button" data-theme="b">
-		    </form>
-		</div>
-		<div class="database"></div>
-		<div data-role="footer">
-			<h1>LoadMaster Logger FMS</h1>
-		</div>
-	</div>
-	<!-- slut af pålæsning -->
-	
-	<!-- Start på aflæsning -->
-	<div data-role="page" data-dom-cache="false" id="two" ng-controller="tripCtrl">
-		<div data-role="header">
-			<h1>Aflæsning</h1>
-		</div>
-		<div data-role="content">	
-			<div class="margin_bottom_top">
-				<h1>Du er nu igang med en tur. Når du er nået frem til din destination, tryk på registrer knappen for at afslutte turen</h1>
-			</div>
-				<div class="margin_bottom_top">
-					<div ng-map-end ng-controller="mapCtrl"></div>
-				</div>
-			<div class="opsummering centered margin_bottom_top">
-				<div class="ui-grid-a">
-					<div class="ui-block-a">
-					    <span class="weight"></span><h2 class="inlineblock centered vertical-centered margintop30" >{{cargo}}</h2>
-					</div>
-					<div class="ui-block-b">
-					    <span class="licenseplate"></span><h2 class="inlineblock centered vertical-centered margintop30" >{{license_plate}}</h2>
-					</div>
-				</div>
-
-			</div>
-			<div class="margin_bottom_top">
-				<label for="kommentarer" class="ui-hidden-accessible">Kommentarer</label>
-				<input type="text" name="username" ng-model="end_comments" id="comments_end" value="" placeholder="Skriv dine kommentarer her"/>
-			</div>
-			<input type="submit" data-icon="arrow-r" class="biggerbtn" id="submit_end" ng-click="submit_end($event)" disabled="disabled" value="Registrer Aflæsning" data-role="button" data-theme="b">
-		</div>
-		<div data-role="footer">
-			<h1>LoadMaster Logger FMS</h1>
-		</div>
-	</div><!-- /page -->
-	
-	<!-- Start of the History page -->
-	<div data-role="page" data-dom-cache="false" id="three">
-		    <div data-role="header">
-	        <h1 class="margin_bottom_top">Tur Færdig</h1>
-
-	    </div>
-	    
-		<div class="margin_bottom_top">
-	        <h1>Turen er nu afsluttet og din tur er gemt</h1>
-	    </div>
-		<div class="margin_bottom_top">
-		   <div class="map_container">
-				<div ng-map-finish ng-controller="mapCtrl"></div>
-		   </div>
-		</div>
-		<div class="ui-grid-a margin_bottom_top centered">
-			<div class="ui-block-a fontsize"><span>Start tid : </span>{{start_timestamp}}</div>
-			<div class="ui-block-b fontsize"><span>Slut tid : </span>{{end_timestamp}}</div>
-		</div>
-		<div class="ui-grid-a centered">
-			<div class="ui-block-a">
-			    <span class="weight"></span><h2 class="inlineblock centered vertical-centered margintop30" >{{cargo}}</h2>
-			</div>
-			<div class="ui-block-b">
-			    <span class="licenseplate"></span><h2 class="inlineblock centered vertical-centered margintop30" >{{license_plate}}</h2>
-			</div>
-		</div>
-	    <input type="submit" data-icon="arrow-r" id="submitStartNewTrip" ng-click="submitStartNewTrip($event)" value="Ny tur" data-role="button">
-	
-		<div data-role="footer">
-			<h1>LoadMaster Logger FMS</h1>
-		</div>
-		
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="src/loadmaster_assets/vendor/assets/javascripts/loadmaster_assets/angular/controller.js"></script>	
-   	    <script type="text/javascript" src="src/loadmaster_assets/vendor/assets/javascripts/loadmaster_assets/angular/controllers/tripCtrl.js"></script>	
-        <script type="text/javascript" src="src/loadmaster_assets/vendor/assets/javascripts/loadmaster_assets/angular/controllers/mapCtrl.js"></script>         
-        <script type="text/javascript" src="src/loadmaster_assets/vendor/assets/javascripts/loadmaster_assets/angular/directives.js"></script>	
-        <script type="text/javascript" src="src/js/moment.js"></script>
-        <script type="text/javascript" src="src/js/jqm.autoComplete-1.5.2-min.js"></script>
-		    <script type="text/javascript" charset="utf-8" src="src/js/powermanagement.js"></script>
-        <script type="text/javascript" src="src/js/index.js"></script>
-        <script type="text/javascript">
-            app.initialize();
-        </script>
-    </body>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="src/loadmaster_assets/vendor/assets/javascripts/loadmaster_assets/angular/controller.js"></script>	
+	    <script type="text/javascript" src="src/loadmaster_assets/vendor/assets/javascripts/loadmaster_assets/angular/controllers/tripCtrl.js"></script>	
+    <script type="text/javascript" src="src/loadmaster_assets/vendor/assets/javascripts/loadmaster_assets/angular/controllers/mapCtrl.js"></script>         
+    <script type="text/javascript" src="src/loadmaster_assets/vendor/assets/javascripts/loadmaster_assets/angular/directives.js"></script>	
+    <script type="text/javascript" src="src/js/moment.js"></script>
+    <script type="text/javascript" src="src/js/jqm.autoComplete-1.5.2-min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="src/js/powermanagement.js"></script>
+    <script type="text/javascript" src="src/js/index.js"></script>
+    <script type="text/javascript">
+        app.initialize();
+    </script>
+    
+  </body>
 </html>

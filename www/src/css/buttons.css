@@ -64,3 +64,11 @@ ul.ui-listview li .ui-btn-inner .ui-btn-text a{
 #comments_start, #comments_end{
 	height: 50px;
 }
+
+/********************************
+	.ui-btn
+*********************************/
+
+.ui-btn.ui-btn-pressed {
+	background:green;
+}
