@@ -79,9 +79,8 @@ body {
 	margin-right: 20px;
 }
 
-.margin_bottom_top{
-	margin-bottom: 30px;
-	margin-top: 30px;
+.margin_bottom{
+	margin-bottom: 20px;
 }
 
 .padding_top{
@@ -150,6 +149,17 @@ body {
 	background-position: center center;
 	}
 
+.driving{
+	vertical-align: sub;
+	height: 64px;
+	width: 64px;
+	margin: 0 auto;
+	opacity: 0.9;
+	-moz-opacity: 0.9;
+	background-image: url(../img/365.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+}
 
 [data-role=footer]{bottom:0; position:absolute !important; top: auto !important; width:100%;}  
 

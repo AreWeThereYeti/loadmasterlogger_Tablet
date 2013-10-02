@@ -45,6 +45,12 @@ ul.ui-listview li .ui-btn-inner .ui-btn-text a{
 	font-weight: 400;
 }
 
+.ui-icon-loadmaster-arrow{
+	background-image: url("../img/loadmaster-arrow.jpg");
+	background-position: center center;
+	background-size: 12px 14px;
+}
+
 
 .gpsnotfound{
 	padding-top: 50px;
