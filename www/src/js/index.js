@@ -25,7 +25,6 @@ var canConnect = false;
     // Wait for device API libraries to load
 document.addEventListener("deviceready", function(){
  	document.addEventListener("backbutton", backKeyDown, true);
-	alert("Device ready");
 	document.addEventListener("showkeyboard", function() {
 	    alert("Yay the keyboard is here");
 	}, false);
