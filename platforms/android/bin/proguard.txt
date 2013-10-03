@@ -1,0 +1,3 @@
+# view AndroidManifest.xml #generated:12
+-keep class com.phonegap.hello_world.HelloWorld { <init>(...); }
+

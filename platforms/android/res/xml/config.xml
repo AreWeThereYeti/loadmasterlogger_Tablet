@@ -21,7 +21,7 @@
         <param name="android-package" value="org.apache.cordova.Device" />
     </feature>
     <feature name="PowerManagement">
-    	<param name="android-package" value="org.apache.cordova.plugin.PowerManagement"/>
+        <param name="android-package" value="org.apache.cordova.plugin.PowerManagement" />
     </feature>
     <access origin="http://127.0.0.1*" />
     <preference name="useBrowserHistory" value="true" />
