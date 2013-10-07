@@ -94,12 +94,18 @@ body {
 #map-container-end,
 #map-container-finish{
 	height: 350px;
+	min-height:350px;
 	width: 100%;
 	display: block;
 	box-shadow: 0px 0px 10px 0px #bebebe;
 }
 
-
+#map_canvas_start,
+#map_canvas_end,
+#map_canvas_finish{
+	height:350px;
+	min-height:350px;
+}
 
 .database{
 	text-align: center;
@@ -109,14 +115,35 @@ body {
 	display: block;
 	border-radius: 5px;
 	box-shadow: 0px 2px 10px 0px #2d2d2d;
-	width: 350px;
-	height: 68px;
+	width: 96%;
+	height: 350px;
 	background: #f5f5f5;
 	position: absolute;
-	top: 8%;
-	left: 25%;
 	z-index: 5;
 	opacity: 0.9;
+}
+
+#map_canvas_finish .overlay {
+	width:100%;
+	opacity: 1;
+}
+
+#map_canvas_finish .no-internet-but-coords{
+	z-index: 5;
+	position: absolute;
+	width:100%;
+}
+
+#map_canvas_finish .no-internet-but-coords .address{
+	margin-left: 50%;
+}
+
+#map_canvas_finish .no-internet-but-coords .address.end{
+	margin-left: 8%;
+}
+
+.overlay h2{
+	top:20%;
 }
 
 .overlay.overlay-map-end{
@@ -228,6 +255,9 @@ h1 {
     -webkit-animation:fade 1000ms infinite;
 }
 
-.no-internet-container{
-	margin-top:80px;
+.no-internet-container{ 
+	padding:5%;
+	z-index: 10;
+	position: absolute;
+	margin-top: 30px;
 }
