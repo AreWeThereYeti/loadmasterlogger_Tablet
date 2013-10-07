@@ -56,6 +56,10 @@ ul.ui-listview li .ui-btn-inner .ui-btn-text a{
 	padding-top: 50px;
 	width: 90%;
 	margin: 0 auto;
+	position: absolute;
+	top: 10%;
+	z-index: 5;
+	left: 5%;
 }
 
 .gpsnotfound .textarea{
