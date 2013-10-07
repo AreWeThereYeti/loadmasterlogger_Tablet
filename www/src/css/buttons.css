@@ -118,7 +118,7 @@ ul.ui-listview li .ui-btn-inner .ui-btn-text a{
 }
 /* get the container that's just outside the marker image, 
 	which just happens to have our Marker title in it */
-.markeranimation .map-container div.gmnoprint[title="marker"] {
+.markeranimation .map-container div.gmnoprint[title="marker"], .markeranimation .map-container div.gmnoprint[title="Updated / Accurate Position"] {
 	-moz-animation: pulsate 1.5s ease-in-out infinite;
 	-webkit-animation: pulsate 1.5s ease-in-out infinite;
 	border:1pt solid #fff;
@@ -137,12 +137,12 @@ ul.ui-listview li .ui-btn-inner .ui-btn-text a{
 }
 /* hide the superfluous marker image since it would expand and shrink with its containing element */
 /*	#map_canvas div[style*="987654"][title] img {*/
-.markeranimation .map-container div.gmnoprint[title="marker"] img {
+.markeranimation .map-container div.gmnoprint[title="marker"] img, .markeranimation .map-container div.gmnoprint[title="Updated / Accurate Position"] img {
 	display:none;
 }
 /* compensate for iPhone and Android devices with high DPI, add iPad media query */
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (device-width: 768px) {
-	.markeranimation .map-container div.gmnoprint[title="marker"] {
+	.markeranimation .map-container div.gmnoprint[title="marker"], .markeranimation .map-container div.gmnoprint[title="Updated / Accurate Position"]  {
 		margin:-18px 0 0 -18px;
 	}
 }

@@ -106,6 +106,9 @@ body {
 	height:350px;
 	min-height:350px;
 }
+.fixedheight{
+	height: 350px;
+}
 
 .database{
 	text-align: center;
