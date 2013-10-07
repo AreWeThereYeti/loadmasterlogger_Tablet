@@ -26,11 +26,12 @@ var canConnect = false;
 document.addEventListener("deviceready", function(){
  	document.addEventListener("backbutton", backKeyDown, true);
 	document.addEventListener("showkeyboard", function() {
-	    alert("Yay the keyboard is here");
+	    console.log("Yay the keyboard is here");
 	}, false);
 	document.addEventListener("hidekeyboard", function() {
-	    alert("Boo the keyboard is gone");
+	    console.log("Boo the keyboard is gone");
 	}, false);
+	console.log('device ready')
 /*  	acquire(); */
 },true); 
  
@@ -39,9 +40,9 @@ function onDeviceReady() {
 
 }
 
-  function backKeyDown() {
-        navigator.app.exitApp();
-    }
+function backKeyDown() {
+   navigator.app.exitApp();
+}
 
 /* ------ Initialize app ----------*/
 
