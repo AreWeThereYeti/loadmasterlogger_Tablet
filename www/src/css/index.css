@@ -99,6 +99,9 @@ body {
 	box-shadow: 0px 0px 10px 0px #bebebe;
 }
 
+.fixedheight{
+	height: 350px;
+}
 
 
 .database{
