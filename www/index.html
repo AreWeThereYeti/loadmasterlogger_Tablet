@@ -35,9 +35,12 @@
      <!-- use the hosted google maps version if can be found -->
     <title>LoadMaster Logger FMS</title>
   </head>
-  <body ng-user ng-controller="userCtrl">
+  <body ng-user>
     <div ng-trip>
-    	<div ng-mobile-access-page data-role="page" data-dom-cache="false" id="tokencontainer" >
+
+    <div ng-mobile-access-page data-role="page" data-dom-cache="false" id="tokencontainer" >
+    </div>
+		<div ng-mobile-trip-start data-role="page" data-dom-cache="false" id="home">
 		</div>
 		<div ng-mobile-trip-start data-role="page" data-dom-cache="true" id="home">
 		</div>
@@ -49,7 +52,8 @@
 
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="src/loadmaster_assets/vendor/assets/javascripts/loadmaster_assets/angular/controller.js"></script>	
-	    <script type="text/javascript" src="src/loadmaster_assets/vendor/assets/javascripts/loadmaster_assets/angular/controllers/tripCtrl.js"></script>	
+    <script type="text/javascript" src="src/loadmaster_assets/vendor/assets/javascripts/loadmaster_assets/angular/services/services.js"></script>	
+	  <script type="text/javascript" src="src/loadmaster_assets/vendor/assets/javascripts/loadmaster_assets/angular/controllers/tripCtrl.js"></script>	
     <script type="text/javascript" src="src/loadmaster_assets/vendor/assets/javascripts/loadmaster_assets/angular/controllers/mapCtrl.js"></script>         
     <script type="text/javascript" src="src/loadmaster_assets/vendor/assets/javascripts/loadmaster_assets/angular/directives.js"></script>	
     <script type="text/javascript" src="src/js/moment.js"></script>

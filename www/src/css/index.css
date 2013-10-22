@@ -118,10 +118,10 @@ body {
 	display: block;
 	border-radius: 5px;
 	box-shadow: 0px 2px 10px 0px #2d2d2d;
-	width: 96%;
+	width: 100s%;
 	height: 350px;
 	background: #f5f5f5;
-	position: absolute;
+	margin-top: -350px;
 	z-index: 5;
 	opacity: 0.9;
 }
@@ -145,15 +145,20 @@ body {
 	margin-left: 8%;
 }
 
-.overlay h2{
-	top:20%;
-}
-
 .overlay.overlay-map-end{
 	top:19%;
 }
 
+.overlay h2,
+.overlay h3,
+.overlay textarea{
+	margin:10px;
+}
 
+.overlay h2{
+	margin-top: 0px;
+	padding-top:10px;
+}
 
 .timecontainer{
 	display: block
@@ -177,7 +182,7 @@ body {
 	background-image: url(../img/loader.gif);
 	background-repeat: no-repeat;
 	background-position: center center;
-	}
+}
 
 .driving{
 	vertical-align: sub;
