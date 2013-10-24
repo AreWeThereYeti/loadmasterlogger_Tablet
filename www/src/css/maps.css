@@ -68,7 +68,8 @@
 	background-image: url('../img/ajax_loader.gif');
 	background-size: 50px 50px;
 	background-repeat: no-repeat;
-	min-height: 100px;
+	min-height: 350px;
 	background-position-x: 50%;
 	background-position-y: 50px;
+	
 }
