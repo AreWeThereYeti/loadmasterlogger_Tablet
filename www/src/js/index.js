@@ -27,6 +27,28 @@ document.addEventListener("deviceready", function(){
  	document.addEventListener("backbutton", backKeyDown, true);
 	console.log('device ready')
 	FastClick.attach(document.body);
+	$.mobile.zoom = $.extend( {}, {
+    enabled: !disabledInitially,
+    locked: false,
+    disable: function( lock ) {
+        if ( !disabledInitially && !$.mobile.zoom.locked ) {
+            $.mobile.zoom.enabled = false;
+            $.mobile.zoom.locked = lock || false;
+        }
+    },
+    enable: function( unlock ) {
+        if ( !disabledInitially && ( !$.mobile.zoom.locked || unlock === true ) ) {
+            $.mobile.zoom.enabled = true;
+            $.mobile.zoom.locked = false;
+        }
+    },
+    restore: function() {
+        if ( !disabledInitially ) {
+            meta.attr( "content", initialContent );
+            $.mobile.zoom.enabled = true;
+        }
+    }
+});
 /*  	acquire(); */
 },true); 
  
