@@ -38,6 +38,21 @@ ul.ui-listview li .ui-btn-inner .ui-btn-text a{
 	background-repeat: no-repeat;
 	background-position: center center;
 }
+
+.check{
+	vertical-align: middle;
+	display: block;
+	margin-bottom: 20px;
+	margin-top: 20px;
+	height: 64px;
+	margin: 0 auto;
+	width: 64px;
+	background-image: url(../img/check.png);
+	background-size: 64px 64px;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+}
 	
 .ui-btn .ui-btn-inner { padding: 20px;font-size: 25px; }
 
