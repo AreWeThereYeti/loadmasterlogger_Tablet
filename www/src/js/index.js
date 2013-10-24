@@ -119,3 +119,7 @@ function dropTables(){
 
 	})
 }
+
+function asyncInitGoogleMaps(){
+	return false;
+}
