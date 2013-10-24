@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html ng-app="loadmaster">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, user-scalable=no" />
+		
+	<!--         Jquery -->
+    <link rel="stylesheet" type="text/css" href="src/css/jquery.mobile-1.3.2.min.css" />
+    <link rel="stylesheet" type="text/css" href="src/css/index.css" />
+    <link rel="stylesheet" type="text/css" href="src/css/buttons.css" />
+    <link rel="stylesheet" type="text/css" href="src/css/maps.css" />
+  <!--        	Google maps api  -->
+     <!-- use the hosted google maps version if can be found -->
+    <title>LoadMaster Logger FMS</title>
+  </head>
+  <body ng-user>
+    <div ng-trip>
+      <div data-role="page" data-dom-cache="false" id="home">
+  		  <div data-role="header" data-theme="a">
+        	<h1>Pålæsning</h1>
+        </div>
+        <div ng-mobile-trip-start data-role="content">
+        </div>
+        <div data-role="footer">
+        	<h1>LoadMaster Logger FMS</h1>
+        </div>
+  		</div>
+  		<div data-role="page" data-dom-cache="false" id="two">
+  		  <div data-role="header">
+      		<h1>Aflæsning</h1>
+      	</div>
+      	<div data-role="content" ng-mobile-trip-end >
+      	</div>
+      	<div data-role="footer">
+      		<h1>LoadMaster Logger FMS</h1>
+      	</div>
+  		</div>
+  		<div data-role="page" data-dom-cache="false" id="three" >
+  		  <div data-role="header">
+          <h1 class="margin_bottom">Tur Færdig</h1>
+        </div>
+        <div data-role="content" ng-mobile-trip-ended >
+        </div>
+        <div data-role="footer">
+        	<h1>LoadMaster Logger FMS</h1>
+        </div>
+  		</div>
+  	</div>
+ 
+     <!-- Libs  -->
+  	<script src="src/js/jquery-2.0.3.min.js" charset="utf-8"></script>  
+  	<script src="src/js/jquery.mobile-1.3.2.min.js" charset="utf-8"></script> 
+  	<script type="text/javascript" src="cordova.js"></script> 
+  	<script src="src/js/angular.min.js" charset="utf-8"></script>
+  	<script type="text/javascript" src="src/js/moment.js"></script>
+  	<script type="text/javascript" src="src/js/fastclick.js"></script>
+    <script type="text/javascript" src="src/js/jqm.autoComplete-1.5.2-min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="src/js/powermanagement.js"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+  	
+  	
+  	<!-- loadmaster assets -->
+    <script type="text/javascript" src="src/loadmaster_assets/vendor/assets/javascripts/loadmaster_assets/angular/controller.js"></script>	
+    <script type="text/javascript" src="src/loadmaster_assets/vendor/assets/javascripts/loadmaster_assets/angular/services/services.js"></script>
+    <script type="text/javascript" src="src/loadmaster_assets/vendor/assets/javascripts/loadmaster_assets/angular/controllers/mobileRegistrationCtrl.js"></script>		
+	  <script type="text/javascript" src="src/loadmaster_assets/vendor/assets/javascripts/loadmaster_assets/angular/controllers/tripCtrl.js"></script>	
+    <script type="text/javascript" src="src/loadmaster_assets/vendor/assets/javascripts/loadmaster_assets/angular/controllers/mapCtrl.js"></script>         
+    <script type="text/javascript" src="src/loadmaster_assets/vendor/assets/javascripts/loadmaster_assets/angular/directives.js"></script>	
+    <script type="text/javascript" src="src/js/index.js"></script>
+    <script type="text/javascript">
+        app.initialize();
+    </script>
+    
+  </body>
+</html>

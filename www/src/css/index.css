@@ -172,7 +172,7 @@ ui-page {
 	background-position: center center;
 }
 
-[data-role=footer]{bottom:0; position:absolute !important; top: auto !important; width:100%;}  
+/*[data-role=footer]{bottom:0; position:absolute !important; top: auto !important; width:100%;}  */
 
 /*======= Map Styling! Not Legal! ============*/ 
 .gmnoprint a, .gmnoprint span {
