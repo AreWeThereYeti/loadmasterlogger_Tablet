@@ -26,6 +26,7 @@ var canConnect = false;
 document.addEventListener("deviceready", function(){
  	document.addEventListener("backbutton", backKeyDown, true);
 	console.log('device ready')
+	FastClick.attach(document.body);
 /*  	acquire(); */
 },true); 
  
