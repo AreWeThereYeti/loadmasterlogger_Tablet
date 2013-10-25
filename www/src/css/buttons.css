@@ -53,11 +53,10 @@ ul.ui-listview li .ui-btn-inner .ui-btn-text a{
 	background-position: center center;
 }
 	
-.ui-btn .ui-btn-inner { padding: 20px;font-size: 25px; }
+.ui-btn .ui-btn-inner { 
+	padding: 20px;
+	font-size: 25px; }
 
-.ui-btn-up-b {
-	font-weight: 400;
-}
 
 .ui-icon-loadmaster-arrow{
 	background-image: url("../img/loadmaster-arrow.jpg");
@@ -93,9 +92,6 @@ ul.ui-listview li .ui-btn-inner .ui-btn-text a{
 	.ui-btn
 *********************************/
 
-.ui-btn.ui-btn-pressed {
-	background:green;
-}
 
 /********************************
 	marker animation

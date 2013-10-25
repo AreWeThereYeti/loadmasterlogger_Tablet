@@ -15,23 +15,29 @@
        KIND, either express or implied.  See the License for the
        specific language governing permissions and limitations
        under the License.
- */
+*/
 
-package com.phonegap.hello_world;
+package org.apache.cordova.splashscreen;
 
-import android.os.Bundle;
-import org.apache.cordova.*;
+import org.apache.cordova.CallbackContext;
+import org.apache.cordova.CordovaPlugin;
+import org.json.JSONArray;
 
-public class HelloWorld extends DroidGap
-{
+public class SplashScreen extends CordovaPlugin {
+
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
-    	// super.setIntegerProperty("splashscreen", R.drawable.splash);
-        super.onCreate(savedInstanceState);
-        // Set by <content src="index.html" /> in config.xml
-        super.loadUrl(Config.getStartUrl(), 10000);
-        //super.loadUrl("file:///android_asset/www/index.html")
-    }
-}
+    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) {
+        if (action.equals("hide")) {
+            this.webView.postMessage("splashscreen", "hide");
+        } else if (action.equals("show")){
+            this.webView.postMessage("splashscreen", "show");
+        }
+        else {
+            return false;
+        }
 
+        callbackContext.success();
+        return true;
+    }
+
+}

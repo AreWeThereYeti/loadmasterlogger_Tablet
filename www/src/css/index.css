@@ -51,6 +51,10 @@ body {
 	font-size: 22px !important;
 }
 
+h1, h2, h3{
+	font-weight:200;
+}
+
 
 .ui-header {
     position:fixed;
@@ -195,11 +199,18 @@ ui-page {
 
 h1 {
     font-size:24px;
-    font-weight:normal;
     margin:0px;
     overflow:visible;
     padding:0px;
     text-align:center;
+}
+h2{
+	font-size: 20px;
+}
+
+
+.ui-btn-hover-b, .ui-btn-up-b{
+	font-weight: 200;
 }
 
 .event {
