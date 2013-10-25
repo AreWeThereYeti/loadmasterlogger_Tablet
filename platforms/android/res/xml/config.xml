@@ -18,7 +18,7 @@
         <param name="android-package" value="org.apache.cordova.Device" />
     </feature>
     <feature name="Geolocation">
-   	 	<param name="android-package" value="org.apache.cordova.GeoBroker" />
+	    <param name="android-package" value="org.apache.cordova.GeoBroker" />
 	</feature>
     <feature name="PowerManagement">
         <param name="android-package" value="org.apache.cordova.plugin.PowerManagement" />
