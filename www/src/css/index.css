@@ -18,7 +18,6 @@
  */
 * {
 	transform: translate3d(0,0,0);
-/* 	-webkit-transform:translate3d(0,0,0); */
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
 }
 
@@ -53,6 +52,11 @@ body {
 .bold{
 	font-weight:bold;
 }
+
+h1, h2, h3{
+	font-weight:200;
+}
+
 
 .ui-header {
     position:fixed;
@@ -197,11 +201,18 @@ ui-page {
 
 h1 {
     font-size:24px;
-    font-weight:normal;
     margin:0px;
     overflow:visible;
     padding:0px;
     text-align:center;
+}
+h2{
+	font-size: 20px;
+}
+
+
+.ui-btn-hover-b, .ui-btn-up-b{
+	font-weight: 200;
 }
 
 .event {
