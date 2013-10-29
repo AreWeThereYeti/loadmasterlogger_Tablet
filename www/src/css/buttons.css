@@ -52,10 +52,12 @@ ul.ui-listview li .ui-btn-inner .ui-btn-text a{
 	background-repeat: no-repeat;
 	background-position: center center;
 }
-	
+
 .ui-btn .ui-btn-inner { 
-	padding: 20px;
-	font-size: 25px; }
+	padding: 20px; 
+	font-size: 25px; 
+}
+
 
 
 .ui-icon-loadmaster-arrow{
