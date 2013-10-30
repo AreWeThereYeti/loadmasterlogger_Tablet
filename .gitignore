@@ -1,3 +1,6 @@
 platforms/android/assets/www/loadmaster_assets
 www/src/loadmaster_assets
 .DS_
+platforms/android/assets/www/index.html
+platforms/android/assets/www/main.html
+platforms/android/assets/www/src
