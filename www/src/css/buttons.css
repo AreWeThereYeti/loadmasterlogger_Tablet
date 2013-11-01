@@ -146,6 +146,7 @@ ul.ui-listview li .ui-btn-inner .ui-btn-text a{
 	height:51px!important;
 	margin:-10px 0 0 -10px;
 	width:51px!important;
+	z-index:100001 !important;
 }
 /* hide the superfluous marker image since it would expand and shrink with its containing element */
 /*	#map_canvas div[style*="987654"][title] img {*/
