@@ -53,6 +53,27 @@ ul.ui-listview li .ui-btn-inner .ui-btn-text a{
 	background-position: center center;
 }
 
+.img-double-size{
+	height: 128px;
+	width: 128px;
+	background-size: 128px 128px;
+}
+
+.registered{
+	margin-left: -15px !important;
+	position: absolute;
+	background-color: rgba(245,245,245,0.9);
+	height: 100%;
+	width: 100%;
+	z-index: 5;
+	border-radius: 2px 2px 2px 2px;
+	text-align: center;
+}
+
+.vertical-middle{
+	margin-top: 15%;
+}
+
 .ui-btn .ui-btn-inner { 
 	padding: 20px; 
 	font-size: 25px; 
