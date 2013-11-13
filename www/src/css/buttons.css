@@ -7,9 +7,7 @@ ul.ui-listview li .ui-btn-inner .ui-btn-text a{
 	padding:10px;
 }
 
-.ng_cargo{
-	height: 30px;
-}
+
 
 .weight{
 	vertical-align: middle;
@@ -75,16 +73,18 @@ ul.ui-listview li .ui-btn-inner .ui-btn-text a{
 }
 
 .ui-btn .ui-btn-inner { 
-	padding: 20px; 
-	font-size: 25px; 
+	padding: 30px; 
+	font-size: 30px; 
 }
-
-
 
 .ui-icon-loadmaster-arrow{
 	background-image: url("../img/loadmaster-arrow.jpg");
 	background-position: center center;
 	background-size: 12px 14px;
+}
+
+input.ui-input-text, textarea.ui-input-text{
+	font-size: 20px;
 }
 
 
@@ -108,6 +108,10 @@ ul.ui-listview li .ui-btn-inner .ui-btn-text a{
 }
 
 #comments_start, #comments_end{
+	height: 75px;
+}
+
+.ng_cargo{
 	height: 50px;
 }
 

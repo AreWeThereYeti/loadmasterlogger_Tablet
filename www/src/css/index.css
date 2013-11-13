@@ -87,6 +87,24 @@ h1, h2, h3{
    width:100%;
 }
 
+.footerimage{
+	margin: 0 auto;
+	margin-bottom: -25px;
+	margin-top: -10px;
+	vertical-align: text-bottom;
+	display: block;
+	background-image: url(../img/logo_64.png);
+	height: 64px;
+	width: 64px;
+	background-position: center center;
+	background-size: 64px 64px;
+}
+
+.ui-footer .ui-title{
+	font-size: 20px;
+	margin-bottom: 10px;
+}
+
 ui-page { 
 		 backface-visibility: hidden; 
  -webkit-backface-visibility: hidden; /* Chrome and Safari */ 
@@ -97,6 +115,10 @@ ui-page {
 /* Generic styles */
 .centered{
 	text-align: center;
+}
+
+.marginbottom10{
+	margin-bottom: 10px
 }
 
 .margintop30{
@@ -128,7 +150,7 @@ ui-page {
 }
 
 .margin_bottom{
-	margin-bottom: 20px;
+	margin-bottom: 25px;
 }
 
 .padding_top{
@@ -150,7 +172,7 @@ ui-page {
 }
 	
 .fontsize{
-	font-size: 18px;
+	font-size: 22px;
 	color: #2d2d2d;
 }
 
