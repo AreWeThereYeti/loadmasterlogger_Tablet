@@ -80,11 +80,39 @@ ul.ui-listview li .ui-btn-inner .ui-btn-text a{
 .ui-icon-loadmaster-arrow{
 	background-image: url("../img/loadmaster-arrow.jpg");
 	background-position: center center;
-	background-size: 12px 14px;
+	background-size: 24px 28px;
+}
+
+.ui-btn-icon-left .ui-icon{
+	left: 20px;
 }
 
 input.ui-input-text, textarea.ui-input-text{
 	font-size: 20px;
+}
+
+.ui-icon {
+	width: 36px;
+	height: 36px;
+}
+
+.ui-icon, .ui-icon-searchfield:after{
+	-webkit-border-radius: 18px;
+	border-radius: 18px;
+}
+
+.ui-btn-icon-left>.ui-btn-inner>.ui-icon{
+	margin-top: -18px;
+}
+
+#suggestions .ui-icon{
+	width: 18px;
+	height: 18px;
+}
+
+#suggestions .ui-icon, .ui-icon-searchfield:after{
+	-webkit-border-radius: 9px;
+	border-radius: 9px;
 }
 
 
