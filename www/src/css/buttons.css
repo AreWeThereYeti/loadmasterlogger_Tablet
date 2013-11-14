@@ -7,7 +7,9 @@ ul.ui-listview li .ui-btn-inner .ui-btn-text a{
 	padding:10px;
 }
 
-
+.time .fontsize{
+	font-size: 16px !important;
+}
 
 .weight{
 	vertical-align: middle;
