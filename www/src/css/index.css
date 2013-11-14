@@ -185,6 +185,7 @@ ui-page {
 	height: 32px;
 	width: 32px;
 	margin-right: 10px;
+	margin-left: -30px;
 	opacity: 0.45;
 	-moz-opacity: 0.45;
 	filter: alpha(opacity=45);
