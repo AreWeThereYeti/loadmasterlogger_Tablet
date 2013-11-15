@@ -17,9 +17,6 @@
  * under the License.
  */
  
-
-
- 
 var canConnect = false;
  
     // Wait for device API libraries to load
@@ -72,9 +69,7 @@ var app = {
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
 		*/
-		
-        console.log('Received Event: ' + id);
-    }
+	    }
 };
 
 /*

@@ -10,6 +10,13 @@
     <link rel="stylesheet" type="text/css" href="src/css/index.css" />
     <link rel="stylesheet" type="text/css" href="src/css/buttons.css" />
     <link rel="stylesheet" type="text/css" href="src/css/maps.css" />
+    
+    <script type="text/javascript">
+      // window.onerror = function(message, url, lineNumber) {
+      //  console.log("Error: "+message+" in "+url+" at line "+lineNumber);
+      //    alert("Error: "+message+" in "+url+" at line "+lineNumber);
+      // }
+    </script>
   <!--        	Google maps api  -->
      <!-- use the hosted google maps version if can be found -->
     <title>LoadMaster Logger FMS</title>
@@ -23,7 +30,7 @@
         <div ng-mobile-trip-start data-role="content">
         </div>
         <div data-role="footer">
-        	<h1>LoadMaster Logger FMS</h1>
+        	<span class="footerimage"></span><h1>LoadMaster Logger FMS</h1>
         </div>
   		</div>
   		<div data-role="page" data-dom-cache="false" id="two">
@@ -33,7 +40,7 @@
       	<div data-role="content" ng-mobile-trip-end >
       	</div>
       	<div data-role="footer">
-      		<h1>LoadMaster Logger FMS</h1>
+      		<span class="footerimage"></span><h1>LoadMaster Logger FMS</h1>
       	</div>
   		</div>
   		<div data-role="page" data-dom-cache="false" id="three" >
@@ -43,11 +50,11 @@
         <div data-role="content" ng-mobile-trip-ended >
         </div>
         <div data-role="footer">
-        	<h1>LoadMaster Logger FMS</h1>
+        	<span class="footerimage"></span><h1>LoadMaster Logger FMS</h1>
         </div>
   		</div>
   	</div>
- 
+
      <!-- Libs  -->
   	<script src="src/js/jquery-2.0.3.min.js" charset="utf-8"></script>  
   	<script src="src/js/jquery.mobile-1.3.2.min.js" charset="utf-8"></script> 

@@ -53,6 +53,10 @@ body {
 	font-weight:bold;
 }
 
+.bolder{
+	font-weight: 500;
+}
+
 h1, h2, h3{
 	font-weight:200;
 }
@@ -76,11 +80,31 @@ h1, h2, h3{
     left: 0;
 }
 
+
+
 .ui-footer {
    position:fixed;
    z-index:10;
    bottom:0;
    width:100%;
+}
+
+.footerimage{
+	margin: 0 auto;
+	margin-bottom: -25px;
+	margin-top: -10px;
+	vertical-align: text-bottom;
+	display: block;
+	background-image: url(../img/logo_64.png);
+	height: 64px;
+	width: 64px;
+	background-position: center center;
+	background-size: 64px 64px;
+}
+
+.ui-footer .ui-title{
+	font-size: 20px;
+	margin-bottom: 10px;
 }
 
 ui-page { 
@@ -93,6 +117,10 @@ ui-page {
 /* Generic styles */
 .centered{
 	text-align: center;
+}
+
+.marginbottom10{
+	margin-bottom: 10px
 }
 
 .margintop30{
@@ -124,7 +152,7 @@ ui-page {
 }
 
 .margin_bottom{
-	margin-bottom: 20px;
+	margin-bottom: 25px;
 }
 
 .padding_top{
@@ -146,7 +174,7 @@ ui-page {
 }
 	
 .fontsize{
-	font-size: 18px;
+	font-size: 22px;
 	color: #2d2d2d;
 }
 
@@ -157,6 +185,7 @@ ui-page {
 	height: 32px;
 	width: 32px;
 	margin-right: 10px;
+	margin-left: -30px;
 	opacity: 0.45;
 	-moz-opacity: 0.45;
 	filter: alpha(opacity=45);
@@ -200,14 +229,14 @@ ui-page {
 }
 
 h1 {
-    font-size:24px;
+    font-size:34px;
     margin:0px;
     overflow:visible;
     padding:0px;
     text-align:center;
 }
 h2{
-	font-size: 20px;
+	font-size: 30px;
 }
 
 
