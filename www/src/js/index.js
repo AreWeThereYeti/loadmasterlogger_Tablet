@@ -111,7 +111,7 @@ function dropTables(){
 		// you can uncomment these next twp lines if you want the table Trip and the table Auth to be empty each time the application runs
 		tx.executeSql( 'DROP TABLE Trip');
 		tx.executeSql( 'DROP TABLE Auth');
-
+		tx.executeSql( 'DROP TABLE Cargo_types');
 	})
 }
 
